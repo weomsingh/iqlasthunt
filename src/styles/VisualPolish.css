@@ -1,0 +1,209 @@
+/* ========================================
+   VISUAL POLISH & ENHANCEMENTS v2.0
+   Ultramodern Cyberpunk Aesthetics
+   ======================================== */
+
+/* 1. Global Atmosphere & Backgrounds */
+body {
+    background-color: #050505;
+    background-image:
+        radial-gradient(circle at 50% 0%, rgba(0, 255, 157, 0.15) 0%, transparent 50%),
+        linear-gradient(rgba(0, 255, 157, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 157, 0.03) 1px, transparent 1px);
+    background-size: 100% 100%, 40px 40px, 40px 40px;
+    background-position: 0 0, 0 0, 0 0;
+    min-height: 100vh;
+}
+
+.dashboard-layout,
+.landing-page {
+    background: transparent !important;
+    /* Allow body background to show */
+}
+
+/* 2. Glassmorphism Cards */
+.bounty-card,
+.stat-card,
+.balance-card,
+.wallet-card,
+.action-card {
+    background: rgba(20, 20, 20, 0.6) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 255, 157, 0.15) !important;
+    box-shadow:
+        0 4px 24px -1px rgba(0, 0, 0, 0.2),
+        inset 0 0 20px rgba(0, 255, 157, 0.02);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    border-radius: 16px !important;
+}
+
+.bounty-card:hover,
+.stat-card:hover,
+.action-card:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow:
+        0 20px 40px -5px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(0, 255, 157, 0.4),
+        0 0 30px rgba(0, 255, 157, 0.15);
+    background: rgba(20, 20, 20, 0.8) !important;
+    border-color: #00ff9d !important;
+}
+
+/* 3. Neon Typography */
+h1,
+h2,
+h3,
+.stat-value.reward,
+.wallet-balance {
+    text-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+    letter-spacing: -0.02em;
+}
+
+.highlight,
+.text-iq-green {
+    text-shadow: 0 0 15px rgba(0, 255, 157, 0.6);
+}
+
+/* 4. Button Enhancements */
+.btn-primary {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(90deg, #00ff9d, #00cc7d) !important;
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+    border: none !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    z-index: 1;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.6s ease;
+    z-index: -1;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(0, 255, 157, 0.5);
+}
+
+.btn-secondary {
+    background: rgba(0, 255, 157, 0.05) !important;
+    border: 1px solid rgba(0, 255, 157, 0.3) !important;
+    color: #00ff9d !important;
+    backdrop-filter: blur(5px);
+}
+
+.btn-secondary:hover {
+    background: rgba(0, 255, 157, 0.15) !important;
+    box-shadow: 0 0 15px rgba(0, 255, 157, 0.2);
+    border-color: #00ff9d !important;
+}
+
+/* 5. Mobile Bottom Nav Polish */
+.bottom-nav {
+    background: rgba(10, 10, 10, 0.85) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-top: 1px solid rgba(0, 255, 157, 0.2) !important;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.bottom-nav-link.active .icon-container {
+    filter: drop-shadow(0 0 10px #00ff9d);
+}
+
+/* 6. Form Inputs */
+input,
+textarea,
+select {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    transition: all 0.3s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    background: rgba(0, 255, 157, 0.05) !important;
+    border-color: #00ff9d !important;
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.15) !important;
+}
+
+/* 7. Status Badges */
+.status-badge {
+    box-shadow: 0 0 10px currentColor;
+    font-weight: 800 !important;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.7rem !important;
+}
+
+/* 8. Animations */
+@keyframes warm-glow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(0, 255, 157, 0.4);
+    }
+}
+
+.wallet-card {
+    animation: warm-glow 4s ease-in-out infinite;
+}
+
+/* 9. Scrollbar Polish */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1a1a1a;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #00ff9d;
+}
+
+/* 10. Selection */
+::selection {
+    background: rgba(0, 255, 157, 0.3);
+    color: #ffffff;
+}
+
+/* 11. Custom Border Animations */
+.bounty-card::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 16px;
+    padding: 1px;
+    background: linear-gradient(45deg, transparent, rgba(0, 255, 157, 0.3), transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
