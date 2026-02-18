@@ -139,6 +139,13 @@ export function AuthProvider({ children }) {
 
     async function signInWithGoogle(intendedRole) {
         try {
+            const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+            if (!supabaseUrl || supabaseUrl.includes('placeholder')) {
+                alert("Configuration Error: Supabase URL is not set or invalid.");
+                console.error("Supabase URL missing/invalid");
+                return;
+            }
+
             console.log('Attempting Google Sign In for role:', intendedRole);
             localStorage.setItem('intended_role', intendedRole);
 
@@ -151,13 +158,14 @@ export function AuthProvider({ children }) {
 
             if (error) {
                 console.error("Supabase OAuth Error:", error);
-                alert(`Login Error: ${error.message}`);
+                alert(`Login Error details: ${error.message}`);
                 throw error;
             }
 
             console.log("OAuth initiated successfully", data);
         } catch (err) {
             console.error("SignIn Exception:", err);
+            // Don't alert if the user cancelled or closed popup, but usually OAuth is redirect.
             alert(`Failed to start login: ${err.message || 'Unknown error'}`);
             throw err;
         }

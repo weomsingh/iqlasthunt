@@ -23,18 +23,24 @@ export default function LandingPage() {
     }, [currentUser, loading, navigate]);
 
     async function handleEnterAsHunter() {
+        console.log('Clicked Enter As Hunter');
+        // prompt("Debug: Clicked Enter As Hunter"); // Uncomment if console is not visible to user
         try {
             await signInWithGoogle('hunter');
         } catch (error) {
-            alert('Login failed. Please try again.');
+            console.error(error);
+            alert(`Login failed: ${error.message}`);
         }
     }
 
     async function handlePostBounty() {
+        console.log('Clicked Post Bounty');
+        // prompt("Debug: Clicked Post Bounty"); // Uncomment if console is not visible to user
         try {
             await signInWithGoogle('payer');
         } catch (error) {
-            alert('Login failed. Please try again.');
+            console.error(error);
+            alert(`Login failed: ${error.message}`);
         }
     }
 
