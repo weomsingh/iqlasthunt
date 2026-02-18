@@ -4,8 +4,19 @@ import { supabase } from '../supabaseClient';
 const AuthContext = createContext({});
 
 export function AuthProvider({ children }) {
-    const [currentUser, setCurrentUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [currentUser, setCurrentUser] = useState(() => {
+        try {
+            const savedUser = localStorage.getItem('user');
+            const expiry = localStorage.getItem('sessionExpiry');
+            if (savedUser && expiry && Date.now() < parseInt(expiry)) {
+                return JSON.parse(savedUser);
+            }
+            return null;
+        } catch (e) {
+            return null;
+        }
+    });
+    const [loading, setLoading] = useState(!currentUser); // Only load if no user cached
 
     useEffect(() => {
         let isMounted = true;
@@ -113,6 +124,10 @@ export function AuthProvider({ children }) {
             } else {
                 console.log('✅ Profile loaded:', data.username);
                 setCurrentUser(data);
+                // Persist session
+                localStorage.setItem('user', JSON.stringify(data));
+                localStorage.setItem('userType', data.role);
+                localStorage.setItem('sessionExpiry', (Date.now() + (7 * 24 * 60 * 60 * 1000)).toString());
             }
         } catch (error) {
             console.error('Profile fetch exception:', error);
@@ -136,7 +151,8 @@ export function AuthProvider({ children }) {
     async function signOut() {
         await supabase.auth.signOut();
         setCurrentUser(null);
-        localStorage.removeItem('intended_role');
+        localStorage.clear();
+        sessionStorage.clear();
         window.location.href = '/';
     }
 

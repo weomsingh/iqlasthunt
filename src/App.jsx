@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -16,6 +17,7 @@ import HunterWarRoom from './pages/hunter/WarRoom';
 import BountyDetails from './pages/hunter/BountyDetails';
 import HunterSettings from './pages/hunter/Settings';
 import HunterLeaderboard from './pages/hunter/Leaderboard';
+import HunterHistory from './pages/hunter/History';
 
 // Payer pages
 import PayerLayout from './pages/payer/PayerLayout';
@@ -50,6 +52,42 @@ import './styles/PricingGuide.css';
 import ProfileView from './pages/shared/ProfileView';
 
 function App() {
+    // Activity Listener to Prevent Sleep / Session Persistence helper
+    useEffect(() => {
+        let activityTimeout;
+
+        const resetActivityTimer = () => {
+            clearTimeout(activityTimeout);
+
+            // Update last activity timestamp
+            localStorage.setItem('lastActivity', Date.now().toString());
+
+            // Set timeout for 30 minutes of inactivity
+            activityTimeout = setTimeout(() => {
+                // Optional: Show warning that session will expire
+                console.log('User inactive for 30 minutes');
+            }, 30 * 60 * 1000);
+        };
+
+        // Listen for any user interaction
+        const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'];
+
+        events.forEach(event => {
+            document.addEventListener(event, resetActivityTimer, { passive: true });
+        });
+
+        // Initialize
+        resetActivityTimer();
+
+        // Cleanup
+        return () => {
+            clearTimeout(activityTimeout);
+            events.forEach(event => {
+                document.removeEventListener(event, resetActivityTimer);
+            });
+        };
+    }, []);
+
     return (
         <BrowserRouter>
             <AuthProvider>
@@ -82,8 +120,9 @@ function App() {
                         <Route path="war-room" element={<HunterWarRoom />} />
                         <Route path="bounty/:id" element={<BountyDetails />} />
                         <Route path="settings" element={<HunterSettings />} />
-                        <Route path="profile" element={<ProfileView />} /> {/* NEW */}
+                        <Route path="profile" element={<ProfileView />} />
                         <Route path="leaderboard" element={<HunterLeaderboard />} />
+                        <Route path="history" element={<HunterHistory />} />
                     </Route>
 
                     {/* Payer routes - PROTECTED */}
@@ -104,7 +143,7 @@ function App() {
                         <Route path="vault" element={<PayerVault />} />
                         <Route path="war-room" element={<PayerWarRoom />} />
                         <Route path="settings" element={<PayerSettings />} />
-                        <Route path="profile" element={<ProfileView />} /> {/* NEW */}
+                        <Route path="profile" element={<ProfileView />} />
                         <Route path="bounty/:bountyId/review/:submissionId" element={<PayerWorkReview />} />
                     </Route>
 

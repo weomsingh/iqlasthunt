@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import {
     Menu, Wallet, User, Settings, LogOut, Search, X,
-    Home, Target, Briefcase, MessageSquare, HelpCircle, ChevronDown, Trophy
+    Home, Target, Briefcase, MessageSquare, HelpCircle, ChevronDown, Trophy, Clock
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -240,6 +240,11 @@ export default function Header() {
                                     <button onClick={() => goTo(`/${role}/war-room`)} className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-colors text-left">
                                         <MessageSquare size={20} className="text-orange-400" />
                                         <span>My Missions</span>
+                                    </button>
+
+                                    <button onClick={() => goTo(`/${role}/history`)} className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-colors text-left">
+                                        <Clock size={20} className="text-purple-400" />
+                                        <span>History</span>
                                     </button>
 
                                     <button onClick={() => goTo(`/${role}/leaderboard`)} className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-colors text-left">

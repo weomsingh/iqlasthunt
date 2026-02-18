@@ -10,6 +10,7 @@ export default function Sidebar({ role }) {
         { path: '/hunter/dashboard', label: 'Dashboard', icon: Home },
         { path: '/hunter/arena', label: 'Arena', icon: Target },
         { path: '/hunter/war-room', label: 'War Room', icon: MessageSquare },
+        { path: '/hunter/history', label: 'History', icon: HistoryIcon },
         { path: '/hunter/vault', label: 'Vault', icon: Wallet },
         { path: '/hunter/settings', label: 'Settings', icon: Settings },
     ];

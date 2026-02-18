@@ -76,8 +76,19 @@ export default function HunterDashboard() {
                 .eq('hunter_id', currentUser.id)
                 .eq('status', 'active');
 
-            // Handle array result safely
-            if (stakes && stakes.length > 0) setActiveStake(stakes[0]);
+            // Handle array result safely and check for expiry
+            if (stakes && stakes.length > 0) {
+                const now = new Date();
+                const validStake = stakes.find(stake => {
+                    if (!stake.bounty || !stake.bounty.submission_deadline) return true;
+                    // Check if deadline is in the future
+                    const deadline = new Date(stake.bounty.submission_deadline);
+                    return deadline > now;
+                });
+                setActiveStake(validStake || null);
+            } else {
+                setActiveStake(null);
+            }
 
             // Get recent live bounties
             const { data: bounties } = await supabase

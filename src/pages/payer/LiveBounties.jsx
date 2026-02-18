@@ -49,17 +49,54 @@ export default function MyBounties() {
         const matchesSearch = bounty.title.toLowerCase().includes(searchQuery.toLowerCase());
 
         // Tab Filter
-        let matchesTab = true;
-        if (activeTab === 'active') matchesTab = bounty.status === 'live';
-        if (activeTab === 'completed') matchesTab = bounty.status === 'completed';
-        if (activeTab === 'cancelled') matchesTab = bounty.status === 'cancelled';
-        if (activeTab === 'review') {
-            // Mock logic: Live bounties with submissions are "Under Review"
-            const subCount = bounty.submission_count?.[0]?.count || 0;
-            matchesTab = bounty.status === 'live' && subCount > 0;
+        if (activeTab === 'all') {
+            const status = (bounty.status || '').toLowerCase();
+            return matchesSearch &&
+                status !== 'deleted' &&
+                status !== 'cancelled' &&
+                status !== 'canceled' &&
+                status !== 'DELETED' &&
+                status !== 'CANCELLED';
         }
 
-        return matchesSearch && matchesTab;
+        if (activeTab === 'active') {
+            return matchesSearch && (
+                bounty.status === 'live' ||
+                bounty.status === 'active' ||
+                bounty.status === 'Active' ||
+                bounty.status === 'ACTIVE'
+            );
+        }
+
+        if (activeTab === 'review') {
+            const subCount = bounty.submission_count?.[0]?.count || 0;
+            return matchesSearch && (
+                (bounty.status === 'live' && subCount > 0) ||
+                bounty.status === 'under_review' ||
+                bounty.status === 'pending_review' ||
+                bounty.status === 'in_review'
+            );
+        }
+
+        if (activeTab === 'completed') {
+            return matchesSearch && (
+                bounty.status === 'completed' ||
+                bounty.status === 'Completed' ||
+                bounty.status === 'COMPLETED'
+            );
+        }
+
+        if (activeTab === 'cancelled') {
+            return matchesSearch && (
+                bounty.status === 'deleted' ||
+                bounty.status === 'cancelled' ||
+                bounty.status === 'canceled' ||
+                bounty.status === 'DELETED' ||
+                bounty.status === 'CANCELLED'
+            );
+        }
+
+        return false;
     });
 
     const tabs = [
@@ -96,8 +133,8 @@ export default function MyBounties() {
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
                             className={`px-4 py-2 rounded-md text-sm font-medium transition-all whitespace-nowrap ${activeTab === tab.id
-                                    ? 'bg-iq-primary text-black shadow-lg'
-                                    : 'text-iq-text-secondary hover:text-white hover:bg-white/5'
+                                ? 'bg-iq-primary text-black shadow-lg'
+                                : 'text-iq-text-secondary hover:text-white hover:bg-white/5'
                                 }`}
                         >
                             {tab.label}
