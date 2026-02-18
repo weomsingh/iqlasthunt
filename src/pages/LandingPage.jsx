@@ -10,19 +10,16 @@ export default function LandingPage() {
     const { currentUser, loading, signInWithGoogle } = useAuth();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (!loading && currentUser) {
-            if (currentUser.role === 'admin') {
-                navigate('/admin/dashboard', { replace: true });
-            } else if (currentUser.role === 'hunter') {
-                navigate('/hunter/dashboard', { replace: true });
-            } else {
-                navigate('/payer/dashboard', { replace: true });
-            }
-        }
-    }, [currentUser, loading, navigate]);
+    // Auto-redirect removed to keep user on Landing Page
 
     async function handleEnterAsHunter() {
+        if (currentUser) {
+            if (currentUser.role === 'hunter') navigate('/hunter/dashboard');
+            else if (currentUser.role === 'payer') navigate('/payer/dashboard');
+            else if (currentUser.role === 'admin') navigate('/admin/dashboard');
+            return;
+        }
+
         try {
             await signInWithGoogle('hunter');
         } catch (error) {
@@ -32,6 +29,13 @@ export default function LandingPage() {
     }
 
     async function handlePostBounty() {
+        if (currentUser) {
+            if (currentUser.role === 'payer') navigate('/payer/dashboard');
+            else if (currentUser.role === 'hunter') navigate('/hunter/dashboard'); // Redirect hunter to their dashboard instead of letting them be payer? Or allow dual role? For now, stick to single dashboard.
+            else if (currentUser.role === 'admin') navigate('/admin/dashboard');
+            return;
+        }
+
         try {
             await signInWithGoogle('payer');
         } catch (error) {
