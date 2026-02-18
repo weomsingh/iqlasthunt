@@ -127,9 +127,8 @@ export default function LandingPage() {
             {/* Header / Nav */}
             <header className="absolute top-0 left-0 right-0 z-50 py-6">
                 <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-iq-primary font-display font-bold text-2xl">
-                        <Target size={28} />
-                        <span>IQHUNT</span>
+                    <div className="flex items-center gap-2">
+                        <img src="/logotrans.jpg" alt="IQHUNT" className="h-12 w-auto object-contain" />
                     </div>
                     <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-iq-text-secondary">
                         <a href="#how-it-works" className="hover:text-white transition-colors">How It Works</a>

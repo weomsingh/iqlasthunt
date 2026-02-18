@@ -78,20 +78,12 @@ export default function Header() {
 
                     {/* Brand Logo */}
                     <Link to={`/${role}/dashboard`} className="flex items-center gap-2 group">
-                        {/* Using explicit image if available, else fallback to icon or nothing */}
-                        <div className="relative h-8 w-8">
-                            <img
-                                src="/logo-icon.png"
-                                alt="IQHUNT"
-                                className="h-full w-full object-contain"
-                                onError={(e) => {
-                                    e.target.onerror = null;
-                                    e.target.style.display = 'none';
-                                    e.target.parentNode.classList.add('hidden');
-                                }}
-                            />
-                        </div>
-                        <span className="text-xl font-bold text-iq-primary tracking-tight group-hover:text-neon-cyan transition-colors">IQHUNT</span>
+                        {/* Logo Image */}
+                        <img
+                            src="/logotrans.jpg"
+                            alt="IQHUNT"
+                            className="h-10 w-auto object-contain group-hover:opacity-80 transition-opacity"
+                        />
                     </Link>
                 </div>
 
