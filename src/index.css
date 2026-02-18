@@ -70,10 +70,13 @@
     font-family: 'DM Sans', sans-serif;
     -webkit-text-size-adjust: 100%;
     overflow-x: hidden;
+    overflow-y: auto;
+    min-height: 100vh;
   }
 
   html {
     scroll-behavior: smooth;
+    overflow-y: auto;
   }
 
   h1,
@@ -303,6 +306,7 @@
     box-shadow: 0 0 35px rgba(0, 255, 148, 0.6);
   }
 }
+
 /* Fix iOS touch delays and freezing */
 * {
   -webkit-tap-highlight-color: transparent;
@@ -310,30 +314,40 @@
 }
 
 /* Prevent scroll issues that cause freezing */
-html, body {
-  overscroll-behavior: none;
+/* Prevent scroll issues that cause freezing */
+html,
+body {
+  /* overscroll-behavior: none; REMOVED to fix scroll lock */
   -webkit-overflow-scrolling: touch;
 }
 
 /* Fix button touch responsiveness */
-button, a, [role="button"] {
+button,
+a,
+[role="button"] {
   touch-action: manipulation;
   user-select: none;
   -webkit-user-select: none;
 }
 
 /* Prevent text selection interfering with touches */
-.card, .btn-p, .btn-s {
+.card,
+.btn-p,
+.btn-s {
   user-select: none;
   -webkit-user-select: none;
 }
 
-button, a, [role="button"], .clickable {
+button,
+a,
+[role="button"],
+.clickable {
   min-height: 48px;
   min-width: 48px;
 }
 
-body, html {
+body,
+html {
   overflow-x: hidden;
 }
 
@@ -348,7 +362,7 @@ body, html {
     margin-left: 0;
     margin-right: 0;
   }
-  
+
   .container {
     padding-left: 16px;
     padding-right: 16px;

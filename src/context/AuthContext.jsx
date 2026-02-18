@@ -138,14 +138,29 @@ export function AuthProvider({ children }) {
     }
 
     async function signInWithGoogle(intendedRole) {
-        localStorage.setItem('intended_role', intendedRole);
-        const { error } = await supabase.auth.signInWithOAuth({
-            provider: 'google',
-            options: {
-                redirectTo: `${window.location.origin}/auth/callback`,
-            },
-        });
-        if (error) throw error;
+        try {
+            console.log('Attempting Google Sign In for role:', intendedRole);
+            localStorage.setItem('intended_role', intendedRole);
+
+            const { data, error } = await supabase.auth.signInWithOAuth({
+                provider: 'google',
+                options: {
+                    redirectTo: `${window.location.origin}/auth/callback`,
+                },
+            });
+
+            if (error) {
+                console.error("Supabase OAuth Error:", error);
+                alert(`Login Error: ${error.message}`);
+                throw error;
+            }
+
+            console.log("OAuth initiated successfully", data);
+        } catch (err) {
+            console.error("SignIn Exception:", err);
+            alert(`Failed to start login: ${err.message || 'Unknown error'}`);
+            throw err;
+        }
     }
 
     async function signOut() {
