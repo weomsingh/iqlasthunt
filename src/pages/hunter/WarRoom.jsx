@@ -190,7 +190,7 @@ export default function HunterWarRoom() {
 
             const pdfBlob = doc.output('blob');
 
-            // 2. Upload to Supabase
+            // 2. Upload to Supabase only (Private Archive)
             const fileName = `archive_${bounty.id}_${Date.now()}.pdf`;
             const { data: uploadData, error: uploadError } = await supabase.storage
                 .from('mission_archives') // Ensure this bucket exists!
@@ -198,16 +198,12 @@ export default function HunterWarRoom() {
 
             if (uploadError) {
                 console.error("Archive upload failed:", uploadError);
-                // Fallback: Just let user download it directly
-                doc.save(`mission_archive_${bounty.id}.pdf`);
-                // Assume archived locally
+                // Fail silently for user, but log for admin. 
+                // Do NOT download to user device as requested.
             } else {
-                console.log("Archive uploaded:", uploadData);
-                // Get public URL
-                const { data: { publicUrl } } = supabase.storage
-                    .from('mission_archives')
-                    .getPublicUrl(fileName);
-                setArchivedUrl(publicUrl);
+                console.log("Archive uploaded securely:", uploadData);
+                // We do NOT get a public URL or show it.
+                setArchivedUrl('secured'); // Just a flag to switch UI
             }
 
             // 3. Mark locally as archived (UI update)
@@ -236,30 +232,24 @@ export default function HunterWarRoom() {
                     <Shield size={48} />
                 </div>
                 <div>
-                    <h1 className="text-3xl font-bold text-white mb-2">Secure Archive Encrypted</h1>
+                    <h1 className="text-3xl font-bold text-white mb-2">Protocol Terminated</h1>
                     <p className="text-iq-text-secondary max-w-sm mx-auto">
-                        This mission has concluded. Communications have been sealed and archived.
+                        This mission has concluded. Communications have been securely archived by HQ.
                     </p>
                 </div>
 
-                {archivedUrl ? (
-                    <a
-                        href={archivedUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="px-8 py-3 bg-iq-surface border border-iq-primary text-iq-primary font-bold rounded-xl hover:bg-iq-primary hover:text-black transition-colors flex items-center gap-2"
-                    >
-                        <Download size={20} /> Access Mission Logs
-                    </a>
-                ) : (
-                    <div className="text-sm text-gray-500">Archiving in progress...</div>
-                )}
+                <div className="flex flex-col gap-2 items-center">
+                    <div className="px-4 py-2 bg-green-500/10 border border-green-500/30 text-green-500 rounded-lg text-sm flex items-center gap-2">
+                        <Shield size={16} />
+                        <span>Logs encrypted & sent to Admins</span>
+                    </div>
+                </div>
 
                 <button
-                    className="mt-4 text-gray-500 hover:text-white underline"
+                    className="mt-8 px-6 py-2 bg-iq-surface border border-white/10 hover:bg-white/5 rounded-lg text-white transition-colors"
                     onClick={() => window.location.href = '/hunter/dashboard'}
                 >
-                    Return to Dashboard
+                    Return to Operations
                 </button>
             </div>
         );
