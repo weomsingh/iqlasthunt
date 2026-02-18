@@ -14,9 +14,11 @@ export default function LandingPage() {
 
     async function handleEnterAsHunter() {
         if (currentUser) {
-            if (currentUser.role === 'hunter') navigate('/hunter/dashboard');
-            else if (currentUser.role === 'payer') navigate('/payer/dashboard');
-            else if (currentUser.role === 'admin') navigate('/admin/dashboard');
+            if (currentUser.role === 'hunter') {
+                navigate('/hunter/dashboard');
+            } else {
+                setRoleMismatch({ actual: currentUser.role, intended: 'hunter' });
+            }
             return;
         }
 
@@ -30,9 +32,11 @@ export default function LandingPage() {
 
     async function handlePostBounty() {
         if (currentUser) {
-            if (currentUser.role === 'payer') navigate('/payer/dashboard');
-            else if (currentUser.role === 'hunter') navigate('/hunter/dashboard'); // Redirect hunter to their dashboard instead of letting them be payer? Or allow dual role? For now, stick to single dashboard.
-            else if (currentUser.role === 'admin') navigate('/admin/dashboard');
+            if (currentUser.role === 'payer') {
+                navigate('/payer/dashboard');
+            } else {
+                setRoleMismatch({ actual: currentUser.role, intended: 'payer' });
+            }
             return;
         }
 
@@ -76,8 +80,59 @@ export default function LandingPage() {
         loadTopBounties();
     }, []);
 
+    // State for role mismatch modal
+    const [roleMismatch, setRoleMismatch] = React.useState(null);
+
     return (
         <div className="min-h-screen bg-iq-background text-white selection:bg-iq-primary selection:text-black overflow-x-hidden">
+            {roleMismatch && (
+                <div className="fixed inset-0 bg-black/90 flex items-center justify-center p-4 z-[100]">
+                    <div className="bg-[#111] border border-red-500/30 rounded-2xl p-8 max-w-md w-full text-center animate-fade-in">
+                        <div className="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-6 text-red-500">
+                            <Shield size={32} />
+                        </div>
+                        <h2 className="text-2xl font-bold text-white mb-2">Wrong Account Type</h2>
+                        <p className="text-gray-400 mb-8">
+                            You are currently logged in as a <span className="text-white font-bold uppercase">{roleMismatch.actual}</span>.
+                            <br />
+                            You cannot access the {roleMismatch.intended} area.
+                        </p>
+
+                        <div className="space-y-3">
+                            <button
+                                onClick={() => {
+                                    if (roleMismatch.actual === 'hunter') navigate('/hunter/dashboard');
+                                    else if (roleMismatch.actual === 'payer') navigate('/payer/dashboard');
+                                    else if (roleMismatch.actual === 'admin') navigate('/admin/dashboard');
+                                    setRoleMismatch(null);
+                                }}
+                                className="w-full py-3 bg-[#00ff9d] text-black font-bold rounded-xl hover:scale-105 transition-transform"
+                            >
+                                Go to {roleMismatch.actual === 'hunter' ? 'Hunter Dashboard' : 'Payer Dashboard'}
+                            </button>
+
+                            <button
+                                onClick={async () => {
+                                    await supabase.auth.signOut();
+                                    setRoleMismatch(null);
+                                    window.location.reload();
+                                }}
+                                className="w-full py-3 bg-white/5 text-gray-400 font-bold rounded-xl hover:bg-white/10 transition-colors"
+                            >
+                                Sign Out & Switch Account
+                            </button>
+
+                            <button
+                                onClick={() => setRoleMismatch(null)}
+                                className="text-sm text-gray-500 hover:text-white mt-2 underline"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Header / Nav */}
             <header className="absolute top-0 left-0 right-0 z-50 py-6">
                 <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
