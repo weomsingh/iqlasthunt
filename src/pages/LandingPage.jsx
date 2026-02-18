@@ -23,8 +23,6 @@ export default function LandingPage() {
     }, [currentUser, loading, navigate]);
 
     async function handleEnterAsHunter() {
-        console.log('Clicked Enter As Hunter');
-        // prompt("Debug: Clicked Enter As Hunter"); // Uncomment if console is not visible to user
         try {
             await signInWithGoogle('hunter');
         } catch (error) {
@@ -34,8 +32,6 @@ export default function LandingPage() {
     }
 
     async function handlePostBounty() {
-        console.log('Clicked Post Bounty');
-        // prompt("Debug: Clicked Post Bounty"); // Uncomment if console is not visible to user
         try {
             await signInWithGoogle('payer');
         } catch (error) {
@@ -187,50 +183,7 @@ export default function LandingPage() {
                 </div>
             </section>
 
-            {/* Featured Bounties */}
-            <section id="bounties" className="py-24 bg-iq-background">
-                <div className="container mx-auto px-4 md:px-6">
-                    <div className="flex justify-between items-end mb-12">
-                        <div>
-                            <h2 className="text-3xl md:text-5xl font-bold mb-4">Hot Bounties</h2>
-                            <p className="text-iq-text-secondary">Compete for high-value rewards.</p>
-                        </div>
-                        <button onClick={handleEnterAsHunter} className="text-iq-primary font-medium hover:underline flex items-center gap-1">
-                            View All <ArrowRight size={16} />
-                        </button>
-                    </div>
 
-                    {bountiesLoading ? (
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {[1, 2, 3].map(i => (
-                                <div key={i} className="card h-64 skeleton"></div>
-                            ))}
-                        </div>
-                    ) : hotBounties.length > 0 ? (
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {hotBounties.map(bounty => (
-                                <div key={bounty.id} onClick={handleEnterAsHunter} className="h-full">
-                                    <BountyCard bounty={{
-                                        ...bounty,
-                                        reward: bounty.reward_amount,
-                                        max_hunters: bounty.max_applicants,
-                                        staked_count: bounty.current_applicants || 0,
-                                        submission_deadline: bounty.deadline
-                                    }} userRole="hunter" />
-                                </div>
-                            ))}
-                        </div>
-                    ) : (
-                        <div className="text-center py-12 bg-iq-card border border-white/5 rounded-2xl">
-                            <h3 className="text-xl font-bold mb-2">No Active Bounties Yet</h3>
-                            <p className="text-iq-text-secondary mb-6">Be the first to post a bounty and attract top talent.</p>
-                            <button onClick={handlePostBounty} className="px-6 py-2 bg-iq-primary text-black font-bold rounded-lg hover:bg-iq-primary/90">
-                                Post a Bounty
-                            </button>
-                        </div>
-                    )}
-                </div>
-            </section>
 
             {/* Trust Section */}
             <section className="py-24 bg-iq-surface border-y border-white/5">
