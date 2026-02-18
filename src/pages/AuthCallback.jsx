@@ -85,8 +85,14 @@ export default function AuthCallback() {
     }
 
     function handleUserRouting(profile) {
-        setStatus('Redirecting...');
-        const intendedRole = localStorage.getItem('intended_role') || 'hunter';
+        setStatus('Checking access...');
+        const intendedRole = localStorage.getItem('intended_role');
+
+        // If no intended role (direct login), just route them
+        if (!intendedRole) {
+            routeToDashboard(profile);
+            return;
+        }
 
         // Admin override
         if (profile.role === 'admin') {
@@ -95,10 +101,15 @@ export default function AuthCallback() {
             return;
         }
 
-        // Role mismatch check (only if profile exists and has role)
+        // Role mismatch check
         if (profile.role && profile.role !== intendedRole) {
-            // We could alert here, but let's just log them in to avoid blocking flow
-            console.warn(`Role mismatch: Expected ${intendedRole}, got ${profile.role}`);
+            // Show modal logic
+            setStatus('Access Denied');
+            setRoleMismatch({
+                actual: profile.role,
+                intended: intendedRole
+            });
+            return;
         }
 
         // Onboarding check
@@ -108,12 +119,55 @@ export default function AuthCallback() {
         }
 
         // Success redirect
+        routeToDashboard(profile);
+    }
+
+    function routeToDashboard(profile) {
         localStorage.removeItem('intended_role');
         if (profile.role === 'hunter') {
             navigate('/hunter/dashboard', { replace: true });
         } else {
             navigate('/payer/dashboard', { replace: true });
         }
+    }
+
+    const [roleMismatch, setRoleMismatch] = useState(null);
+
+    if (roleMismatch) {
+        return (
+            <div className="fixed inset-0 bg-black/90 flex items-center justify-center p-4 z-50">
+                <div className="bg-[#111] border border-red-500/30 rounded-2xl p-8 max-w-md w-full text-center">
+                    <div className="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-6 text-red-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" /></svg>
+                    </div>
+                    <h2 className="text-2xl font-bold text-white mb-2">Wrong Account Type</h2>
+                    <p className="text-gray-400 mb-8">
+                        This email is registered as a <span className="text-white font-bold uppercase">{roleMismatch.actual}</span>.
+                        <br />
+                        You assume the wrong role.
+                    </p>
+
+                    <div className="space-y-3">
+                        <button
+                            onClick={() => routeToDashboard({ role: roleMismatch.actual })}
+                            className="w-full py-3 bg-[#00ff9d] text-black font-bold rounded-xl hover:scale-105 transition-transform"
+                        >
+                            Go to {roleMismatch.actual === 'hunter' ? 'Hunter Dashboard' : 'Payer Dashboard'}
+                        </button>
+
+                        <button
+                            onClick={async () => {
+                                await supabase.auth.signOut();
+                                navigate('/');
+                            }}
+                            className="w-full py-3 bg-white/5 text-gray-400 font-bold rounded-xl hover:bg-white/10 transition-colors"
+                        >
+                            Sign Out
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     return (

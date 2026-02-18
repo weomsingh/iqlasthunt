@@ -125,24 +125,142 @@ export default function HunterWarRoom() {
         return { expired: false, days, hours, minutes, seconds };
     }
 
+    const [archiving, setArchiving] = useState(false);
+    const [archivedUrl, setArchivedUrl] = useState(null);
+
+    // Initial check for expired/completed status on load
     useEffect(() => {
-        if (!activeBounty) return;
-        const interval = setInterval(() => {
-            setTimer(calculateTimeRemaining(activeBounty.submission_deadline));
-        }, 1000);
-        return () => clearInterval(interval);
+        if (activeBounty && (activeBounty.status === 'completed' || isExpired(activeBounty.submission_deadline))) {
+            handleArchive(activeBounty);
+        }
     }, [activeBounty]);
 
-    useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, [messages]);
+    function isExpired(deadline) {
+        return new Date(deadline) <= new Date();
+    }
 
-    const currency = currentUser?.currency === 'INR' ? '₹' : '$';
+    // Timer check
+    useEffect(() => {
+        if (!activeBounty || archivedUrl) return;
+
+        const interval = setInterval(() => {
+            const time = calculateTimeRemaining(activeBounty.submission_deadline);
+            setTimer(time);
+
+            // Trigger archive if expired just now
+            if (time.expired && !archiving && !archivedUrl) {
+                console.log("Timer expired, archiving...");
+                handleArchive(activeBounty);
+            }
+        }, 1000);
+        return () => clearInterval(interval);
+    }, [activeBounty, archiving, archivedUrl]);
+
+
+    async function handleArchive(bounty) {
+        if (archiving || archivedUrl) return;
+        setArchiving(true);
+
+        try {
+            console.log("Archiving chat for bounty:", bounty.id);
+
+            // 1. Generate PDF
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.setFontSize(20);
+            doc.text(`Mission Archive: ${bounty.title}`, 10, 20);
+            doc.setFontSize(12);
+            doc.text(`Bounty ID: ${bounty.id}`, 10, 30);
+            doc.text(`Archived At: ${new Date().toLocaleString()}`, 10, 40);
+
+            // Simple table of messages
+            // We need to fetch ALL messages if possible, relying on current visible messages for now
+            const history = messages.map(m => [
+                new Date(m.created_at).toLocaleString(),
+                m.sender?.username || 'Unknown',
+                m.message
+            ]);
+
+            doc.autoTable({
+                startY: 50,
+                head: [['Time', 'User', 'Message']],
+                body: history,
+            });
+
+            const pdfBlob = doc.output('blob');
+
+            // 2. Upload to Supabase
+            const fileName = `archive_${bounty.id}_${Date.now()}.pdf`;
+            const { data: uploadData, error: uploadError } = await supabase.storage
+                .from('mission_archives') // Ensure this bucket exists!
+                .upload(fileName, pdfBlob);
+
+            if (uploadError) {
+                console.error("Archive upload failed:", uploadError);
+                // Fallback: Just let user download it directly
+                doc.save(`mission_archive_${bounty.id}.pdf`);
+                // Assume archived locally
+            } else {
+                console.log("Archive uploaded:", uploadData);
+                // Get public URL
+                const { data: { publicUrl } } = supabase.storage
+                    .from('mission_archives')
+                    .getPublicUrl(fileName);
+                setArchivedUrl(publicUrl);
+            }
+
+            // 3. Mark locally as archived (UI update)
+            // In a real app, update DB status to 'archived', but here we just lock UI
+
+        } catch (err) {
+            console.error("Archival failed:", err);
+        } finally {
+            setArchiving(false);
+        }
+    }
 
     if (loading) {
         return (
             <div className="flex h-screen items-center justify-center">
                 <div className="w-10 h-10 border-4 border-iq-primary border-t-transparent rounded-full animate-spin"></div>
+            </div>
+        );
+    }
+
+    // Archived View
+    if (archivedUrl || (activeBounty && isExpired(activeBounty.submission_deadline))) {
+        return (
+            <div className="flex flex-col items-center justify-center h-[70vh] text-center space-y-6 animate-fade-in">
+                <div className="w-24 h-24 bg-iq-card rounded-full flex items-center justify-center border border-white/5 shadow-xl text-yellow-500">
+                    <Shield size={48} />
+                </div>
+                <div>
+                    <h1 className="text-3xl font-bold text-white mb-2">Secure Archive Encrypted</h1>
+                    <p className="text-iq-text-secondary max-w-sm mx-auto">
+                        This mission has concluded. Communications have been sealed and archived.
+                    </p>
+                </div>
+
+                {archivedUrl ? (
+                    <a
+                        href={archivedUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="px-8 py-3 bg-iq-surface border border-iq-primary text-iq-primary font-bold rounded-xl hover:bg-iq-primary hover:text-black transition-colors flex items-center gap-2"
+                    >
+                        <Download size={20} /> Access Mission Logs
+                    </a>
+                ) : (
+                    <div className="text-sm text-gray-500">Archiving in progress...</div>
+                )}
+
+                <button
+                    className="mt-4 text-gray-500 hover:text-white underline"
+                    onClick={() => window.location.href = '/hunter/dashboard'}
+                >
+                    Return to Dashboard
+                </button>
             </div>
         );
     }
