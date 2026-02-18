@@ -111,16 +111,7 @@ export default function LandingPage() {
                                 Go to {roleMismatch.actual === 'hunter' ? 'Hunter Dashboard' : 'Payer Dashboard'}
                             </button>
 
-                            <button
-                                onClick={async () => {
-                                    await supabase.auth.signOut();
-                                    setRoleMismatch(null);
-                                    window.location.reload();
-                                }}
-                                className="w-full py-3 bg-white/5 text-gray-400 font-bold rounded-xl hover:bg-white/10 transition-colors"
-                            >
-                                Sign Out & Switch Account
-                            </button>
+
 
                             <button
                                 onClick={() => setRoleMismatch(null)}
