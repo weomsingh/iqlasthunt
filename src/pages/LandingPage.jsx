@@ -44,9 +44,7 @@ export default function LandingPage() {
         }
     }
 
-    if (loading || currentUser) {
-        return null; // Or a loading spinner
-    }
+
 
     // State for auto-displaying bounties
     const [hotBounties, setHotBounties] = React.useState([]);
