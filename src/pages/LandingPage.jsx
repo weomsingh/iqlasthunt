@@ -125,10 +125,10 @@ export default function LandingPage() {
             )}
 
             {/* Header / Nav */}
-            <header className="absolute top-0 left-0 right-0 z-50 py-6">
+            <header className="absolute top-0 left-0 right-0 z-50 py-4">
                 <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                        <img src="/iqhunt1trans.png" alt="IQHUNT" className="h-[4.5rem] md:h-28 w-auto object-contain" />
+                        <img src="/iqhunt1trans.png" alt="IQHUNT" className="h-14 md:h-20 w-auto object-contain" />
                     </div>
                     <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-iq-text-secondary">
                         <a href="#how-it-works" className="hover:text-white transition-colors">How It Works</a>
