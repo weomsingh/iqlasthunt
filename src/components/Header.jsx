@@ -80,7 +80,7 @@ export default function Header() {
                     <Link to={`/${role}/dashboard`} className="flex items-center gap-2 group">
                         {/* Logo Image */}
                         <img
-                            src="/logotrans.jpg"
+                            src="/iqhunttrans.png"
                             alt="IQHUNT"
                             className="h-10 w-auto object-contain group-hover:opacity-80 transition-opacity"
                         />
