@@ -82,7 +82,7 @@ export default function Header() {
                         <img
                             src="/iqhunttrans.png"
                             alt="IQHUNT"
-                            className="h-10 w-auto object-contain group-hover:opacity-80 transition-opacity"
+                            className="h-16 md:h-20 w-auto object-contain group-hover:opacity-80 transition-opacity"
                         />
                     </Link>
                 </div>
