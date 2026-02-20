@@ -1,21 +1,31 @@
 import { Outlet } from 'react-router-dom';
-import Sidebar from '../../components/Sidebar';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import BottomNav from '../../components/BottomNav';
 
 export default function PayerLayout() {
     return (
-        <div className="flex min-h-screen bg-iq-background text-iq-text-primary">
-            {/* Sidebar - Desktop */}
-            <Sidebar role="payer" />
-
+        <div style={{ minHeight: '100vh', background: '#080B14', display: 'flex', flexDirection: 'column' }}>
             {/* Main Content Area */}
-            <div className="flex-1 flex flex-col min-w-0 md:ml-64 mb-16 md:mb-0 transition-all duration-300">
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                 <Header />
 
-                <main className="flex-1 p-4 md:p-6 lg:p-8 overflow-y-auto">
-                    <div className="max-w-7xl mx-auto w-full">
+                <main style={{
+                    flex: 1,
+                    padding: '24px 16px 100px',
+                    maxWidth: '1280px',
+                    margin: '0 auto',
+                    width: '100%',
+                }}>
+                    <style>{`
+                        @media (min-width: 768px) {
+                            .payer-main { padding: 32px 24px 48px !important; }
+                        }
+                        @media (min-width: 1024px) {
+                            .payer-main { padding: 40px 32px 60px !important; }
+                        }
+                    `}</style>
+                    <div className="payer-main">
                         <Outlet />
                     </div>
                 </main>
@@ -25,9 +35,8 @@ export default function PayerLayout() {
                 </div>
             </div>
 
-            {/* Bottom Nav - Mobile */}
+            {/* Bottom Nav - Mobile only */}
             <BottomNav role="payer" />
         </div>
     );
 }
-

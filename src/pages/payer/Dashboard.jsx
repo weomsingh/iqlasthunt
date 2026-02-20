@@ -2,29 +2,24 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { supabase } from '../../supabaseClient';
-import { Target, Plus, TrendingUp, Clock, Users, CheckCircle, AlertCircle, MessageSquare, Briefcase, Star, Search, Filter, MoreHorizontal, ArrowRight, Zap, AlertTriangle } from 'lucide-react';
+import {
+    Target, Plus, TrendingUp, Clock, Users, CheckCircle, AlertCircle,
+    MessageSquare, Briefcase, ArrowRight, Zap, DollarSign, Settings, Star
+} from 'lucide-react';
 
 export default function PayerDashboard() {
     const { currentUser } = useAuth();
-    const [stats, setStats] = useState({
-        active: 0,
-        pendingReviews: 0,
-        completed: 0,
-        totalSpent: 0
-    });
+    const [stats, setStats] = useState({ active: 0, pendingReviews: 0, completed: 0, totalSpent: 0 });
     const [activeBounties, setActiveBounties] = useState([]);
     const [pendingSubmissions, setPendingSubmissions] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (currentUser) {
-            loadDashboardData();
-        }
+        if (currentUser) loadDashboardData();
     }, [currentUser]);
 
     async function loadDashboardData() {
         try {
-            // Fetch bounties
             const { data: bounties } = await supabase
                 .from('bounties')
                 .select('*, submissions(*)')
@@ -33,23 +28,16 @@ export default function PayerDashboard() {
             if (bounties) {
                 const active = bounties.filter(b => b.status === 'live');
                 const completed = bounties.filter(b => b.status === 'completed');
-                const pending = bounties.reduce((acc, b) => {
-                    return acc + (b.submissions?.filter(s => s.status === 'pending_review').length || 0);
-                }, 0);
+                const pending = bounties.reduce((acc, b) =>
+                    acc + (b.submissions?.filter(s => s.status === 'pending_review').length || 0), 0);
 
-                // Get submissions that need review
                 const submissions = [];
                 bounties.forEach(b => {
-                    if (b.submissions) {
-                        b.submissions.forEach(s => {
-                            if (s.status === 'pending_review') {
-                                submissions.push({ ...s, bounty_title: b.title });
-                            }
-                        });
-                    }
+                    b.submissions?.filter(s => s.status === 'pending_review')
+                        .forEach(s => submissions.push({ ...s, bounty_title: b.title, bounty_id: b.id }));
                 });
 
-                setActiveBounties(active.slice(0, 4)); // Show recent 4
+                setActiveBounties(active.slice(0, 4));
                 setPendingSubmissions(submissions.slice(0, 3));
                 setStats({
                     active: active.length,
@@ -69,214 +57,331 @@ export default function PayerDashboard() {
 
     if (loading) {
         return (
-            <div className="flex h-64 items-center justify-center">
-                <div className="w-8 h-8 rounded-full border-2 border-iq-primary border-t-transparent animate-spin ml-2"></div>
-                <span className="ml-2 text-iq-text-secondary">Loading Dashboard...</span>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
+                <div className="spinner" />
             </div>
         );
     }
 
+    const statsData = [
+        {
+            label: 'Active Bounties', value: stats.active, icon: Briefcase,
+            color: '#00E5FF', bg: 'rgba(0,229,255,0.08)', border: 'rgba(0,229,255,0.15)',
+        },
+        {
+            label: 'Pending Reviews', value: stats.pendingReviews, icon: AlertCircle,
+            color: '#FFE600', bg: 'rgba(255,230,0,0.08)', border: 'rgba(255,230,0,0.15)',
+            urgent: stats.pendingReviews > 0,
+        },
+        {
+            label: 'Completed', value: stats.completed, icon: CheckCircle,
+            color: '#00FF94', bg: 'rgba(0,255,148,0.08)', border: 'rgba(0,255,148,0.15)',
+        },
+        {
+            label: 'Total Spent', value: `${currency}${stats.totalSpent.toLocaleString()}`, icon: DollarSign,
+            color: '#A855F7', bg: 'rgba(168,85,247,0.08)', border: 'rgba(168,85,247,0.15)',
+        },
+    ];
+
     return (
-        <div className="space-y-8 animate-fade-in pb-24 md:pb-0">
-            {/* Welcome Section */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                <div>
-                    <h1 className="text-2xl md:text-3xl font-bold text-white">
-                        Welcome back, <span className="text-iq-primary">{currentUser?.username}</span>!
-                    </h1>
-                    <p className="text-iq-text-secondary mt-1">
-                        Your bounties are getting great responses.
-                    </p>
-                </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', animation: 'fadeInUp 0.4s ease' }}>
 
-                {/* Quick Stats */}
-                <div className="flex flex-wrap md:flex-nowrap gap-3">
-                    <div className="flex items-center gap-3 px-4 py-3 bg-iq-surface border border-yellow-500/20 rounded-xl">
-                        <div className="p-2 bg-yellow-500/10 rounded-lg text-yellow-500">
-                            <Briefcase size={20} />
-                        </div>
-                        <div>
-                            <p className="text-xl font-bold text-white leading-none">{stats.active}</p>
-                            <p className="text-xs text-iq-text-secondary mt-1">Active Bounties</p>
-                        </div>
-                    </div>
-
-                    <div className="flex items-center gap-3 px-4 py-3 bg-iq-surface border border-orange-500/20 rounded-xl">
-                        <div className="p-2 bg-orange-500/10 rounded-lg text-orange-500">
-                            <AlertCircle size={20} />
-                        </div>
-                        <div>
-                            <p className="text-xl font-bold text-white leading-none">{stats.pendingReviews}</p>
-                            <p className="text-xs text-iq-text-secondary mt-1">Pending Reviews</p>
-                        </div>
-                    </div>
-
-                    <div className="flex items-center gap-3 px-4 py-3 bg-iq-surface border border-iq-success/20 rounded-xl">
-                        <div className="p-2 bg-iq-success/10 rounded-lg text-iq-success">
-                            <CheckCircle size={20} />
-                        </div>
-                        <div>
-                            <p className="text-xl font-bold text-white leading-none">{stats.completed}</p>
-                            <p className="text-xs text-iq-text-secondary mt-1">Completed</p>
-                        </div>
-                    </div>
-                </div>
+            {/* ===== WELCOME HEADER ===== */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <p style={{ color: '#8892AA', fontSize: '14px' }}>
+                    {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+                </p>
+                <h1 style={{
+                    fontSize: 'clamp(24px, 5vw, 36px)',
+                    fontWeight: '800', fontFamily: 'Space Grotesk',
+                    color: '#F0F4FF', lineHeight: 1.2,
+                }}>
+                    Welcome back,{' '}
+                    <span style={{
+                        background: 'linear-gradient(135deg, #00E5FF, #A855F7)',
+                        WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text'
+                    }}>
+                        {currentUser?.username}
+                    </span>
+                </h1>
+                <p style={{ color: '#8892AA' }}>
+                    {stats.pendingReviews > 0
+                        ? `⚠️ You have ${stats.pendingReviews} submission${stats.pendingReviews > 1 ? 's' : ''} awaiting review!`
+                        : 'Manage your bounties and track submissions.'}
+                </p>
             </div>
 
-            {/* Active Bounties Section */}
-            <div>
-                <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-xl font-bold text-white">Your Active Bounties</h2>
-                    <Link to="/payer/live-bounties" className="text-sm text-iq-primary hover:text-white transition-colors flex items-center gap-1">
-                        View All <ArrowRight size={14} />
-                    </Link>
-                </div>
-
-                {activeBounties.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {activeBounties.map(bounty => (
-                            <ActiveBountyCard key={bounty.id} bounty={bounty} currency={currency} />
-                        ))}
+            {/* ===== STATS GRID ===== */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
+                {statsData.map((stat, i) => (
+                    <div key={i} style={{
+                        padding: '20px',
+                        borderRadius: '16px',
+                        background: stat.bg,
+                        border: `1px solid ${stat.border}`,
+                        display: 'flex', alignItems: 'center', gap: '14px',
+                        position: 'relative', overflow: 'hidden',
+                        cursor: 'default',
+                        transition: 'all 0.2s ease',
+                    }}
+                        onMouseOver={e => e.currentTarget.style.boxShadow = `0 8px 30px ${stat.color}15`}
+                        onMouseOut={e => e.currentTarget.style.boxShadow = 'none'}
+                    >
+                        {stat.urgent && (
+                            <div style={{
+                                position: 'absolute', top: '8px', right: '8px',
+                                width: '8px', height: '8px', borderRadius: '50%',
+                                background: stat.color, animation: 'pulseDot 1.5s infinite',
+                            }} />
+                        )}
+                        <div style={{
+                            width: '44px', height: '44px', borderRadius: '12px',
+                            background: `${stat.color}15`,
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            flexShrink: 0,
+                        }}>
+                            <stat.icon size={22} style={{ color: stat.color }} />
+                        </div>
+                        <div>
+                            <p style={{ fontSize: '11px', color: '#8892AA', fontWeight: '600', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '2px' }}>
+                                {stat.label}
+                            </p>
+                            <p style={{ fontSize: typeof stat.value === 'string' && stat.value.length > 6 ? '16px' : '22px', fontWeight: '900', color: '#F0F4FF', fontFamily: 'Space Grotesk', lineHeight: 1 }}>
+                                {stat.value}
+                            </p>
+                        </div>
                     </div>
-                ) : (
-                    <div className="p-8 border border-dashed border-white/10 rounded-xl text-center bg-iq-card/30">
-                        <Briefcase size={32} className="mx-auto text-iq-text-secondary mb-3" />
-                        <p className="text-white font-medium mb-1">No active bounties</p>
-                        <p className="text-sm text-iq-text-secondary mb-4">Post a bounty to start finding talent</p>
-                        <Link to="/payer/post-bounty" className="inline-flex items-center gap-2 px-4 py-2 bg-iq-primary text-black font-semibold rounded-lg hover:bg-iq-primary/90 transition-colors">
-                            <Plus size={18} /> Post Bounty
-                        </Link>
-                    </div>
-                )}
+                ))}
             </div>
 
-            {/* Pending Reviews Section */}
+            {/* ===== PENDING REVIEWS (Urgent!) ===== */}
             {pendingSubmissions.length > 0 && (
                 <div>
-                    <div className="flex items-center justify-between mb-4">
-                        <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                            Pending Reviews <span className="px-2 py-0.5 bg-orange-500/10 text-orange-500 text-xs rounded-full">{pendingSubmissions.length}</span>
-                        </h2>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <AlertCircle size={20} style={{ color: '#FFE600' }} />
+                            <h2 style={{ fontSize: '18px', fontWeight: '800', color: '#F0F4FF', fontFamily: 'Space Grotesk' }}>
+                                Pending Reviews
+                            </h2>
+                            <span style={{
+                                padding: '2px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: '800',
+                                background: 'rgba(255,230,0,0.15)', color: '#FFE600', border: '1px solid rgba(255,230,0,0.3)',
+                                animation: 'pulseDot 2s infinite',
+                            }}>
+                                {pendingSubmissions.length} WAITING
+                            </span>
+                        </div>
                     </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {pendingSubmissions.map((submission, index) => (
-                            <div key={index} className="bg-iq-card border border-white/5 rounded-xl p-4 hover:border-orange-500/30 transition-colors group">
-                                <div className="flex items-center gap-3 mb-3">
-                                    <div className="w-10 h-10 rounded-full bg-iq-surface flex items-center justify-center text-lg">H</div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '12px' }}>
+                        {pendingSubmissions.map((submission, idx) => (
+                            <div key={idx} style={{
+                                padding: '18px', borderRadius: '16px',
+                                background: 'rgba(255,230,0,0.05)',
+                                border: '1px solid rgba(255,230,0,0.2)',
+                                transition: 'all 0.2s ease',
+                            }}
+                                onMouseOver={e => e.currentTarget.style.background = 'rgba(255,230,0,0.08)'}
+                                onMouseOut={e => e.currentTarget.style.background = 'rgba(255,230,0,0.05)'}
+                            >
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+                                    <div style={{
+                                        width: '40px', height: '40px', borderRadius: '50%',
+                                        background: 'rgba(255,230,0,0.12)', border: '1px solid rgba(255,230,0,0.25)',
+                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                        color: '#FFE600', fontWeight: '800', fontSize: '13px',
+                                    }}>H</div>
                                     <div>
-                                        <p className="font-medium text-white group-hover:text-iq-primary transition-colors">Hunter #{submission.hunter_id?.substring(0, 4)}</p>
-                                        <p className="text-xs text-iq-text-secondary">Submitted 2h ago</p>
+                                        <p style={{ color: '#F0F4FF', fontWeight: '700', fontSize: '14px' }}>Hunter Submission</p>
+                                        <p style={{ color: '#8892AA', fontSize: '12px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '160px' }}>
+                                            {submission.bounty_title}
+                                        </p>
                                     </div>
                                 </div>
-                                <p className="text-sm text-iq-text-secondary mb-4 line-clamp-1">
-                                    For: <span className="text-white">{submission.bounty_title}</span>
-                                </p>
-                                <div className="flex gap-2 mt-auto">
-                                    <button className="flex-1 py-2 text-sm font-medium bg-iq-primary text-black rounded-lg hover:bg-iq-primary/90 transition-colors">
-                                        Review Now
-                                    </button>
-                                </div>
+                                <Link
+                                    to={`/payer/bounty/${submission.bounty_id}`}
+                                    style={{
+                                        display: 'block', textAlign: 'center',
+                                        padding: '10px', borderRadius: '10px',
+                                        background: 'rgba(255,230,0,0.12)', color: '#FFE600',
+                                        border: '1px solid rgba(255,230,0,0.3)',
+                                        fontWeight: '700', fontSize: '13px', textDecoration: 'none',
+                                        transition: 'all 0.2s ease',
+                                    }}>
+                                    Review Now →
+                                </Link>
                             </div>
                         ))}
                     </div>
                 </div>
             )}
 
-
-
-            {/* Quick Actions */}
+            {/* ===== ACTIVE BOUNTIES ===== */}
             <div>
-                <h2 className="text-xl font-bold text-white mb-4">Quick Actions</h2>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <Link to="/payer/post-bounty" className="p-6 rounded-2xl bg-gradient-to-br from-iq-primary/10 to-transparent border border-iq-primary/20 hover:border-iq-primary hover:shadow-glow transition-all group">
-                        <div className="w-12 h-12 rounded-xl bg-iq-primary/20 flex items-center justify-center text-iq-primary mb-4 group-hover:scale-110 transition-transform">
-                            <Plus size={24} />
-                        </div>
-                        <h3 className="text-lg font-bold text-white mb-1">Post New Bounty</h3>
-                        <p className="text-xs text-iq-text-secondary">Create a new task for hunters</p>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <Zap size={20} style={{ color: '#00E5FF' }} />
+                        <h2 style={{ fontSize: '18px', fontWeight: '800', color: '#F0F4FF', fontFamily: 'Space Grotesk' }}>
+                            Active Bounties
+                        </h2>
+                    </div>
+                    <Link to="/payer/live-bounties" style={{
+                        display: 'flex', alignItems: 'center', gap: '4px',
+                        color: '#00E5FF', fontSize: '13px', fontWeight: '700', textDecoration: 'none',
+                    }}>
+                        View All <ArrowRight size={14} />
                     </Link>
+                </div>
 
-                    <Link to="/payer/live-bounties" className="p-6 rounded-2xl bg-iq-card border border-white/5 hover:border-white/20 hover:bg-iq-surface transition-all group">
-                        <div className="w-12 h-12 rounded-xl bg-iq-surface flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform">
-                            <Search size={24} />
-                        </div>
-                        <h3 className="text-lg font-bold text-white mb-1">Browse Bounties</h3>
-                        <p className="text-xs text-iq-text-secondary">Find talent directly</p>
-                    </Link>
+                {activeBounties.length > 0 ? (
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '12px' }}>
+                        {activeBounties.map(bounty => (
+                            <PayerBountyCard key={bounty.id} bounty={bounty} currency={currency} />
+                        ))}
+                    </div>
+                ) : (
+                    <div style={{
+                        padding: '40px 24px', textAlign: 'center',
+                        border: '2px dashed rgba(255,255,255,0.06)', borderRadius: '16px',
+                    }}>
+                        <Briefcase size={32} style={{ color: '#4A5568', margin: '0 auto 12px' }} />
+                        <p style={{ color: '#F0F4FF', fontWeight: '700', marginBottom: '6px' }}>No active bounties yet</p>
+                        <p style={{ color: '#8892AA', fontSize: '14px', marginBottom: '20px' }}>Post your first bounty to start finding talent</p>
+                        <Link to="/payer/post-bounty" className="btn-primary" style={{ textDecoration: 'none', padding: '12px 24px', fontSize: '14px' }}>
+                            <Plus size={18} /> Post Bounty
+                        </Link>
+                    </div>
+                )}
+            </div>
 
-                    <Link to="/payer/vault" className="p-6 rounded-2xl bg-iq-card border border-white/5 hover:border-white/20 hover:bg-iq-surface transition-all group">
-                        <div className="w-12 h-12 rounded-xl bg-iq-surface flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform">
-                            <TrendingUp size={24} />
-                        </div>
-                        <h3 className="text-lg font-bold text-white mb-1">My Payments</h3>
-                        <p className="text-xs text-iq-text-secondary">View transaction history</p>
-                    </Link>
-
-                    <Link to="/payer/settings" className="p-6 rounded-2xl bg-iq-card border border-white/5 hover:border-white/20 hover:bg-iq-surface transition-all group">
-                        <div className="w-12 h-12 rounded-xl bg-iq-surface flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform">
-                            <MoreHorizontal size={24} />
-                        </div>
-                        <h3 className="text-lg font-bold text-white mb-1">Settings</h3>
-                        <p className="text-xs text-iq-text-secondary">Profile & preferences</p>
-                    </Link>
+            {/* ===== QUICK ACTIONS ===== */}
+            <div>
+                <h2 style={{ fontSize: '20px', fontWeight: '800', color: '#F0F4FF', fontFamily: 'Space Grotesk', marginBottom: '16px' }}>
+                    Quick Actions
+                </h2>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
+                    {[
+                        { to: '/payer/post-bounty', icon: Plus, label: 'Post Bounty', desc: 'Create new task', color: '#00FF94', bg: 'rgba(0,255,148,0.08)', border: 'rgba(0,255,148,0.2)', featured: true },
+                        { to: '/payer/live-bounties', icon: Target, label: 'My Bounties', desc: 'View all bounties', color: '#00E5FF', bg: 'rgba(0,229,255,0.08)', border: 'rgba(0,229,255,0.15)' },
+                        { to: '/payer/war-room', icon: MessageSquare, label: 'War Room', desc: 'Talk to hunters', color: '#A855F7', bg: 'rgba(168,85,247,0.08)', border: 'rgba(168,85,247,0.15)' },
+                        { to: '/payer/vault', icon: TrendingUp, label: 'Payments', desc: 'Transaction history', color: '#FFE600', bg: 'rgba(255,230,0,0.08)', border: 'rgba(255,230,0,0.15)' },
+                    ].map((action) => (
+                        <Link
+                            key={action.to}
+                            to={action.to}
+                            style={{
+                                display: 'flex', alignItems: 'center', gap: '14px',
+                                padding: '18px 16px', borderRadius: '16px',
+                                background: action.featured
+                                    ? 'linear-gradient(135deg, rgba(0,255,148,0.1), rgba(0,229,255,0.05))'
+                                    : action.bg,
+                                border: `1px solid ${action.border}`,
+                                textDecoration: 'none',
+                                transition: 'all 0.2s ease',
+                            }}
+                            onMouseOver={e => {
+                                e.currentTarget.style.transform = 'translateY(-2px)';
+                                e.currentTarget.style.boxShadow = `0 8px 25px ${action.color}20`;
+                            }}
+                            onMouseOut={e => {
+                                e.currentTarget.style.transform = 'translateY(0)';
+                                e.currentTarget.style.boxShadow = 'none';
+                            }}
+                        >
+                            <div style={{
+                                width: '44px', height: '44px', borderRadius: '12px',
+                                background: action.featured
+                                    ? 'linear-gradient(135deg, #00FF94, #00E5FF)'
+                                    : `${action.color}15`,
+                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                flexShrink: 0,
+                            }}>
+                                <action.icon size={22} style={{ color: action.featured ? '#000' : action.color }} />
+                            </div>
+                            <div>
+                                <p style={{ color: '#F0F4FF', fontWeight: '700', fontSize: '14px', marginBottom: '2px', fontFamily: 'Space Grotesk' }}>
+                                    {action.label}
+                                </p>
+                                <p style={{ color: '#8892AA', fontSize: '12px' }}>{action.desc}</p>
+                            </div>
+                        </Link>
+                    ))}
                 </div>
             </div>
         </div>
     );
 }
 
-// Active Bounty Card Component
-function ActiveBountyCard({ bounty, currency }) {
+// Compact Payer Bounty Card
+function PayerBountyCard({ bounty, currency }) {
     const deadline = new Date(bounty.submission_deadline);
     const now = new Date();
     const daysLeft = Math.ceil((deadline - now) / (1000 * 60 * 60 * 24));
+    const isUrgent = daysLeft <= 2 && daysLeft > 0;
+    const isExpired = daysLeft <= 0;
 
-    // Mock counts for now as we don't have the aggregations easily in one query without joins/functions
-    // In a real app, these would come from the query
-    const applicationCount = 12;
+    const subCount = bounty.submissions?.length || 0;
 
     return (
-        <div className="bg-iq-card border border-white/5 rounded-xl p-5 hover:border-iq-primary/30 transition-all group relative overflow-hidden">
-            {/* Gradient overlay on hover */}
-            <div className="absolute inset-0 bg-gradient-to-r from-iq-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+        <Link
+            to={`/payer/bounty/${bounty.id}`}
+            style={{
+                display: 'block', padding: '18px', borderRadius: '16px',
+                background: 'rgba(23,30,46,0.8)',
+                border: '1px solid rgba(255,255,255,0.07)',
+                textDecoration: 'none',
+                transition: 'all 0.2s ease',
+            }}
+            onMouseOver={e => {
+                e.currentTarget.style.borderColor = 'rgba(0,229,255,0.25)';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,229,255,0.08)';
+            }}
+            onMouseOut={e => {
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = 'none';
+            }}
+        >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+                <span style={{
+                    padding: '3px 10px', borderRadius: '6px', fontSize: '10px', fontWeight: '700',
+                    background: isExpired ? 'rgba(74,85,104,0.2)' : 'rgba(0,255,148,0.1)',
+                    color: isExpired ? '#4A5568' : '#00FF94',
+                    border: `1px solid ${isExpired ? 'rgba(74,85,104,0.2)' : 'rgba(0,255,148,0.2)'}`,
+                    letterSpacing: '0.08em',
+                }}>
+                    {isExpired ? 'CLOSED' : 'LIVE'}
+                </span>
+                <span style={{
+                    fontSize: '16px', fontWeight: '900', color: '#00E5FF',
+                    fontFamily: 'Space Grotesk',
+                }}>
+                    {currency}{(bounty.reward || 0).toLocaleString()}
+                </span>
+            </div>
 
-            <div className="relative z-10">
-                <div className="flex justify-between items-start mb-3">
-                    <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-iq-success/10 text-iq-success border border-iq-success/20">
-                        {bounty.status === 'live' ? 'Open' : bounty.status}
+            <h3 style={{
+                fontSize: '14px', fontWeight: '700', color: '#F0F4FF',
+                marginBottom: '10px', lineHeight: 1.4,
+                display: '-webkit-box', WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical', overflow: 'hidden',
+                fontFamily: 'Space Grotesk',
+            }}>
+                {bounty.title}
+            </h3>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                    <Users size={12} style={{ color: '#8892AA' }} />
+                    <span style={{ fontSize: '11px', color: '#8892AA', fontWeight: '600' }}>{subCount} submissions</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                    <Clock size={12} style={{ color: isUrgent ? '#FF6B35' : '#8892AA' }} />
+                    <span style={{ fontSize: '11px', color: isUrgent ? '#FF6B35' : '#8892AA', fontWeight: isUrgent ? '700' : '600' }}>
+                        {isExpired ? 'Expired' : `${daysLeft}d left`}
                     </span>
-                    <button className="text-iq-text-secondary hover:text-white"><MoreHorizontal size={16} /></button>
-                </div>
-
-                <h3 className="text-lg font-bold text-white mb-1 line-clamp-1">{bounty.title}</h3>
-                <p className="text-sm text-iq-text-secondary mb-4">Posted {new Date(bounty.created_at).toLocaleDateString()}</p>
-
-                <div className="flex items-center gap-4 text-sm text-iq-text-secondary mb-4">
-                    <div className="flex items-center gap-1.5">
-                        <Users size={14} />
-                        <span>{applicationCount} active</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                        <Clock size={14} />
-                        <span>{daysLeft} days left</span>
-                    </div>
-                </div>
-
-                <div className="flex items-center justify-between pt-4 border-t border-white/5">
-                    <div className="flex items-center gap-1.5 text-iq-success text-xs font-medium">
-                        <Zap size={12} fill="currentColor" />
-                        <span>{currency}{bounty.reward.toLocaleString()} secured</span>
-                    </div>
-
-                    <div className="flex gap-2">
-                        <Link to={`/payer/bounty/${bounty.id}`} className="text-sm font-medium text-white hover:text-iq-primary transition-colors">
-                            View Details
-                        </Link>
-                    </div>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 }
-

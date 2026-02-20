@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { supabase } from '../../supabaseClient';
-import { Home, Target, Briefcase, Clock, Trophy, User, Wallet, Settings, HelpCircle, CheckCircle, AlertCircle } from 'lucide-react';
+import { Trophy, CheckCircle, XCircle, AlertCircle, ArrowRight } from 'lucide-react';
 
 export default function HistoryPage() {
     const { currentUser } = useAuth();
     const navigate = useNavigate();
     const [historyBounties, setHistoryBounties] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [filter, setFilter] = useState('all'); // all, completed, expired, cancelled
+    const [filter, setFilter] = useState('all');
 
     useEffect(() => {
         if (currentUser) loadHistory();
@@ -17,7 +17,6 @@ export default function HistoryPage() {
 
     const loadHistory = async () => {
         try {
-            // Use Supabase directly as we don't have the API endpoint mentioned in instructions
             const { data, error } = await supabase
                 .from('hunter_stakes')
                 .select('*, bounty:bounties(*)')
@@ -27,7 +26,6 @@ export default function HistoryPage() {
             if (error) throw error;
 
             const now = new Date();
-            // Process data to match prompt structure
             const history = (data || []).map(stake => {
                 if (!stake.bounty) return null;
                 return {
@@ -35,16 +33,12 @@ export default function HistoryPage() {
                     stake_status: stake.status,
                     stake_id: stake.id,
                     deadline: stake.bounty.submission_deadline,
-                    rewardPool: stake.bounty.reward // Mapping for prompt compatibility
+                    rewardPool: stake.bounty.reward,
                 };
-            }).filter(b => b !== null).filter(b => {
-                // Filter logic from prompt
+            }).filter(Boolean).filter(b => {
                 const isCompleted = b.status === 'completed' || b.stake_status === 'completed' || b.status === 'finished';
-                const isExpired = new Date(b.deadline) <= now &&
-                    (b.status === 'active' || b.status === 'live' || b.status === 'in_progress');
-                const isCancelled = b.status === 'cancelled' ||
-                    b.status === 'canceled' ||
-                    b.status === 'deleted';
+                const isExpired = new Date(b.deadline) <= now && (b.status === 'active' || b.status === 'live' || b.status === 'in_progress');
+                const isCancelled = b.status === 'cancelled' || b.status === 'canceled' || b.status === 'deleted';
                 return isCompleted || isExpired || isCancelled;
             });
 
@@ -56,142 +50,137 @@ export default function HistoryPage() {
         }
     };
 
-    const getFilteredBounties = () => {
-        const now = new Date();
-
-        if (filter === 'all') return historyBounties;
-
-        if (filter === 'completed') {
-            return historyBounties.filter(b =>
-                b.status === 'completed' || b.stake_status === 'completed' || b.status === 'finished'
-            );
-        }
-
-        if (filter === 'expired') {
-            return historyBounties.filter(b => {
-                const deadline = new Date(b.deadline);
-                return deadline <= now &&
-                    (b.status === 'active' || b.status === 'live' || b.status === 'in_progress');
-            });
-        }
-
-        if (filter === 'cancelled') {
-            return historyBounties.filter(b =>
-                b.status === 'cancelled' ||
-                b.status === 'canceled' ||
-                b.status === 'deleted'
-            );
-        }
-
+    const now = new Date();
+    const getFiltered = () => {
+        if (filter === 'completed') return historyBounties.filter(b => b.status === 'completed' || b.stake_status === 'completed');
+        if (filter === 'expired') return historyBounties.filter(b => new Date(b.deadline) <= now && (b.status === 'active' || b.status === 'live'));
+        if (filter === 'cancelled') return historyBounties.filter(b => b.status === 'cancelled' || b.status === 'canceled' || b.status === 'deleted');
         return historyBounties;
     };
 
-    const filtered = getFilteredBounties();
+    const filtered = getFiltered();
     const currency = currentUser?.currency === 'INR' ? '₹' : '$';
 
-    return (
-        <div className="min-h-screen bg-iq-background pb-24 animate-fade-in">
-            {/* Header */}
-            <header className="sticky top-0 z-50 bg-iq-background/95 backdrop-blur-xl border-b border-white/5">
-                <div className="container h-16 flex items-center justify-between px-4">
-                    <button onClick={() => navigate(-1)} className="text-iq-text-secondary hover:text-white transition-colors">
-                        ← Back
-                    </button>
-                    <h1 className="text-xl font-bold text-white">History</h1>
-                    <div className="w-8" />
-                </div>
-            </header>
+    const filterTabs = [
+        { id: 'all', label: 'All (' + historyBounties.length + ')' },
+        { id: 'completed', label: 'Completed' },
+        { id: 'expired', label: 'Expired' },
+        { id: 'cancelled', label: 'Cancelled' },
+    ];
 
-            {/* Filter tabs */}
-            <div className="container px-4 py-6">
-                <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none filter-chips">
-                    {['all', 'completed', 'expired', 'cancelled'].map(f => (
-                        <button
-                            key={f}
-                            onClick={() => setFilter(f)}
-                            className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${filter === f
-                                    ? 'bg-iq-primary text-black font-bold'
-                                    : 'bg-iq-card border border-white/10 text-iq-text-secondary hover:text-white'
-                                }`}
-                        >
-                            {f.charAt(0).toUpperCase() + f.slice(1)}
-                        </button>
+    return (
+        <div style={{ animation: 'fadeInUp 0.4s ease', paddingBottom: '80px' }}>
+
+            {/* Page Header */}
+            <div style={{ marginBottom: '28px' }}>
+                <h1 style={{ fontSize: '28px', fontWeight: '900', color: '#F0F4FF', fontFamily: 'Space Grotesk', marginBottom: '6px' }}>
+                    Mission History
+                </h1>
+                <p style={{ color: '#8892AA', fontSize: '14px' }}>Your complete record of completed, expired, and cancelled hunts.</p>
+            </div>
+
+            {/* Filter Chips */}
+            <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', overflowX: 'auto', paddingBottom: '4px' }}>
+                {filterTabs.map(tab => (
+                    <button
+                        key={tab.id}
+                        onClick={() => setFilter(tab.id)}
+                        style={{
+                            padding: '8px 18px', borderRadius: '10px', fontSize: '13px', fontWeight: '600',
+                            whiteSpace: 'nowrap', cursor: 'pointer', transition: 'all 0.2s ease',
+                            minHeight: 'auto', minWidth: 'auto',
+                            background: filter === tab.id ? 'rgba(168,85,247,0.15)' : 'rgba(255,255,255,0.04)',
+                            border: filter === tab.id ? '1px solid rgba(168,85,247,0.4)' : '1px solid rgba(255,255,255,0.08)',
+                            color: filter === tab.id ? '#A855F7' : '#8892AA',
+                        }}
+                    >
+                        {tab.label}
+                    </button>
+                ))}
+            </div>
+
+            {/* Content */}
+            {loading ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    {[1, 2, 3].map(i => (
+                        <div key={i} className="skeleton" style={{ height: '100px', borderRadius: '16px' }} />
                     ))}
                 </div>
-            </div>
-
-            {/* Bounty list */}
-            <div className="container px-4 space-y-4">
-                {loading ? (
-                    <div className="text-center py-12 text-iq-text-secondary flex flex-col items-center">
-                        <div className="w-8 h-8 rounded-full border-2 border-iq-primary border-t-transparent animate-spin mb-4"></div>
-                        Loading...
-                    </div>
-                ) : filtered.length === 0 ? (
-                    <div className="text-center py-12 text-iq-text-secondary border border-dashed border-white/10 rounded-xl">
-                        No {filter !== 'all' ? filter : ''} bounties in history
-                    </div>
-                ) : (
-                    filtered.map((bounty, idx) => (
-                        <BountyHistoryCard key={idx} bounty={bounty} currency={currency} navigate={navigate} />
-                    ))
-                )}
-            </div>
+            ) : filtered.length === 0 ? (
+                <div style={{
+                    display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                    padding: '80px 20px', textAlign: 'center',
+                    border: '1px dashed rgba(255,255,255,0.1)', borderRadius: '20px',
+                    background: 'rgba(23,30,46,0.4)',
+                }}>
+                    <Trophy size={48} style={{ color: '#4A5568', marginBottom: '16px' }} />
+                    <h3 style={{ fontSize: '20px', fontWeight: '700', color: '#F0F4FF', marginBottom: '8px' }}>No History Yet</h3>
+                    <p style={{ color: '#8892AA', maxWidth: '320px' }}>
+                        {filter !== 'all' ? 'No ' + filter + ' bounties found.' : 'Complete your first hunt to see it here!'}
+                    </p>
+                </div>
+            ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    {filtered.map((bounty, i) => (
+                        <BountyHistoryCard key={bounty.stake_id || i} bounty={bounty} currency={currency} navigate={navigate} />
+                    ))}
+                </div>
+            )}
         </div>
     );
 }
 
-// Bounty card component for history
 function BountyHistoryCard({ bounty, currency, navigate }) {
     const now = new Date();
     const deadline = new Date(bounty.deadline);
-    const isExpired = deadline <= now;
     const isCompleted = bounty.status === 'completed' || bounty.stake_status === 'completed';
-    const isCancelled = bounty.status === 'cancelled' ||
-        bounty.status === 'canceled' ||
-        bounty.status === 'deleted';
+    const isCancelled = bounty.status === 'cancelled' || bounty.status === 'canceled' || bounty.status === 'deleted';
+
+    const statusConfig = isCompleted
+        ? { label: 'Completed', color: '#00FF94', bg: 'rgba(0,255,148,0.1)', Icon: CheckCircle }
+        : isCancelled
+            ? { label: 'Cancelled', color: '#8892AA', bg: 'rgba(255,255,255,0.05)', Icon: XCircle }
+            : { label: 'Expired', color: '#FFE600', bg: 'rgba(255,230,0,0.1)', Icon: AlertCircle };
+
+    const { Icon } = statusConfig;
 
     return (
-        <div className="card p-5 border border-white/5 bg-iq-card rounded-xl">
-            {/* Status badge */}
-            <div className="flex items-center gap-2 mb-3">
-                {isCompleted && (
-                    <span className="px-2 py-0.5 rounded-full bg-iq-success/10 text-iq-success border border-iq-success/20 text-xs font-bold uppercase">✓ Completed</span>
-                )}
-                {isExpired && !isCompleted && !isCancelled && (
-                    <span className="px-2 py-0.5 rounded-full bg-iq-warning/10 text-iq-warning border border-iq-warning/20 text-xs font-bold uppercase">⏰ Expired</span>
-                )}
-                {isCancelled && (
-                    <span className="px-2 py-0.5 rounded-full bg-white/5 text-gray-400 border border-white/10 text-xs font-bold uppercase">
-                        ✕ Cancelled
+        <div
+            onClick={() => navigate('/hunter/bounty/' + bounty.id)}
+            style={{
+                padding: '20px 24px', borderRadius: '16px', cursor: 'pointer',
+                background: 'rgba(23,30,46,0.9)', border: '1px solid rgba(255,255,255,0.07)',
+                transition: 'all 0.2s ease', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px',
+            }}
+            onMouseOver={e => {
+                e.currentTarget.style.borderColor = 'rgba(168,85,247,0.3)';
+                e.currentTarget.style.background = 'rgba(23,30,46,1)';
+            }}
+            onMouseOut={e => {
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)';
+                e.currentTarget.style.background = 'rgba(23,30,46,0.9)';
+            }}
+        >
+            <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
+                    <span style={{
+                        display: 'inline-flex', alignItems: 'center', gap: '5px',
+                        padding: '3px 10px', borderRadius: '6px', fontSize: '11px', fontWeight: '700',
+                        background: statusConfig.bg, color: statusConfig.color,
+                        border: '1px solid ' + statusConfig.color + '40',
+                    }}>
+                        <Icon size={11} /> {statusConfig.label}
                     </span>
-                )}
-            </div>
-
-            {/* Title */}
-            <h3 className="font-semibold text-base text-white mb-3 line-clamp-2">
-                {bounty.title}
-            </h3>
-
-            {/* Details */}
-            <div className="grid grid-cols-2 gap-3 text-sm mb-4">
-                <div>
-                    <span className="text-iq-text-secondary text-xs">Reward</span>
-                    <p className="text-iq-primary font-mono font-bold mt-0.5">{currency}{bounty.rewardPool?.toLocaleString() || bounty.reward?.toLocaleString()}</p>
+                    <span style={{ color: '#4A5568', fontSize: '12px' }}>{deadline.toLocaleDateString()}</span>
                 </div>
-                <div>
-                    <span className="text-iq-text-secondary text-xs">Deadline</span>
-                    <p className="text-gray-300 mt-0.5">{deadline.toLocaleDateString()}</p>
-                </div>
+                <h3 style={{ color: '#F0F4FF', fontWeight: '700', fontSize: '15px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    {bounty.title}
+                </h3>
+                <p style={{ color: '#00FF94', fontFamily: 'JetBrains Mono', fontWeight: '700', fontSize: '14px', marginTop: '4px' }}>
+                    {currency}{(bounty.rewardPool || bounty.reward || 0).toLocaleString()}
+                </p>
             </div>
-
-            {/* View button */}
-            <button
-                onClick={() => navigate(`/hunter/bounty/${bounty.id}`)}
-                className="w-full bg-white/5 border border-white/10 text-white py-2.5 rounded-lg hover:bg-white/10 transition-all text-sm font-medium"
-            >
-                View Details
-            </button>
+            <ArrowRight size={18} style={{ color: '#4A5568', flexShrink: 0 }} />
         </div>
     );
 }

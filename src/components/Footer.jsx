@@ -1,69 +1,98 @@
 import { Link } from 'react-router-dom';
-import { Target, Mail, Instagram, Linkedin } from 'lucide-react';
+import { Target, Mail, Instagram, Linkedin, Heart, ExternalLink } from 'lucide-react';
 
 export default function Footer() {
     return (
-        <footer className="bg-iq-background border-t border-white/5 py-16">
-            <div className="container mx-auto px-4 md:px-6">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+        <footer style={{
+            background: 'rgba(8,11,20,0.95)',
+            borderTop: '1px solid rgba(255,255,255,0.07)',
+            backdropFilter: 'blur(20px)',
+        }}>
+            {/* Top gradient accent */}
+            <div style={{ height: '3px', background: 'linear-gradient(90deg, #00FF94, #00E5FF, #A855F7, #FF6B35, #00FF94)', opacity: 0.6 }} />
+
+            <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '60px 24px 40px' }}>
+                {/* Main Grid */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '40px', marginBottom: '48px' }}>
+
                     {/* Brand Column */}
-                    <div className="flex flex-col items-start gap-4">
-                        <div className="flex items-center gap-2 text-iq-primary font-display font-bold text-xl">
-                            <Target size={24} />
-                            <span>IQHUNT</span>
-                        </div>
-                        <p className="text-iq-text-secondary text-sm leading-relaxed max-w-xs">
-                            Where skill hunts money. A sovereign, skill-based competitive platform.
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', gridColumn: '1 / span 2' }}>
+                        <img
+                            src="/finallandstrans.png"
+                            alt="IQHUNT"
+                            style={{ height: '48px', width: 'auto', objectFit: 'contain', objectPosition: 'left' }}
+                        />
+                        <p style={{ color: '#8892AA', fontSize: '14px', lineHeight: '1.7', maxWidth: '220px' }}>
+                            Where skill hunts money. A private competitive arena for skilled professionals.
                         </p>
+
+                        {/* Social links */}
+                        <div style={{ display: 'flex', gap: '10px' }}>
+                            {[
+                                { href: 'mailto:contact@iqhunt.com', icon: Mail, color: '#00E5FF', bg: 'rgba(0,229,255,0.1)', border: 'rgba(0,229,255,0.2)' },
+                                { href: 'https://www.instagram.com/iqhunt.arena?igsh=MW16d3RseXp6N3VreA==', icon: Instagram, color: '#A855F7', bg: 'rgba(168,85,247,0.1)', border: 'rgba(168,85,247,0.2)', external: true },
+                                { href: 'https://linkedin.com/company/iqhunt', icon: Linkedin, color: '#3B82F6', bg: 'rgba(59,130,246,0.1)', border: 'rgba(59,130,246,0.2)', external: true },
+                            ].map((social, i) => (
+                                <a
+                                    key={i}
+                                    href={social.href}
+                                    target={social.external ? '_blank' : undefined}
+                                    rel={social.external ? 'noopener noreferrer' : undefined}
+                                    style={{
+                                        width: '40px', height: '40px', borderRadius: '10px',
+                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                        background: social.bg, border: `1px solid ${social.border}`,
+                                        color: social.color, textDecoration: 'none',
+                                        transition: 'all 0.2s ease',
+                                    }}
+                                    onMouseOver={e => {
+                                        e.currentTarget.style.transform = 'translateY(-2px) scale(1.1)';
+                                        e.currentTarget.style.boxShadow = `0 8px 20px ${social.color}25`;
+                                    }}
+                                    onMouseOut={e => {
+                                        e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                                        e.currentTarget.style.boxShadow = 'none';
+                                    }}
+                                >
+                                    <social.icon size={18} />
+                                </a>
+                            ))}
+                        </div>
                     </div>
 
                     {/* Platform Links */}
-                    <div>
-                        <h4 className="font-bold text-white mb-6">Platform</h4>
-                        <ul className="space-y-3 text-iq-text-secondary">
-                            <li><Link to="/covenant" className="hover:text-iq-primary transition-colors">The Covenant</Link></li>
-                            <li><Link to="/terms" className="hover:text-iq-primary transition-colors">Terms of Service</Link></li>
-                            <li><Link to="/privacy" className="hover:text-iq-primary transition-colors">Privacy Policy</Link></li>
-                            <li><Link to="/refund" className="hover:text-iq-primary transition-colors">Refund Policy</Link></li>
-                        </ul>
-                    </div>
+                    <FooterSection title="Platform" color="#00FF94" links={[
+                        { label: 'The Covenant', to: '/covenant' },
+                        { label: 'Terms of Service', to: '/terms' },
+                        { label: 'Privacy Policy', to: '/privacy' },
+                        { label: 'Refund Policy', to: '/refund' },
+                    ]} />
 
                     {/* Support Links */}
-                    <div>
-                        <h4 className="font-bold text-white mb-6">Support</h4>
-                        <ul className="space-y-3 text-iq-text-secondary">
-                            <li><Link to="/contact" className="hover:text-iq-primary transition-colors">Contact Us</Link></li>
-                            <li><a href="mailto:support@iqhunt.com" className="hover:text-iq-primary transition-colors">Email Support</a></li>
-                        </ul>
-                    </div>
-
-                    {/* Connect Links */}
-                    <div>
-                        <h4 className="font-bold text-white mb-6">Connect</h4>
-                        <div className="flex gap-4">
-                            <a href="mailto:contact@iqhunt.com" className="p-2 bg-iq-surface rounded-full text-iq-text-secondary hover:text-white hover:bg-iq-primary hover:scale-110 transition-all border border-white/5">
-                                <Mail size={20} />
-                            </a>
-                            <a
-                                href="https://www.instagram.com/iqhunt.arena?igsh=MW16d3RseXp6N3VreA=="
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="p-2 bg-iq-surface rounded-full text-iq-text-secondary hover:text-white hover:bg-iq-primary hover:scale-110 transition-all border border-white/5"
-                            >
-                                <Instagram size={20} />
-                            </a>
-                            <a href="https://linkedin.com/company/iqhunt" target="_blank" className="p-2 bg-iq-surface rounded-full text-iq-text-secondary hover:text-white hover:bg-iq-primary hover:scale-110 transition-all border border-white/5">
-                                <Linkedin size={20} />
-                            </a>
-                        </div>
-                    </div>
+                    <FooterSection title="Support" color="#00E5FF" links={[
+                        { label: 'Help Center', to: '/help' },
+                        { label: 'Contact Us', to: '/contact' },
+                        { label: 'Email Support', href: 'mailto:support@iqhunt.com' },
+                        { label: 'Pricing Guide', to: '/pricing' },
+                    ]} />
                 </div>
 
-                <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
-                    <p className="text-iq-text-secondary text-sm">
-                        &copy; 2026 IQHUNT. All rights reserved.
+                {/* Bottom bar */}
+                <div style={{
+                    paddingTop: '28px',
+                    borderTop: '1px solid rgba(255,255,255,0.06)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '12px',
+                    textAlign: 'center',
+                }}>
+                    <p style={{ fontSize: '14px', color: '#8892AA', display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap', justifyContent: 'center' }}>
+                        © 2026 IQHUNT. Made with{' '}
+                        <Heart size={14} fill="#F43F5E" style={{ color: '#F43F5E' }} />
+                        {' '}in India. All rights reserved.
                     </p>
-                    <p className="text-iq-text-secondary text-xs opacity-60">
+                    <p style={{ fontSize: '12px', color: '#4A5568' }}>
                         This is a skill-based competitive platform. Participate responsibly.
                     </p>
                 </div>
@@ -72,3 +101,51 @@ export default function Footer() {
     );
 }
 
+function FooterSection({ title, color, links }) {
+    return (
+        <div>
+            <h4 style={{
+                color: '#F0F4FF', fontWeight: '800', fontSize: '14px',
+                marginBottom: '16px', fontFamily: 'Space Grotesk',
+            }}>
+                <span style={{ color }}>{title}</span>
+            </h4>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {links.map((link, i) => (
+                    <li key={i}>
+                        {link.to ? (
+                            <Link
+                                to={link.to}
+                                style={{
+                                    color: '#8892AA',
+                                    textDecoration: 'none',
+                                    fontSize: '14px',
+                                    transition: 'color 0.15s ease',
+                                    display: 'flex', alignItems: 'center', gap: '4px',
+                                }}
+                                onMouseOver={e => e.currentTarget.style.color = '#F0F4FF'}
+                                onMouseOut={e => e.currentTarget.style.color = '#8892AA'}
+                            >
+                                {link.label}
+                            </Link>
+                        ) : (
+                            <a
+                                href={link.href}
+                                style={{
+                                    color: '#8892AA',
+                                    textDecoration: 'none',
+                                    fontSize: '14px',
+                                    transition: 'color 0.15s ease',
+                                }}
+                                onMouseOver={e => e.currentTarget.style.color = '#F0F4FF'}
+                                onMouseOut={e => e.currentTarget.style.color = '#8892AA'}
+                            >
+                                {link.label}
+                            </a>
+                        )}
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+}

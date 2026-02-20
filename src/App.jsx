@@ -47,7 +47,6 @@ import RefundPolicy from './pages/static/RefundPolicy';
 import './styles/App.css';
 import './styles/WarRoom.css';
 import './styles/VisualPolish.css';
-import './styles/VisualPolish.css';
 import './styles/PricingGuide.css';
 import ProfileView from './pages/shared/ProfileView';
 

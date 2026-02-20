@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { supabase } from '../../supabaseClient';
 import { Clock, MessageSquare, Send, Target, Users, AlertCircle, FileText, Download, Shield } from 'lucide-react';
@@ -218,8 +218,8 @@ export default function HunterWarRoom() {
 
     if (loading) {
         return (
-            <div className="flex h-screen items-center justify-center">
-                <div className="w-10 h-10 border-4 border-iq-primary border-t-transparent rounded-full animate-spin"></div>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
+                <div className="spinner" />
             </div>
         );
     }
@@ -227,29 +227,24 @@ export default function HunterWarRoom() {
     // Archived View
     if (archivedUrl || (activeBounty && isExpired(activeBounty.submission_deadline))) {
         return (
-            <div className="flex flex-col items-center justify-center h-[70vh] text-center space-y-6 animate-fade-in">
-                <div className="w-24 h-24 bg-iq-card rounded-full flex items-center justify-center border border-white/5 shadow-xl text-yellow-500">
-                    <Shield size={48} />
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', textAlign: 'center', gap: '24px', animation: 'fadeInUp 0.4s ease' }}>
+                <div style={{ width: '96px', height: '96px', borderRadius: '50%', background: 'rgba(0,255,148,0.1)', border: '1px solid rgba(0,255,148,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Shield size={48} style={{ color: '#00FF94' }} />
                 </div>
                 <div>
-                    <h1 className="text-3xl font-bold text-white mb-2">Protocol Terminated</h1>
-                    <p className="text-iq-text-secondary max-w-sm mx-auto">
-                        This mission has concluded. Communications have been securely archived by HQ.
-                    </p>
+                    <h1 style={{ fontSize: '28px', fontWeight: '800', color: '#F0F4FF', marginBottom: '8px', fontFamily: 'Space Grotesk' }}>Protocol Terminated</h1>
+                    <p style={{ color: '#8892AA', maxWidth: '360px' }}>This mission has concluded. Communications have been securely archived by HQ.</p>
                 </div>
-
-                <div className="flex flex-col gap-2 items-center">
-                    <div className="px-4 py-2 bg-green-500/10 border border-green-500/30 text-green-500 rounded-lg text-sm flex items-center gap-2">
-                        <Shield size={16} />
-                        <span>Logs encrypted & sent to Admins</span>
-                    </div>
+                <div style={{ padding: '12px 20px', borderRadius: '12px', background: 'rgba(0,255,148,0.08)', border: '1px solid rgba(0,255,148,0.2)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <Shield size={16} style={{ color: '#00FF94' }} />
+                    <span style={{ color: '#00FF94', fontSize: '13px', fontWeight: '600' }}>Logs encrypted & sent to Admins</span>
                 </div>
-
                 <button
-                    className="mt-8 px-6 py-2 bg-iq-surface border border-white/10 hover:bg-white/5 rounded-lg text-white transition-colors"
                     onClick={() => window.location.href = '/hunter/dashboard'}
+                    className="btn-secondary"
+                    style={{ padding: '12px 28px', fontSize: '14px' }}
                 >
-                    Return to Operations
+                    Return to Base
                 </button>
             </div>
         );
@@ -257,19 +252,18 @@ export default function HunterWarRoom() {
 
     if (!activeBounty) {
         return (
-            <div className="flex flex-col items-center justify-center h-[70vh] text-center space-y-6">
-                <div className="w-24 h-24 bg-iq-card rounded-full flex items-center justify-center border border-white/5 shadow-xl">
-                    <Target size={48} className="text-iq-text-secondary opacity-50" />
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', textAlign: 'center', gap: '24px' }}>
+                <div style={{ width: '96px', height: '96px', borderRadius: '50%', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Target size={48} style={{ color: '#4A5568' }} />
                 </div>
                 <div>
-                    <h1 className="text-3xl font-bold text-white mb-2">War Room Offline</h1>
-                    <p className="text-iq-text-secondary max-w-sm mx-auto">
-                        You have no active high-value target assigned. Initialize a stake to enter the War Room.
-                    </p>
+                    <h1 style={{ fontSize: '28px', fontWeight: '800', color: '#F0F4FF', marginBottom: '8px', fontFamily: 'Space Grotesk' }}>War Room Offline</h1>
+                    <p style={{ color: '#8892AA', maxWidth: '360px' }}>No active mission. Stake on a bounty to unlock the War Room and comms channel.</p>
                 </div>
                 <button
-                    className="px-8 py-3 bg-iq-primary text-black font-bold rounded-xl hover:scale-105 transition-transform flex items-center gap-2"
+                    className="btn-primary"
                     onClick={() => window.location.href = '/hunter/arena'}
+                    style={{ padding: '14px 28px', fontSize: '15px' }}
                 >
                     <Target size={20} /> Browse Arena
                 </button>
@@ -277,143 +271,216 @@ export default function HunterWarRoom() {
         );
     }
 
+    const currency = currentUser?.currency === 'INR' ? '₹' : '$';
+
     return (
-        <div className="h-[calc(100vh-100px)] flex flex-col animate-fade-in pb-20 md:pb-0">
-            {/* Header */}
-            <div className="flex items-center justify-between mb-6 shrink-0">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', height: 'calc(100vh - 160px)', minHeight: '500px', animation: 'fadeInUp 0.4s ease', paddingBottom: '80px' }}>
+
+            {/* ===== HEADER ===== */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', flexShrink: 0 }}>
                 <div>
-                    <div className="flex items-center gap-2 mb-1">
-                        <span className="w-2 h-2 rounded-full bg-iq-error animate-pulse"></span>
-                        <p className="text-xs font-bold text-iq-error uppercase tracking-wider">Live Mission</p>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+                        <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#FF2D78', display: 'inline-block', animation: 'pulseDot 1.5s ease-in-out infinite' }} />
+                        <span style={{ color: '#FF2D78', fontSize: '11px', fontWeight: '800', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Live Mission</span>
                     </div>
-                    <h1 className="text-2xl font-bold text-white">{activeBounty.title}</h1>
+                    <h1 style={{ fontSize: 'clamp(18px, 3vw, 24px)', fontWeight: '800', color: '#F0F4FF', fontFamily: 'Space Grotesk', lineHeight: 1.3 }}>
+                        {activeBounty.title}
+                    </h1>
                 </div>
-                <div className="text-right">
-                    <p className="text-xs text-iq-text-secondary uppercase tracking-wider">Reward Pool</p>
-                    <p className="text-xl font-bold text-iq-primary">{currency}{activeBounty.reward.toLocaleString()}</p>
+                <div style={{ textAlign: 'right' }}>
+                    <p style={{ color: '#8892AA', fontSize: '11px', fontWeight: '600', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '4px' }}>Reward Pool</p>
+                    <p style={{ fontSize: '24px', fontWeight: '900', fontFamily: 'Space Grotesk', background: 'linear-gradient(135deg, #00FF94, #00E5FF)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                        {currency}{activeBounty.reward.toLocaleString()}
+                    </p>
                 </div>
             </div>
 
-            <div className="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-6 min-h-0">
-                {/* Left Column: Stats & Brief */}
-                {/* Left Column: Stats & Timer */}
-                <div className="lg:col-span-1 flex flex-col gap-6 overflow-y-auto pr-2">
-                    {/* Timer Card - ENHANCED */}
-                    <div className="bg-iq-card border border-white/5 rounded-2xl p-8 text-center shadow-lg relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-48 h-48 bg-iq-primary/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
+            {/* ===== MAIN GRID ===== */}
+            <div style={{ flex: 1, display: 'grid', gridTemplateColumns: '1fr', gap: '16px', minHeight: 0, overflow: 'hidden' }} className="lg:grid-cols-3-custom">
+                <style>{`@media (min-width: 1024px) { .war-room-grid { grid-template-columns: 340px 1fr !important; } }`}</style>
 
-                        <p className="text-sm text-iq-text-secondary mb-6 uppercase tracking-widest font-bold">MISSION DEADLINE</p>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '16px', overflow: 'auto' }} className="war-room-grid">
 
-                        {timer.expired ? (
-                            <div className="text-iq-error font-bold text-3xl animate-pulse flex flex-col items-center gap-4 py-8">
-                                <AlertCircle size={48} />
-                                MISSION EXPIRED
-                            </div>
-                        ) : (
-                            <div className="py-4">
-                                <div className="flex justify-center gap-4 text-white mb-6">
-                                    <div className="flex flex-col items-center">
-                                        <span className="text-5xl md:text-6xl font-mono font-bold text-yellow-500">{timer.days || 0}</span>
-                                        <span className="text-xs text-iq-text-secondary uppercase mt-2 font-bold">Days</span>
-                                    </div>
-                                    <span className="text-5xl md:text-6xl font-mono opacity-20 text-yellow-500/50">:</span>
-                                    <div className="flex flex-col items-center">
-                                        <span className="text-5xl md:text-6xl font-mono font-bold text-yellow-500">{String(timer.hours || 0).padStart(2, '0')}</span>
-                                        <span className="text-xs text-iq-text-secondary uppercase mt-2 font-bold">Hours</span>
-                                    </div>
-                                    <span className="text-5xl md:text-6xl font-mono opacity-20 text-yellow-500/50">:</span>
-                                    <div className="flex flex-col items-center">
-                                        <span className="text-5xl md:text-6xl font-mono font-bold text-yellow-500">{String(timer.minutes || 0).padStart(2, '0')}</span>
-                                        <span className="text-xs text-iq-text-secondary uppercase mt-2 font-bold">Mins</span>
-                                    </div>
+                    {/* Timer Column */}
+                    <div style={{ display: 'none' }} className="war-room-timer-col">
+                        <style>{`@media (min-width: 1024px) { .war-room-timer-col { display: flex !important; flex-direction: column; gap: 16px; overflow: auto; } .war-room-grid { display: grid !important; grid-template-columns: 320px 1fr !important; } }`}</style>
+
+                        {/* Timer Card */}
+                        <div style={{ padding: '28px 24px', borderRadius: '20px', background: 'rgba(23,30,46,0.9)', border: '1px solid rgba(255,230,0,0.2)', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+                            <div style={{ position: 'absolute', top: '-30px', right: '-30px', width: '150px', height: '150px', borderRadius: '50%', background: 'rgba(255,230,0,0.06)', filter: 'blur(40px)', pointerEvents: 'none' }} />
+
+                            <p style={{ color: '#8892AA', fontSize: '11px', fontWeight: '700', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '20px' }}>Mission Deadline</p>
+
+                            {timer.expired ? (
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', padding: '20px 0', color: '#F43F5E', animation: 'pulseDot 1.5s infinite' }}>
+                                    <AlertCircle size={48} />
+                                    <p style={{ fontWeight: '900', fontSize: '20px', fontFamily: 'Space Grotesk' }}>MISSION EXPIRED</p>
                                 </div>
-
-                                {/* Progress Bar */}
-                                <div className="w-full bg-white/5 h-2 rounded-full overflow-hidden mb-4">
-                                    <div
-                                        className="h-full bg-yellow-500 transition-all duration-1000"
-                                        style={{ width: `${Math.max(0, Math.min(100, 100 - (timer.days * 24 + timer.hours) / (3 * 24) * 100))}%` }} // Mock percentage logic
-                                    />
-                                </div>
-
-                                {/* Urgency Indicator */}
-                                {(timer.days === 0 && timer.hours < 24) && (
-                                    <div className="mt-6 bg-red-500/10 border border-red-500/30 rounded-xl p-3 flex items-center justify-center gap-2 text-red-400 animate-pulse">
-                                        <AlertCircle className="w-5 h-5" />
-                                        <span className="font-bold">URGENT: Less than 24 hours left!</span>
+                            ) : (
+                                <>
+                                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', marginBottom: '20px', flexWrap: 'wrap' }}>
+                                        {[
+                                            { v: timer.days || 0, l: 'D' },
+                                            { v: timer.hours || 0, l: 'H' },
+                                            { v: timer.minutes || 0, l: 'M' },
+                                            { v: timer.seconds || 0, l: 'S' },
+                                        ].map((seg, i) => (
+                                            <React.Fragment key={i}>
+                                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+                                                    <div style={{
+                                                        background: 'rgba(0,0,0,0.4)', borderRadius: '10px', padding: '8px 12px',
+                                                        fontFamily: 'JetBrains Mono', fontWeight: '900', fontSize: '28px',
+                                                        color: timer.days === 0 && (timer.hours || 0) < 3 ? '#FF6B35' : '#FFE600',
+                                                        textShadow: '0 0 20px currentColor',
+                                                        minWidth: '52px', textAlign: 'center',
+                                                    }}>
+                                                        {String(seg.v).padStart(2, '0')}
+                                                    </div>
+                                                    <span style={{ fontSize: '10px', color: '#4A5568', fontWeight: '700' }}>{seg.l}</span>
+                                                </div>
+                                                {i < 3 && <span style={{ color: '#3A4560', fontSize: '24px', fontWeight: '900', marginTop: '-16px' }}>:</span>}
+                                            </React.Fragment>
+                                        ))}
                                     </div>
-                                )}
-                            </div>
-                        )}
-                    </div>
-                </div>
 
-                {/* Right Column: Chat */}
-                <div className="lg:col-span-2 bg-iq-card border border-white/5 rounded-2xl flex flex-col overflow-hidden shadow-xl">
-                    <div className="p-4 border-b border-white/5 flex items-center justify-between bg-white/5">
-                        <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full bg-iq-primary/10 flex items-center justify-center text-iq-primary">
-                                <MessageSquare size={18} />
-                            </div>
-                            <div>
-                                <h3 className="font-bold text-white text-sm">Operative Comms</h3>
-                                <p className="text-xs text-iq-text-secondary flex items-center gap-1">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-iq-success"></span> Online
-                                </p>
-                            </div>
+                                    <div style={{ height: '5px', background: 'rgba(255,255,255,0.06)', borderRadius: '3px', overflow: 'hidden', marginBottom: '12px' }}>
+                                        <div style={{
+                                            height: '100%', borderRadius: '3px',
+                                            width: `${Math.max(0, Math.min(100, 100 - ((timer.days || 0) * 24 + (timer.hours || 0)) / (3 * 24) * 100))}%`,
+                                            background: timer.days === 0 && (timer.hours || 0) < 3 ? 'linear-gradient(90deg, #FF6B35, #F43F5E)' : 'linear-gradient(90deg, #FFE600, #FF6B35)',
+                                            transition: 'width 1s ease',
+                                            boxShadow: '0 0 10px rgba(255,230,0,0.5)',
+                                        }} />
+                                    </div>
+
+                                    {timer.days === 0 && (timer.hours || 0) < 24 && (
+                                        <div style={{
+                                            padding: '10px 16px', borderRadius: '10px',
+                                            background: 'rgba(244,63,94,0.1)', border: '1px solid rgba(244,63,94,0.3)',
+                                            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                                            animation: 'pulseDot 1.5s ease-in-out infinite',
+                                        }}>
+                                            <AlertCircle size={16} style={{ color: '#F43F5E' }} />
+                                            <span style={{ color: '#F43F5E', fontWeight: '700', fontSize: '13px' }}>Less than 24h remaining!</span>
+                                        </div>
+                                    )}
+                                </>
+                            )}
                         </div>
                     </div>
 
-                    <div className="flex-1 overflow-y-auto p-6 space-y-4">
-                        {messages.length === 0 ? (
-                            <div className="h-full flex flex-col items-center justify-center text-iq-text-secondary opacity-50">
-                                <MessageSquare size={48} className="mb-2" />
-                                <p>Channel secure. Stand by for comms.</p>
+                    {/* Chat Column */}
+                    <div style={{
+                        display: 'flex', flexDirection: 'column',
+                        borderRadius: '20px', overflow: 'hidden',
+                        background: 'rgba(23,30,46,0.9)', border: '1px solid rgba(255,255,255,0.07)',
+                        minHeight: '400px',
+                    }}>
+                        {/* Chat header */}
+                        <div style={{
+                            padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.07)',
+                            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                            background: 'rgba(255,255,255,0.03)', flexShrink: 0,
+                        }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(0,255,148,0.1)', border: '1px solid rgba(0,255,148,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                    <MessageSquare size={18} style={{ color: '#00FF94' }} />
+                                </div>
+                                <div>
+                                    <h3 style={{ color: '#F0F4FF', fontWeight: '700', fontSize: '14px' }}>Operative Comms</h3>
+                                    <p style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#8892AA', fontSize: '12px' }}>
+                                        <span className="status-live" />
+                                        Encrypted Channel
+                                    </p>
+                                </div>
                             </div>
-                        ) : (
-                            messages.map(msg => {
-                                const isMe = msg.sender_id === currentUser.id;
-                                return (
-                                    <div key={msg.id} className={`flex gap-4 ${isMe ? 'flex-row-reverse' : ''}`}>
-                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${isMe ? 'bg-iq-primary text-black' : 'bg-iq-surface text-iq-text-secondary border border-white/10'
-                                            }`}>
-                                            {isMe ? 'ME' : (msg.sender?.username?.substring(0, 2).toUpperCase() || 'OP')}
-                                        </div>
-                                        <div className={`max-w-[70%] space-y-1`}>
-                                            <div className={`p-3 rounded-2xl text-sm ${isMe
-                                                ? 'bg-iq-primary text-black rounded-tr-none'
-                                                : 'bg-iq-surface text-white border border-white/10 rounded-tl-none'
-                                                }`}>
-                                                {msg.message}
-                                            </div>
-                                            <p className={`text-[10px] text-iq-text-secondary ${isMe ? 'text-right' : 'text-left'}`}>
-                                                {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                            </p>
-                                        </div>
-                                    </div>
-                                );
-                            })
-                        )}
-                        <div ref={messagesEndRef} />
-                    </div>
+                            <div style={{ padding: '6px 12px', borderRadius: '8px', background: 'rgba(0,255,148,0.08)', border: '1px solid rgba(0,255,148,0.2)' }}>
+                                <span style={{ color: '#00FF94', fontSize: '11px', fontWeight: '700' }}>{messages.length} msgs</span>
+                            </div>
+                        </div>
 
-                    <form onSubmit={sendMessage} className="p-4 bg-iq-surface border-t border-white/5 flex gap-3">
-                        <input
-                            type="text"
-                            value={newMessage}
-                            onChange={(e) => setNewMessage(e.target.value)}
-                            placeholder="Type a message..."
-                            maxLength={500}
-                            className="flex-1 bg-iq-card border border-white/10 rounded-xl px-4 text-sm text-white focus:outline-none focus:border-iq-primary placeholder-white/20"
-                        />
-                        <button
-                            type="submit"
-                            disabled={!newMessage.trim()}
-                            className="p-3 bg-iq-primary text-black rounded-xl hover:bg-iq-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                        >
-                            <Send size={18} />
-                        </button>
-                    </form>
+                        {/* Messages */}
+                        <div style={{ flex: 1, overflowY: 'auto', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                            {messages.length === 0 ? (
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex: 1, color: '#4A5568', gap: '12px' }}>
+                                    <MessageSquare size={40} />
+                                    <p style={{ fontSize: '14px' }}>Channel secure. Awaiting comms...</p>
+                                </div>
+                            ) : (
+                                messages.map(msg => {
+                                    const isMe = msg.sender_id === currentUser.id;
+                                    return (
+                                        <div key={msg.id} style={{ display: 'flex', gap: '12px', flexDirection: isMe ? 'row-reverse' : 'row', alignItems: 'flex-end' }}>
+                                            {/* Avatar */}
+                                            <div style={{
+                                                width: '34px', height: '34px', borderRadius: '50%', flexShrink: 0,
+                                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                                fontSize: '12px', fontWeight: '800',
+                                                background: isMe ? 'linear-gradient(135deg, #00FF94, #00E5FF)' : 'rgba(255,255,255,0.06)',
+                                                color: isMe ? '#000' : '#8892AA',
+                                                border: isMe ? 'none' : '1px solid rgba(255,255,255,0.1)',
+                                            }}>
+                                                {isMe ? 'ME' : (msg.sender?.username?.substring(0, 2).toUpperCase() || 'OP')}
+                                            </div>
+                                            <div style={{ maxWidth: '70%', display: 'flex', flexDirection: 'column', gap: '4px', alignItems: isMe ? 'flex-end' : 'flex-start' }}>
+                                                <div style={{
+                                                    padding: '12px 16px', borderRadius: isMe ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
+                                                    background: isMe ? 'linear-gradient(135deg, #00FF94, #00E5FF)' : 'rgba(255,255,255,0.07)',
+                                                    color: isMe ? '#000000' : '#F0F4FF',
+                                                    fontSize: '14px', lineHeight: '1.5',
+                                                    border: isMe ? 'none' : '1px solid rgba(255,255,255,0.08)',
+                                                    fontWeight: isMe ? '600' : '400',
+                                                }}>
+                                                    {msg.message}
+                                                </div>
+                                                <p style={{ fontSize: '10px', color: '#4A5568', fontFamily: 'JetBrains Mono' }}>
+                                                    {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    );
+                                })
+                            )}
+                            <div ref={messagesEndRef} />
+                        </div>
+
+                        {/* Message input */}
+                        <form onSubmit={sendMessage} style={{
+                            padding: '16px', borderTop: '1px solid rgba(255,255,255,0.07)',
+                            display: 'flex', gap: '10px', flexShrink: 0,
+                            background: 'rgba(255,255,255,0.02)',
+                        }}>
+                            <input
+                                type="text"
+                                value={newMessage}
+                                onChange={e => setNewMessage(e.target.value)}
+                                placeholder="Type a message..."
+                                maxLength={500}
+                                style={{
+                                    flex: 1, background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)',
+                                    borderRadius: '12px', padding: '12px 16px', color: '#F0F4FF',
+                                    fontSize: '14px', outline: 'none', transition: 'border-color 0.2s ease',
+                                    fontFamily: 'DM Sans',
+                                }}
+                                onFocus={e => e.target.style.borderColor = 'rgba(0,255,148,0.5)'}
+                                onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
+                            />
+                            <button
+                                type="submit"
+                                disabled={!newMessage.trim()}
+                                style={{
+                                    width: '48px', height: '48px', borderRadius: '12px', flexShrink: 0,
+                                    background: newMessage.trim() ? 'linear-gradient(135deg, #00FF94, #00E5FF)' : 'rgba(255,255,255,0.06)',
+                                    border: 'none', cursor: newMessage.trim() ? 'pointer' : 'not-allowed',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    transition: 'all 0.2s ease',
+                                    opacity: newMessage.trim() ? 1 : 0.4,
+                                }}
+                            >
+                                <Send size={18} style={{ color: newMessage.trim() ? '#000' : '#8892AA' }} />
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
