@@ -132,19 +132,19 @@ export default function HunterDashboard() {
     const statsCards = [
         {
             label: 'Total Earnings', value: `${currency}${(currentUser?.total_earnings || 0).toLocaleString()}`,
-            icon: Wallet, color: '#06B6D4', bg: 'rgba(6, 182, 212,0.08)', border: 'rgba(6, 182, 212,0.15)'
+            icon: Wallet, color: '#06B6D4', bg: 'rgba(6, 182, 212, 0.05)', border: 'rgba(6, 182, 212, 0.15)', shadow: 'rgba(6, 182, 212, 0.2)'
         },
         {
             label: 'Active Hunts', value: activeStake ? '1' : '0',
-            icon: Target, color: '#F97316', bg: 'rgba(255,107,53,0.08)', border: 'rgba(255,107,53,0.15)'
+            icon: Target, color: '#F97316', bg: 'rgba(249, 115, 22, 0.05)', border: 'rgba(249, 115, 22, 0.15)', shadow: 'rgba(249, 115, 22, 0.2)'
         },
         {
             label: 'Completed', value: currentUser?.hunts_completed || 0,
-            icon: CheckCircle, color: '#06B6D4', bg: 'rgba(139, 92, 246,0.08)', border: 'rgba(139, 92, 246,0.15)'
+            icon: CheckCircle, color: '#8B5CF6', bg: 'rgba(139, 92, 246, 0.05)', border: 'rgba(139, 92, 246, 0.15)', shadow: 'rgba(139, 92, 246, 0.2)'
         },
         {
             label: 'Win Rate', value: `${currentUser?.success_rate?.toFixed(0) || 0}%`,
-            icon: Trophy, color: '#F59E0B', bg: 'rgba(255,230,0,0.08)', border: 'rgba(255,230,0,0.15)'
+            icon: Trophy, color: '#F59E0B', bg: 'rgba(245, 158, 11, 0.05)', border: 'rgba(245, 158, 11, 0.15)', shadow: 'rgba(245, 158, 11, 0.2)'
         },
     ];
 
@@ -169,7 +169,7 @@ export default function HunterDashboard() {
                         WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text'
                     }}>
                         {currentUser?.username}
-                    </span> 
+                    </span>
                 </h1>
                 <p style={{ color: '#8892AA' }}>
                     {activeStake ? ' You have an active mission. Stay focused!' : 'Ready to hunt? Browse new bounties below.'}
@@ -177,19 +177,28 @@ export default function HunterDashboard() {
             </div>
 
             {/* ===== STATS GRID ===== */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }}>
                 {statsCards.map((stat, i) => (
-                    <div key={i} style={{
-                        padding: '20px',
-                        borderRadius: '16px',
-                        background: stat.bg,
-                        border: `1px solid ${stat.border}`,
-                        display: 'flex', alignItems: 'center', gap: '14px',
-                        transition: 'all 0.2s ease',
-                        cursor: 'default',
+                    <div key={i} className="group" style={{
+                        padding: '24px',
+                        borderRadius: '24px',
+                        background: 'rgba(15, 20, 35, 0.6)',
+                        border: `1px solid rgba(255, 255, 255, 0.05)`,
+                        backdropFilter: 'blur(16px)',
+                        display: 'flex', alignItems: 'center', gap: '16px',
+                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                        cursor: 'pointer',
                     }}
-                        onMouseOver={e => e.currentTarget.style.boxShadow = `0 8px 30px ${stat.color}15`}
-                        onMouseOut={e => e.currentTarget.style.boxShadow = 'none'}
+                        onMouseOver={e => {
+                            e.currentTarget.style.borderColor = stat.border;
+                            e.currentTarget.style.transform = 'translateY(-4px)';
+                            e.currentTarget.style.boxShadow = `0 15px 35px ${stat.shadow}`;
+                        }}
+                        onMouseOut={e => {
+                            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.05)';
+                            e.currentTarget.style.transform = 'translateY(0)';
+                            e.currentTarget.style.boxShadow = 'none';
+                        }}
                     >
                         <div style={{
                             width: '44px', height: '44px', borderRadius: '12px',
@@ -212,14 +221,25 @@ export default function HunterDashboard() {
 
             {/* ===== ACTIVE MISSION CARD ===== */}
             {activeStake ? (
-                <div style={{
-                    borderRadius: '20px',
-                    background: 'linear-gradient(135deg, rgba(6, 182, 212,0.05), rgba(139, 92, 246,0.05), rgba(168,85,247,0.05))',
-                    border: '1px solid rgba(6, 182, 212,0.2)',
-                    padding: '28px',
+                <div className="group cursor-pointer" style={{
+                    borderRadius: '24px',
+                    background: 'linear-gradient(135deg, rgba(15, 20, 35, 0.8), rgba(10, 15, 25, 0.9))',
+                    border: '1px solid rgba(6, 182, 212, 0.3)',
+                    backdropFilter: 'blur(20px)',
+                    padding: '32px',
                     position: 'relative',
                     overflow: 'hidden',
-                }}>
+                    transition: 'all 0.4s ease',
+                    boxShadow: '0 10px 40px rgba(6, 182, 212, 0.1)',
+                }}
+                    onMouseOver={e => {
+                        e.currentTarget.style.transform = 'translateY(-4px) scale(1.01)';
+                        e.currentTarget.style.boxShadow = '0 20px 50px rgba(6, 182, 212, 0.2)';
+                    }}
+                    onMouseOut={e => {
+                        e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                        e.currentTarget.style.boxShadow = '0 10px 40px rgba(6, 182, 212, 0.1)';
+                    }}>
                     {/* Background glow */}
                     <div style={{
                         position: 'absolute', top: '-40px', right: '-40px',

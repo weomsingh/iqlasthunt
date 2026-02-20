@@ -35,7 +35,9 @@ body {
 /* Landing Page */
 .landing-page {
     min-height: 100vh;
-    background: #050814;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     color: #ffffff;
 }
 
@@ -174,7 +176,9 @@ body {
     grid-template-columns: 250px 1fr;
     grid-template-rows: auto 1fr;
     min-height: 100vh;
-    background: #050814;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
 }
 
 @media (max-width: 768px) {
@@ -263,7 +267,9 @@ body {
 
 .header {
     grid-column: 1 / -1;
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     padding: 1rem 2rem;
     border-bottom: 1px solid rgba(6, 182, 212, 0.2);
     display: flex;
@@ -382,7 +388,9 @@ body {
 }
 
 .sidebar {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     padding: 2rem 0;
     display: flex;
     flex-direction: column;
@@ -440,7 +448,9 @@ body {
 /* Onboarding Page */
 .onboarding-page {
     min-height: 100vh;
-    background: #050814;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     color: #ffffff;
 }
 
@@ -449,7 +459,9 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 4rem;
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
 }
 
 .help-btn {
@@ -479,7 +491,9 @@ body {
 .progress-bar {
     width: 100%;
     height: 4px;
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-radius: 2px;
     margin-bottom: 3rem;
 }
@@ -526,7 +540,9 @@ body {
 .form-group textarea {
     width: 100%;
     padding: 0.75rem;
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 6px;
     color: #ffffff;
@@ -549,7 +565,9 @@ body {
 .region-btn {
     flex: 1;
     padding: 1.5rem;
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 2px solid rgba(6, 182, 212, 0.2);
     border-radius: 8px;
     color: #ffffff;
@@ -582,7 +600,9 @@ body {
 
 .tag {
     padding: 0.5rem 1rem;
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 6px;
     color: #ffffff;
@@ -607,7 +627,9 @@ body {
 .toggle-buttons button {
     flex: 1;
     padding: 0.75rem;
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 6px;
     color: #888888;
@@ -623,7 +645,9 @@ body {
 }
 
 .covenant-text {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     padding: 1.5rem;
     border-radius: 8px;
     margin-bottom: 1.5rem;
@@ -690,7 +714,7 @@ body {
 
 /* Wallet Card */
 .wallet-card {
-    background: linear-gradient(135deg, #1B2236 0%, #0F1423 100%);
+    background: linear-gradient(135deg, rgba(15, 20, 35, 0.7) 0%, rgba(10, 15, 25, 0.6) 100%);\n    backdrop-filter: blur(20px);\n    -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(6, 182, 212, 0.3);
     border-radius: 16px;
     padding: 2rem;
@@ -802,7 +826,9 @@ body {
 
 /* Bounty Card */
 .bounty-card {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 1.5rem;
@@ -998,7 +1024,9 @@ body {
     align-items: center;
     gap: 1rem;
     padding: 1rem 1.5rem;
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     max-width: 600px;
@@ -1063,7 +1091,9 @@ body {
 }
 
 .stat-card {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 1.5rem;
@@ -1096,7 +1126,9 @@ body {
 }
 
 .transactions-table {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     overflow: hidden;
@@ -1220,7 +1252,9 @@ body {
 }
 
 .modal {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(6, 182, 212, 0.3);
     border-radius: 16px;
     padding: 2rem;
@@ -1330,13 +1364,17 @@ body {
 /* Static Pages */
 .static-page {
     min-height: 100vh;
-    background: #050814;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     color: #ffffff;
 }
 
 .static-header {
     padding: 1.5rem 4rem;
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid rgba(6, 182, 212, 0.2);
 }
 
@@ -1433,7 +1471,9 @@ body {
 }
 
 .contact-card {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 2rem;
@@ -1494,7 +1534,9 @@ body {
 }
 
 .faq-item {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     padding: 1.5rem;
@@ -1552,7 +1594,9 @@ body {
 }
 
 .pillar-card {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 2rem;
@@ -1653,7 +1697,9 @@ body {
 }
 
 .stat-card {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 1.5rem;
@@ -1717,7 +1763,9 @@ body {
 }
 
 .active-hunt-card {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 2px solid rgba(6, 182, 212, 0.3);
     border-radius: 16px;
     padding: 2rem;
@@ -1786,7 +1834,9 @@ body {
 
 /* No Active Hunt */
 .no-active-hunt {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
     padding: 3rem;
@@ -1847,7 +1897,9 @@ body {
 }
 
 .bounty-item {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 1.5rem;
@@ -1935,7 +1987,9 @@ body {
 }
 
 .action-card {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 2rem;
@@ -2063,7 +2117,9 @@ body {
 }
 
 .stat-box {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 1.5rem;
@@ -2104,7 +2160,9 @@ body {
 }
 
 .mission-section {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 2px solid rgba(6, 182, 212, 0.3);
     border-radius: 16px;
     padding: 2rem;
@@ -2166,7 +2224,9 @@ body {
 }
 
 .hunter-actions .action-card {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 2rem;
@@ -2291,7 +2351,9 @@ body {
 
 .form-group input,
 .form-group textarea {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     padding: 0.875rem;
@@ -2349,7 +2411,9 @@ body {
     align-items: center;
     gap: 0.75rem;
     padding: 3rem 2rem;
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 2px dashed rgba(6, 182, 212, 0.3);
     border-radius: 12px;
     cursor: pointer;
@@ -2461,7 +2525,9 @@ body {
 }
 
 .payer-bounty-card {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 2rem;
@@ -2541,7 +2607,9 @@ body {
     align-items: center;
     gap: 1.5rem;
     padding: 4rem 2rem;
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     text-align: center;
@@ -2565,7 +2633,9 @@ body {
 }
 
 .mission-pdf-section {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 2rem;
@@ -2604,7 +2674,9 @@ body {
 }
 
 .hunter-card {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     padding: 1.25rem;
@@ -2653,7 +2725,9 @@ body {
 }
 
 .empty-state-small {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     padding: 3rem 2rem;
@@ -2678,7 +2752,9 @@ body {
 }
 
 .submission-card {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 2px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 2rem;
@@ -2830,7 +2906,9 @@ body {
 }
 
 .modal-content {
-    background: #050814;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(6, 182, 212, 0.3);
     border-radius: 16px;
     max-width: 700px;
@@ -3000,7 +3078,9 @@ body {
 }
 
 .admin-transaction-card {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 2px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 2rem;
@@ -3137,7 +3217,9 @@ body {
 }
 
 .balance-card {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 2px solid rgba(6, 182, 212, 0.3);
     border-radius: 12px;
     padding: 2rem;
@@ -3209,7 +3291,9 @@ body {
 }
 
 .transaction-item {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     padding: 1.25rem;
@@ -3325,7 +3409,9 @@ body {
 }
 
 .history-card {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     padding: 2rem;
@@ -3778,7 +3864,9 @@ body {
 
 /* Footer */
 .footer {
-    background: #0F1423;
+    background: rgba(15, 20, 35, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-top: 1px solid rgba(6, 182, 212, 0.2);
     margin-top: auto;
     padding: 3rem 2rem 1.5rem;

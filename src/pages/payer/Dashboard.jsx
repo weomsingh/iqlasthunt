@@ -66,20 +66,20 @@ export default function PayerDashboard() {
     const statsData = [
         {
             label: 'Active Bounties', value: stats.active, icon: Briefcase,
-            color: '#06B6D4', bg: 'rgba(139, 92, 246,0.08)', border: 'rgba(139, 92, 246,0.15)',
+            color: '#06B6D4', bg: 'rgba(6, 182, 212, 0.05)', border: 'rgba(6, 182, 212, 0.15)', shadow: 'rgba(6, 182, 212, 0.2)'
         },
         {
             label: 'Pending Reviews', value: stats.pendingReviews, icon: AlertCircle,
-            color: '#F59E0B', bg: 'rgba(255,230,0,0.08)', border: 'rgba(255,230,0,0.15)',
+            color: '#F59E0B', bg: 'rgba(245, 158, 11, 0.05)', border: 'rgba(245, 158, 11, 0.15)', shadow: 'rgba(245, 158, 11, 0.2)',
             urgent: stats.pendingReviews > 0,
         },
         {
             label: 'Completed', value: stats.completed, icon: CheckCircle,
-            color: '#06B6D4', bg: 'rgba(6, 182, 212,0.08)', border: 'rgba(6, 182, 212,0.15)',
+            color: '#8B5CF6', bg: 'rgba(139, 92, 246, 0.05)', border: 'rgba(139, 92, 246, 0.15)', shadow: 'rgba(139, 92, 246, 0.2)'
         },
         {
             label: 'Total Spent', value: `${currency}${stats.totalSpent.toLocaleString()}`, icon: DollarSign,
-            color: '#8B5CF6', bg: 'rgba(168,85,247,0.08)', border: 'rgba(168,85,247,0.15)',
+            color: '#10B981', bg: 'rgba(16, 185, 129, 0.05)', border: 'rgba(16, 185, 129, 0.15)', shadow: 'rgba(16, 185, 129, 0.2)'
         },
     ];
 
@@ -112,20 +112,29 @@ export default function PayerDashboard() {
             </div>
 
             {/* ===== STATS GRID ===== */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }}>
                 {statsData.map((stat, i) => (
-                    <div key={i} style={{
-                        padding: '20px',
-                        borderRadius: '16px',
-                        background: stat.bg,
-                        border: `1px solid ${stat.border}`,
-                        display: 'flex', alignItems: 'center', gap: '14px',
+                    <div key={i} className="group" style={{
+                        padding: '24px',
+                        borderRadius: '24px',
+                        background: 'rgba(15, 20, 35, 0.6)',
+                        border: `1px solid rgba(255, 255, 255, 0.05)`,
+                        backdropFilter: 'blur(16px)',
+                        display: 'flex', alignItems: 'center', gap: '16px',
                         position: 'relative', overflow: 'hidden',
-                        cursor: 'default',
-                        transition: 'all 0.2s ease',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                     }}
-                        onMouseOver={e => e.currentTarget.style.boxShadow = `0 8px 30px ${stat.color}15`}
-                        onMouseOut={e => e.currentTarget.style.boxShadow = 'none'}
+                        onMouseOver={e => {
+                            e.currentTarget.style.borderColor = stat.border;
+                            e.currentTarget.style.transform = 'translateY(-4px)';
+                            e.currentTarget.style.boxShadow = `0 15px 35px ${stat.shadow}`;
+                        }}
+                        onMouseOut={e => {
+                            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.05)';
+                            e.currentTarget.style.transform = 'translateY(0)';
+                            e.currentTarget.style.boxShadow = 'none';
+                        }}
                     >
                         {stat.urgent && (
                             <div style={{
@@ -174,14 +183,23 @@ export default function PayerDashboard() {
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '12px' }}>
                         {pendingSubmissions.map((submission, idx) => (
-                            <div key={idx} style={{
-                                padding: '18px', borderRadius: '16px',
-                                background: 'rgba(255,230,0,0.05)',
-                                border: '1px solid rgba(255,230,0,0.2)',
-                                transition: 'all 0.2s ease',
+                            <div key={idx} className="group cursor-pointer" style={{
+                                padding: '24px', borderRadius: '20px',
+                                background: 'rgba(15, 20, 35, 0.6)',
+                                backdropFilter: 'blur(16px)',
+                                border: '1px solid rgba(255, 255, 255, 0.05)',
+                                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                             }}
-                                onMouseOver={e => e.currentTarget.style.background = 'rgba(255,230,0,0.08)'}
-                                onMouseOut={e => e.currentTarget.style.background = 'rgba(255,230,0,0.05)'}
+                                onMouseOver={e => {
+                                    e.currentTarget.style.borderColor = 'rgba(245, 158, 11, 0.3)';
+                                    e.currentTarget.style.transform = 'translateY(-4px)';
+                                    e.currentTarget.style.boxShadow = '0 15px 30px rgba(245, 158, 11, 0.15)';
+                                }}
+                                onMouseOut={e => {
+                                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.05)';
+                                    e.currentTarget.style.transform = 'translateY(0)';
+                                    e.currentTarget.style.boxShadow = 'none';
+                                }}
                             >
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
                                     <div style={{

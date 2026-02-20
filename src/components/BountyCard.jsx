@@ -53,20 +53,21 @@ export default function BountyCard({ bounty, userRole = 'hunter' }) {
         <div
             className="group relative flex flex-col h-full cursor-pointer overflow-hidden"
             style={{
-                background: 'rgba(23,30,46,0.85)',
-                backdropFilter: 'blur(20px)',
-                border: '1px solid rgba(255,255,255,0.07)',
-                borderRadius: '20px',
+                background: 'rgba(15, 20, 35, 0.6)',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
+                border: '1px solid rgba(255, 255, 255, 0.05)',
+                borderRadius: '24px',
                 padding: '24px',
-                transition: 'all 0.3s cubic-bezier(0.4,0,0.2,1)',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
             }}
             onMouseOver={e => {
-                e.currentTarget.style.borderColor = `${catColor.color}35`;
+                e.currentTarget.style.borderColor = `${catColor.color}40`;
                 e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.boxShadow = `0 20px 60px rgba(0,0,0,0.4), 0 0 40px ${catColor.color}10`;
+                e.currentTarget.style.boxShadow = `0 20px 50px rgba(0,0,0,0.5), 0 0 40px ${catColor.color}15`;
             }}
             onMouseOut={e => {
-                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.05)';
                 e.currentTarget.style.transform = 'translateY(0)';
                 e.currentTarget.style.boxShadow = 'none';
             }}
