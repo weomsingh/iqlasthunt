@@ -714,7 +714,9 @@ body {
 
 /* Wallet Card */
 .wallet-card {
-    background: linear-gradient(135deg, rgba(15, 20, 35, 0.7) 0%, rgba(10, 15, 25, 0.6) 100%);\n    backdrop-filter: blur(20px);\n    -webkit-backdrop-filter: blur(20px);
+    background: linear-gradient(135deg, rgba(15, 20, 35, 0.7) 0%, rgba(10, 15, 25, 0.6) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(6, 182, 212, 0.3);
     border-radius: 16px;
     padding: 2rem;
