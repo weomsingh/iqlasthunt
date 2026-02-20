@@ -228,16 +228,16 @@ export default function HunterWarRoom() {
     if (archivedUrl || (activeBounty && isExpired(activeBounty.submission_deadline))) {
         return (
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', textAlign: 'center', gap: '24px', animation: 'fadeInUp 0.4s ease' }}>
-                <div style={{ width: '96px', height: '96px', borderRadius: '50%', background: 'rgba(0,255,148,0.1)', border: '1px solid rgba(0,255,148,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Shield size={48} style={{ color: '#10B981' }} />
+                <div style={{ width: '96px', height: '96px', borderRadius: '50%', background: 'rgba(6, 182, 212,0.1)', border: '1px solid rgba(6, 182, 212,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Shield size={48} style={{ color: '#06B6D4' }} />
                 </div>
                 <div>
                     <h1 style={{ fontSize: '28px', fontWeight: '800', color: '#F0F4FF', marginBottom: '8px', fontFamily: 'Space Grotesk' }}>Protocol Terminated</h1>
                     <p style={{ color: '#8892AA', maxWidth: '360px' }}>This mission has concluded. Communications have been securely archived by HQ.</p>
                 </div>
-                <div style={{ padding: '12px 20px', borderRadius: '12px', background: 'rgba(0,255,148,0.08)', border: '1px solid rgba(0,255,148,0.2)', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <Shield size={16} style={{ color: '#10B981' }} />
-                    <span style={{ color: '#10B981', fontSize: '13px', fontWeight: '600' }}>Logs encrypted & sent to Admins</span>
+                <div style={{ padding: '12px 20px', borderRadius: '12px', background: 'rgba(6, 182, 212,0.08)', border: '1px solid rgba(6, 182, 212,0.2)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <Shield size={16} style={{ color: '#06B6D4' }} />
+                    <span style={{ color: '#06B6D4', fontSize: '13px', fontWeight: '600' }}>Logs encrypted & sent to Admins</span>
                 </div>
                 <button
                     onClick={() => window.location.href = '/hunter/dashboard'}
@@ -289,7 +289,7 @@ export default function HunterWarRoom() {
                 </div>
                 <div style={{ textAlign: 'right' }}>
                     <p style={{ color: '#8892AA', fontSize: '11px', fontWeight: '600', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '4px' }}>Reward Pool</p>
-                    <p style={{ fontSize: '24px', fontWeight: '900', fontFamily: 'Space Grotesk', background: 'linear-gradient(135deg, #10B981, #06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                    <p style={{ fontSize: '24px', fontWeight: '900', fontFamily: 'Space Grotesk', background: 'linear-gradient(135deg, #06B6D4, #06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                         {currency}{activeBounty.reward.toLocaleString()}
                     </p>
                 </div>
@@ -383,8 +383,8 @@ export default function HunterWarRoom() {
                             background: 'rgba(255,255,255,0.03)', flexShrink: 0,
                         }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                                <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(0,255,148,0.1)', border: '1px solid rgba(0,255,148,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                    <MessageSquare size={18} style={{ color: '#10B981' }} />
+                                <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(6, 182, 212,0.1)', border: '1px solid rgba(6, 182, 212,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                    <MessageSquare size={18} style={{ color: '#06B6D4' }} />
                                 </div>
                                 <div>
                                     <h3 style={{ color: '#F0F4FF', fontWeight: '700', fontSize: '14px' }}>Operative Comms</h3>
@@ -394,8 +394,8 @@ export default function HunterWarRoom() {
                                     </p>
                                 </div>
                             </div>
-                            <div style={{ padding: '6px 12px', borderRadius: '8px', background: 'rgba(0,255,148,0.08)', border: '1px solid rgba(0,255,148,0.2)' }}>
-                                <span style={{ color: '#10B981', fontSize: '11px', fontWeight: '700' }}>{messages.length} msgs</span>
+                            <div style={{ padding: '6px 12px', borderRadius: '8px', background: 'rgba(6, 182, 212,0.08)', border: '1px solid rgba(6, 182, 212,0.2)' }}>
+                                <span style={{ color: '#06B6D4', fontSize: '11px', fontWeight: '700' }}>{messages.length} msgs</span>
                             </div>
                         </div>
 
@@ -416,7 +416,7 @@ export default function HunterWarRoom() {
                                                 width: '34px', height: '34px', borderRadius: '50%', flexShrink: 0,
                                                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                                                 fontSize: '12px', fontWeight: '800',
-                                                background: isMe ? 'linear-gradient(135deg, #10B981, #06B6D4)' : 'rgba(255,255,255,0.06)',
+                                                background: isMe ? 'linear-gradient(135deg, #06B6D4, #06B6D4)' : 'rgba(255,255,255,0.06)',
                                                 color: isMe ? '#000' : '#8892AA',
                                                 border: isMe ? 'none' : '1px solid rgba(255,255,255,0.1)',
                                             }}>
@@ -425,7 +425,7 @@ export default function HunterWarRoom() {
                                             <div style={{ maxWidth: '70%', display: 'flex', flexDirection: 'column', gap: '4px', alignItems: isMe ? 'flex-end' : 'flex-start' }}>
                                                 <div style={{
                                                     padding: '12px 16px', borderRadius: isMe ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
-                                                    background: isMe ? 'linear-gradient(135deg, #10B981, #06B6D4)' : 'rgba(255,255,255,0.07)',
+                                                    background: isMe ? 'linear-gradient(135deg, #06B6D4, #06B6D4)' : 'rgba(255,255,255,0.07)',
                                                     color: isMe ? '#000000' : '#F0F4FF',
                                                     fontSize: '14px', lineHeight: '1.5',
                                                     border: isMe ? 'none' : '1px solid rgba(255,255,255,0.08)',
@@ -462,7 +462,7 @@ export default function HunterWarRoom() {
                                     fontSize: '14px', outline: 'none', transition: 'border-color 0.2s ease',
                                     fontFamily: 'DM Sans',
                                 }}
-                                onFocus={e => e.target.style.borderColor = 'rgba(0,255,148,0.5)'}
+                                onFocus={e => e.target.style.borderColor = 'rgba(6, 182, 212,0.5)'}
                                 onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
                             />
                             <button
@@ -470,7 +470,7 @@ export default function HunterWarRoom() {
                                 disabled={!newMessage.trim()}
                                 style={{
                                     width: '48px', height: '48px', borderRadius: '12px', flexShrink: 0,
-                                    background: newMessage.trim() ? 'linear-gradient(135deg, #10B981, #06B6D4)' : 'rgba(255,255,255,0.06)',
+                                    background: newMessage.trim() ? 'linear-gradient(135deg, #06B6D4, #06B6D4)' : 'rgba(255,255,255,0.06)',
                                     border: 'none', cursor: newMessage.trim() ? 'pointer' : 'not-allowed',
                                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                                     transition: 'all 0.2s ease',

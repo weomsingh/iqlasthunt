@@ -21,8 +21,8 @@ export default function LoadingScreen() {
             {/* Spinner */}
             <div style={{
                 width: '48px', height: '48px',
-                border: '3px solid rgba(0,255,148,0.15)',
-                borderTop: '3px solid #10B981',
+                border: '3px solid rgba(6, 182, 212,0.15)',
+                borderTop: '3px solid #06B6D4',
                 borderRadius: '50%',
                 animation: 'spin 0.8s linear infinite',
             }} />

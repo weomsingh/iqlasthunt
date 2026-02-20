@@ -86,10 +86,10 @@ function EmptyWarRoom({ navigate }) {
         <div style={{
             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
             padding: '80px 20px', textAlign: 'center',
-            border: '1px dashed rgba(0,229,255,0.15)', borderRadius: '20px',
-            background: 'linear-gradient(135deg, rgba(0,229,255,0.02), rgba(8,11,20,0))',
+            border: '1px dashed rgba(139, 92, 246,0.15)', borderRadius: '20px',
+            background: 'linear-gradient(135deg, rgba(139, 92, 246,0.02), rgba(8,11,20,0))',
         }}>
-            <div style={{ width: '72px', height: '72px', borderRadius: '20px', background: 'rgba(0,229,255,0.07)', border: '1px solid rgba(0,229,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px' }}>
+            <div style={{ width: '72px', height: '72px', borderRadius: '20px', background: 'rgba(139, 92, 246,0.07)', border: '1px solid rgba(139, 92, 246,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px' }}>
                 <Target size={32} style={{ color: '#06B6D4' }} />
             </div>
             <h2 style={{ fontSize: '22px', fontWeight: '800', color: '#F0F4FF', fontFamily: 'Space Grotesk', marginBottom: '10px' }}>No Active Missions</h2>
@@ -101,9 +101,9 @@ function EmptyWarRoom({ navigate }) {
                 style={{
                     display: 'inline-flex', alignItems: 'center', gap: '8px',
                     padding: '13px 28px', borderRadius: '12px', fontSize: '14px', fontWeight: '700',
-                    background: 'linear-gradient(135deg, #10B981, #06B6D4)',
+                    background: 'linear-gradient(135deg, #06B6D4, #06B6D4)',
                     color: '#090E17', border: 'none', cursor: 'pointer',
-                    boxShadow: '0 8px 30px rgba(0,255,148,0.25)',
+                    boxShadow: '0 8px 30px rgba(6, 182, 212,0.25)',
                 }}
             >
                 <Plus size={16} /> Post a Bounty
@@ -184,7 +184,7 @@ function BountyMissionCard({ bounty, index, navigate, currency }) {
                                 padding: '4px 10px', borderRadius: '6px',
                                 background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)',
                             }}>
-                                <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: hasHunters ? '#10B981' : '#6B7A99', animation: hasHunters ? 'pulseDot 2s infinite' : 'none' }} />
+                                <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: hasHunters ? '#06B6D4' : '#6B7A99', animation: hasHunters ? 'pulseDot 2s infinite' : 'none' }} />
                                 Mission {index + 1}
                             </span>
                             <span style={{ fontSize: '12px', color: '#6B7A99' }}>
@@ -198,8 +198,8 @@ function BountyMissionCard({ bounty, index, navigate, currency }) {
 
                         <div style={{ display: 'flex', alignItems: 'center', gap: '20px', flexWrap: 'wrap' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
-                                <Zap size={14} style={{ color: '#10B981' }} />
-                                <span style={{ color: '#10B981', fontFamily: 'JetBrains Mono', fontWeight: '700', fontSize: '15px' }}>
+                                <Zap size={14} style={{ color: '#06B6D4' }} />
+                                <span style={{ color: '#06B6D4', fontFamily: 'JetBrains Mono', fontWeight: '700', fontSize: '15px' }}>
                                     {currency}{(bounty.reward || 0).toLocaleString()}
                                 </span>
                             </div>
@@ -217,7 +217,7 @@ function BountyMissionCard({ bounty, index, navigate, currency }) {
                                 {Array.from({ length: maxHunters }).map((_, i) => (
                                     <div key={i} style={{
                                         height: '6px', flex: 1, borderRadius: '3px',
-                                        background: i < activeHunters.length ? '#10B981' : 'rgba(255,255,255,0.08)',
+                                        background: i < activeHunters.length ? '#06B6D4' : 'rgba(255,255,255,0.08)',
                                         transition: 'background 0.3s',
                                     }} />
                                 ))}
@@ -298,9 +298,9 @@ function BountyMissionCard({ bounty, index, navigate, currency }) {
                                 <div key={stake.id} style={{
                                     display: 'flex', alignItems: 'center', gap: '8px',
                                     padding: '6px 12px', borderRadius: '8px',
-                                    background: 'rgba(0,255,148,0.06)', border: '1px solid rgba(0,255,148,0.15)',
+                                    background: 'rgba(6, 182, 212,0.06)', border: '1px solid rgba(6, 182, 212,0.15)',
                                 }}>
-                                    <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: 'rgba(0,255,148,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '9px', fontWeight: '900', color: '#10B981' }}>
+                                    <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: 'rgba(6, 182, 212,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '9px', fontWeight: '900', color: '#06B6D4' }}>
                                         {stake.hunter?.username?.substring(0, 2).toUpperCase() || '??'}
                                     </div>
                                     <span style={{ color: '#C0C8D8', fontSize: '13px', fontWeight: '600' }}>{stake.hunter?.username || 'Hunter'}</span>
@@ -320,7 +320,7 @@ function BountyMissionCard({ bounty, index, navigate, currency }) {
                             background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)',
                             color: '#C0C8D8', cursor: 'pointer', transition: 'all 0.2s ease',
                         }}
-                        onMouseOver={e => { e.currentTarget.style.background = 'rgba(0,229,255,0.1)'; e.currentTarget.style.borderColor = 'rgba(0,229,255,0.3)'; e.currentTarget.style.color = '#06B6D4'; }}
+                        onMouseOver={e => { e.currentTarget.style.background = 'rgba(139, 92, 246,0.1)'; e.currentTarget.style.borderColor = 'rgba(139, 92, 246,0.3)'; e.currentTarget.style.color = '#06B6D4'; }}
                         onMouseOut={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)'; e.currentTarget.style.color = '#C0C8D8'; }}
                     >
                         <Eye size={15} /> View Full Details <ArrowRight size={14} />

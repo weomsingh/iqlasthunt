@@ -70,31 +70,31 @@ export default function Arena() {
             <div style={{
                 padding: '36px 32px',
                 borderRadius: '24px',
-                background: 'linear-gradient(135deg, rgba(0,255,148,0.08) 0%, rgba(0,229,255,0.06) 50%, rgba(168,85,247,0.05) 100%)',
-                border: '1px solid rgba(0,255,148,0.15)',
+                background: 'linear-gradient(135deg, rgba(6, 182, 212,0.08) 0%, rgba(139, 92, 246,0.06) 50%, rgba(168,85,247,0.05) 100%)',
+                border: '1px solid rgba(6, 182, 212,0.15)',
                 marginBottom: '28px',
                 position: 'relative',
                 overflow: 'hidden',
             }}>
-                <div style={{ position: 'absolute', top: '-60px', right: '-60px', width: '200px', height: '200px', borderRadius: '50%', background: 'rgba(0,255,148,0.06)', filter: 'blur(60px)', pointerEvents: 'none' }} />
-                <div style={{ position: 'absolute', bottom: '-40px', left: '20%', width: '150px', height: '150px', borderRadius: '50%', background: 'rgba(0,229,255,0.05)', filter: 'blur(50px)', pointerEvents: 'none' }} />
+                <div style={{ position: 'absolute', top: '-60px', right: '-60px', width: '200px', height: '200px', borderRadius: '50%', background: 'rgba(6, 182, 212,0.06)', filter: 'blur(60px)', pointerEvents: 'none' }} />
+                <div style={{ position: 'absolute', bottom: '-40px', left: '20%', width: '150px', height: '150px', borderRadius: '50%', background: 'rgba(139, 92, 246,0.05)', filter: 'blur(50px)', pointerEvents: 'none' }} />
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '20px', position: 'relative' }}>
                     <div>
-                        <p style={{ color: '#10B981', fontSize: '11px', fontWeight: '800', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '8px' }}>
+                        <p style={{ color: '#06B6D4', fontSize: '11px', fontWeight: '800', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '8px' }}>
                             ⚔️ Live Operations
                         </p>
                         <h1 style={{ fontSize: 'clamp(24px, 4vw, 36px)', fontWeight: '900', color: '#F0F4FF', fontFamily: 'Space Grotesk', marginBottom: '8px', lineHeight: 1.2 }}>
                             The Arena
                         </h1>
                         <p style={{ color: '#8892AA', fontSize: '15px', maxWidth: '480px' }}>
-                            Welcome, <span style={{ color: '#10B981', fontWeight: '700' }}>{currentUser?.username}</span>. Browse active operations, stake your claim, and prove your skills.
+                            Welcome, <span style={{ color: '#06B6D4', fontWeight: '700' }}>{currentUser?.username}</span>. Browse active operations, stake your claim, and prove your skills.
                         </p>
                     </div>
 
                     <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                         {[
-                            { label: 'Active', value: bounties.length, color: '#10B981' },
+                            { label: 'Active', value: bounties.length, color: '#06B6D4' },
                             { label: 'Total Pool', value: `${currency}${totalPool.toLocaleString(undefined, { maximumFractionDigits: 0, notation: 'compact' })}`, color: '#06B6D4' },
                         ].map((stat, i) => (
                             <div key={i} style={{
@@ -128,7 +128,7 @@ export default function Arena() {
                             transition: 'border-color 0.2s ease',
                             boxSizing: 'border-box',
                         }}
-                        onFocus={e => e.target.style.borderColor = 'rgba(0,255,148,0.4)'}
+                        onFocus={e => e.target.style.borderColor = 'rgba(6, 182, 212,0.4)'}
                         onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
                     />
                     {searchTerm && (
@@ -152,9 +152,9 @@ export default function Arena() {
                                     padding: '7px 16px', borderRadius: '10px', fontSize: '13px', fontWeight: '600',
                                     whiteSpace: 'nowrap', cursor: 'pointer', transition: 'all 0.2s ease',
                                     minHeight: 'auto', minWidth: 'auto',
-                                    background: activeCategory === cat ? 'rgba(0,255,148,0.15)' : 'rgba(255,255,255,0.04)',
-                                    border: activeCategory === cat ? '1px solid rgba(0,255,148,0.4)' : '1px solid rgba(255,255,255,0.08)',
-                                    color: activeCategory === cat ? '#10B981' : '#8892AA',
+                                    background: activeCategory === cat ? 'rgba(6, 182, 212,0.15)' : 'rgba(255,255,255,0.04)',
+                                    border: activeCategory === cat ? '1px solid rgba(6, 182, 212,0.4)' : '1px solid rgba(255,255,255,0.08)',
+                                    color: activeCategory === cat ? '#06B6D4' : '#8892AA',
                                 }}
                             >
                                 {cat}

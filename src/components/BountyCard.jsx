@@ -4,17 +4,17 @@ import { Link } from 'react-router-dom';
 // Vibrant color palette for categories
 const categoryColors = {
     'Design': { color: '#8B5CF6', bg: 'rgba(168,85,247,0.1)', border: 'rgba(168,85,247,0.2)' },
-    'Development': { color: '#06B6D4', bg: 'rgba(0,229,255,0.1)', border: 'rgba(0,229,255,0.2)' },
+    'Development': { color: '#06B6D4', bg: 'rgba(139, 92, 246,0.1)', border: 'rgba(139, 92, 246,0.2)' },
     'Writing': { color: '#14B8A6', bg: 'rgba(20,184,166,0.1)', border: 'rgba(20,184,166,0.2)' },
     'Marketing': { color: '#F97316', bg: 'rgba(255,107,53,0.1)', border: 'rgba(255,107,53,0.2)' },
     'Research': { color: '#F59E0B', bg: 'rgba(255,230,0,0.1)', border: 'rgba(255,230,0,0.2)' },
     'Business': { color: '#6366F1', bg: 'rgba(99,102,241,0.1)', border: 'rgba(99,102,241,0.2)' },
-    'Finance': { color: '#10B981', bg: 'rgba(0,255,148,0.1)', border: 'rgba(0,255,148,0.2)' },
+    'Finance': { color: '#06B6D4', bg: 'rgba(6, 182, 212,0.1)', border: 'rgba(6, 182, 212,0.2)' },
     'default': { color: '#8892AA', bg: 'rgba(136,146,170,0.1)', border: 'rgba(136,146,170,0.2)' },
 };
 
 const difficultyConfig = {
-    'Easy': { color: '#10B981', bg: 'rgba(0,255,148,0.1)', border: 'rgba(0,255,148,0.2)' },
+    'Easy': { color: '#06B6D4', bg: 'rgba(6, 182, 212,0.1)', border: 'rgba(6, 182, 212,0.2)' },
     'Medium': { color: '#F59E0B', bg: 'rgba(255,230,0,0.1)', border: 'rgba(255,230,0,0.2)' },
     'Hard': { color: '#F97316', bg: 'rgba(255,107,53,0.1)', border: 'rgba(255,107,53,0.2)' },
     'Extreme': { color: '#EC4899', bg: 'rgba(255,45,120,0.1)', border: 'rgba(255,45,120,0.2)' },
@@ -122,7 +122,7 @@ export default function BountyCard({ bounty, userRole = 'hunter' }) {
                         <span style={{
                             display: 'inline-flex', alignItems: 'center', gap: '4px',
                             padding: '4px 10px', borderRadius: '6px',
-                            background: 'rgba(0,255,148,0.1)', color: '#10B981', border: '1px solid rgba(0,255,148,0.2)',
+                            background: 'rgba(6, 182, 212,0.1)', color: '#06B6D4', border: '1px solid rgba(6, 182, 212,0.2)',
                             fontSize: '10px', fontWeight: '700'
                         }}>
                             <ShieldCheck size={9} /> SECURED
@@ -191,7 +191,7 @@ export default function BountyCard({ bounty, userRole = 'hunter' }) {
                     {/* Entry Fee */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
                         <Lock size={13} style={{ color: '#8892AA', flexShrink: 0 }} />
-                        <span style={{ fontSize: '12px', fontFamily: 'JetBrains Mono', fontWeight: '600', color: entry_fee > 0 ? '#F97316' : '#10B981' }}>
+                        <span style={{ fontSize: '12px', fontFamily: 'JetBrains Mono', fontWeight: '600', color: entry_fee > 0 ? '#F97316' : '#06B6D4' }}>
                             {entry_fee > 0 ? `${symbol}${entry_fee} stake` : 'Free entry'}
                         </span>
                     </div>
@@ -200,10 +200,10 @@ export default function BountyCard({ bounty, userRole = 'hunter' }) {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
                         <span style={{
                             width: '7px', height: '7px', borderRadius: '50%', flexShrink: 0,
-                            background: isExpired ? '#4A5568' : '#10B981',
+                            background: isExpired ? '#4A5568' : '#06B6D4',
                             animation: isExpired ? 'none' : 'pulseDot 2s ease-in-out infinite',
                         }} />
-                        <span style={{ fontSize: '12px', fontWeight: '700', color: isExpired ? '#4A5568' : '#10B981', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                        <span style={{ fontSize: '12px', fontWeight: '700', color: isExpired ? '#4A5568' : '#06B6D4', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                             {isExpired ? 'Closed' : 'Live'}
                         </span>
                     </div>

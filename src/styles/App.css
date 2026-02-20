@@ -35,7 +35,7 @@ body {
 /* Landing Page */
 .landing-page {
     min-height: 100vh;
-    background: #0a0a0a;
+    background: #050814;
     color: #ffffff;
 }
 
@@ -54,7 +54,7 @@ body {
     gap: 0.75rem;
     font-size: 1.5rem;
     font-weight: bold;
-    color: #10B981;
+    color: #06B6D4;
 }
 
 .landing-header nav {
@@ -70,7 +70,7 @@ body {
 }
 
 .landing-header nav a:hover {
-    color: #10B981;
+    color: #06B6D4;
 }
 
 .hero {
@@ -102,7 +102,7 @@ body {
 }
 
 .hero .highlight {
-    color: #10B981;
+    color: #06B6D4;
 }
 
 .hero .subtitle {
@@ -136,12 +136,12 @@ body {
 }
 
 .btn-primary {
-    background: #10B981;
-    color: #0a0a0a;
+    background: #06B6D4;
+    color: #050814;
 }
 
 .btn-primary:hover:not(:disabled) {
-    background: #00d67d;
+    background: #3B82F6;
     transform: translateY(-2px);
 }
 
@@ -154,11 +154,11 @@ body {
 .btn-secondary {
     background: transparent;
     color: #ffffff;
-    border: 2px solid #10B981;
+    border: 2px solid #06B6D4;
 }
 
 .btn-secondary:hover:not(:disabled) {
-    background: rgba(0, 255, 157, 0.1);
+    background: rgba(6, 182, 212, 0.1);
     transform: translateY(-2px);
 }
 
@@ -174,7 +174,7 @@ body {
     grid-template-columns: 250px 1fr;
     grid-template-rows: auto 1fr;
     min-height: 100vh;
-    background: #0a0a0a;
+    background: #050814;
 }
 
 @media (max-width: 768px) {
@@ -263,9 +263,9 @@ body {
 
 .header {
     grid-column: 1 / -1;
-    background: #111111;
+    background: #0F1423;
     padding: 1rem 2rem;
-    border-bottom: 1px solid rgba(0, 255, 157, 0.2);
+    border-bottom: 1px solid rgba(6, 182, 212, 0.2);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -280,16 +280,16 @@ body {
 .header-title {
     font-size: 1.5rem;
     font-weight: 900;
-    color: #10B981;
+    color: #06B6D4;
     margin: 0;
     letter-spacing: 0.05em;
 }
 
 .header-role-badge {
     padding: 0.375rem 0.875rem;
-    background: rgba(0, 255, 157, 0.1);
-    color: #10B981;
-    border: 1px solid rgba(0, 255, 157, 0.3);
+    background: rgba(6, 182, 212, 0.1);
+    color: #06B6D4;
+    border: 1px solid rgba(6, 182, 212, 0.3);
     border-radius: 20px;
     font-size: 0.875rem;
     font-weight: 600;
@@ -306,16 +306,16 @@ body {
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
-    background: rgba(0, 255, 157, 0.05);
-    border: 1px solid rgba(0, 255, 157, 0.2);
+    background: rgba(6, 182, 212, 0.05);
+    border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 8px;
-    color: #10B981;
+    color: #06B6D4;
     text-decoration: none;
     transition: all 0.2s;
 }
 
 .header-wallet:hover {
-    background: rgba(0, 255, 157, 0.1);
+    background: rgba(6, 182, 212, 0.1);
     transform: scale(1.02);
 }
 
@@ -341,8 +341,8 @@ body {
 
 .header-icon-btn:hover {
     background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(0, 255, 157, 0.3);
-    color: #10B981;
+    border-color: rgba(6, 182, 212, 0.3);
+    color: #06B6D4;
 }
 
 .notification-badge {
@@ -373,7 +373,7 @@ body {
 }
 
 .header-user svg {
-    color: #10B981;
+    color: #06B6D4;
 }
 
 .username {
@@ -382,12 +382,12 @@ body {
 }
 
 .sidebar {
-    background: #111111;
+    background: #0F1423;
     padding: 2rem 0;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    border-right: 1px solid rgba(0, 255, 157, 0.2);
+    border-right: 1px solid rgba(6, 182, 212, 0.2);
 }
 
 .sidebar-link {
@@ -407,14 +407,14 @@ body {
 }
 
 .sidebar-link:hover {
-    background: rgba(0, 255, 157, 0.1);
-    color: #10B981;
+    background: rgba(6, 182, 212, 0.1);
+    color: #06B6D4;
 }
 
 .sidebar-link.active {
-    background: rgba(0, 255, 157, 0.2);
-    color: #10B981;
-    border-right: 3px solid #10B981;
+    background: rgba(6, 182, 212, 0.2);
+    color: #06B6D4;
+    border-right: 3px solid #06B6D4;
 }
 
 .sidebar-spacer {
@@ -440,7 +440,7 @@ body {
 /* Onboarding Page */
 .onboarding-page {
     min-height: 100vh;
-    background: #0a0a0a;
+    background: #050814;
     color: #ffffff;
 }
 
@@ -449,7 +449,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 4rem;
-    background: #111111;
+    background: #0F1423;
 }
 
 .help-btn {
@@ -466,8 +466,8 @@ body {
 }
 
 .help-btn:hover {
-    border-color: #10B981;
-    color: #10B981;
+    border-color: #06B6D4;
+    color: #06B6D4;
 }
 
 .onboarding-container {
@@ -479,14 +479,14 @@ body {
 .progress-bar {
     width: 100%;
     height: 4px;
-    background: #111111;
+    background: #0F1423;
     border-radius: 2px;
     margin-bottom: 3rem;
 }
 
 .progress-fill {
     height: 100%;
-    background: #10B981;
+    background: #06B6D4;
     border-radius: 2px;
     transition: width 0.3s;
 }
@@ -526,8 +526,8 @@ body {
 .form-group textarea {
     width: 100%;
     padding: 0.75rem;
-    background: #111111;
-    border: 1px solid rgba(0, 255, 157, 0.2);
+    background: #0F1423;
+    border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 6px;
     color: #ffffff;
     font-size: 1rem;
@@ -538,7 +538,7 @@ body {
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #10B981;
+    border-color: #06B6D4;
 }
 
 .region-buttons {
@@ -549,8 +549,8 @@ body {
 .region-btn {
     flex: 1;
     padding: 1.5rem;
-    background: #111111;
-    border: 2px solid rgba(0, 255, 157, 0.2);
+    background: #0F1423;
+    border: 2px solid rgba(6, 182, 212, 0.2);
     border-radius: 8px;
     color: #ffffff;
     cursor: pointer;
@@ -562,12 +562,12 @@ body {
 }
 
 .region-btn:hover {
-    border-color: #10B981;
+    border-color: #06B6D4;
 }
 
 .region-btn.selected {
-    background: rgba(0, 255, 157, 0.2);
-    border-color: #10B981;
+    background: rgba(6, 182, 212, 0.2);
+    border-color: #06B6D4;
 }
 
 .flag {
@@ -582,8 +582,8 @@ body {
 
 .tag {
     padding: 0.5rem 1rem;
-    background: #111111;
-    border: 1px solid rgba(0, 255, 157, 0.2);
+    background: #0F1423;
+    border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 6px;
     color: #ffffff;
     cursor: pointer;
@@ -591,12 +591,12 @@ body {
 }
 
 .tag:hover {
-    border-color: #10B981;
+    border-color: #06B6D4;
 }
 
 .tag.selected {
-    background: rgba(0, 255, 157, 0.2);
-    border-color: #10B981;
+    background: rgba(6, 182, 212, 0.2);
+    border-color: #06B6D4;
 }
 
 .toggle-buttons {
@@ -607,8 +607,8 @@ body {
 .toggle-buttons button {
     flex: 1;
     padding: 0.75rem;
-    background: #111111;
-    border: 1px solid rgba(0, 255, 157, 0.2);
+    background: #0F1423;
+    border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 6px;
     color: #888888;
     cursor: pointer;
@@ -617,13 +617,13 @@ body {
 }
 
 .toggle-buttons button.active {
-    background: rgba(0, 255, 157, 0.2);
-    border-color: #10B981;
-    color: #10B981;
+    background: rgba(6, 182, 212, 0.2);
+    border-color: #06B6D4;
+    color: #06B6D4;
 }
 
 .covenant-text {
-    background: #111111;
+    background: #0F1423;
     padding: 1.5rem;
     border-radius: 8px;
     margin-bottom: 1.5rem;
@@ -662,16 +662,16 @@ body {
 }
 
 .btn-back:hover {
-    border-color: #10B981;
-    color: #10B981;
+    border-color: #06B6D4;
+    color: #06B6D4;
 }
 
 .btn-continue {
     padding: 0.75rem 2rem;
-    background: #10B981;
+    background: #06B6D4;
     border: none;
     border-radius: 6px;
-    color: #0a0a0a;
+    color: #050814;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
@@ -679,7 +679,7 @@ body {
 }
 
 .btn-continue:hover:not(:disabled) {
-    background: #00d67d;
+    background: #3B82F6;
 }
 
 .btn-continue:disabled {
@@ -690,12 +690,12 @@ body {
 
 /* Wallet Card */
 .wallet-card {
-    background: linear-gradient(135deg, #1a1a1a 0%, #111111 100%);
-    border: 1px solid rgba(0, 255, 157, 0.3);
+    background: linear-gradient(135deg, #1B2236 0%, #0F1423 100%);
+    border: 1px solid rgba(6, 182, 212, 0.3);
     border-radius: 16px;
     padding: 2rem;
     margin-bottom: 2rem;
-    box-shadow: 0 8px 24px rgba(0, 255, 157, 0.1);
+    box-shadow: 0 8px 24px rgba(6, 182, 212, 0.1);
 }
 
 .wallet-header {
@@ -707,12 +707,12 @@ body {
 .wallet-icon {
     width: 48px;
     height: 48px;
-    background: rgba(0, 255, 157, 0.2);
+    background: rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #10B981;
+    color: #06B6D4;
 }
 
 .wallet-info {
@@ -729,7 +729,7 @@ body {
 .wallet-balance {
     font-size: 2.5rem;
     font-weight: 900;
-    color: #10B981;
+    color: #06B6D4;
     margin: 0;
     line-height: 1;
 }
@@ -762,13 +762,13 @@ body {
 }
 
 .btn-wallet-action.deposit {
-    background: rgba(0, 255, 157, 0.1);
-    color: #10B981;
-    border: 1px solid rgba(0, 255, 157, 0.3);
+    background: rgba(6, 182, 212, 0.1);
+    color: #06B6D4;
+    border: 1px solid rgba(6, 182, 212, 0.3);
 }
 
 .btn-wallet-action.deposit:hover {
-    background: rgba(0, 255, 157, 0.2);
+    background: rgba(6, 182, 212, 0.2);
 }
 
 .btn-wallet-action.withdraw {
@@ -802,8 +802,8 @@ body {
 
 /* Bounty Card */
 .bounty-card {
-    background: #111111;
-    border: 1px solid rgba(0, 255, 157, 0.2);
+    background: #0F1423;
+    border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 1.5rem;
     transition: all 0.3s;
@@ -813,9 +813,9 @@ body {
 }
 
 .bounty-card:hover {
-    border-color: #10B981;
+    border-color: #06B6D4;
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 255, 157, 0.2);
+    box-shadow: 0 8px 24px rgba(6, 182, 212, 0.2);
 }
 
 .bounty-header {
@@ -830,8 +830,8 @@ body {
     border-radius: 12px;
     font-size: 0.75rem;
     font-weight: 600;
-    background: rgba(0, 255, 157, 0.2);
-    color: #10B981;
+    background: rgba(6, 182, 212, 0.2);
+    color: #06B6D4;
 }
 
 .expiry-badge {
@@ -878,7 +878,7 @@ body {
 }
 
 .stat svg {
-    color: #10B981;
+    color: #06B6D4;
 }
 
 .stat-label {
@@ -895,15 +895,15 @@ body {
 }
 
 .stat-value.reward {
-    color: #10B981;
+    color: #06B6D4;
     font-size: 1.25rem;
 }
 
 .slots-badge {
     display: inline-block;
     padding: 0.125rem 0.5rem;
-    background: rgba(0, 255, 157, 0.2);
-    color: #10B981;
+    background: rgba(6, 182, 212, 0.2);
+    color: #06B6D4;
     border-radius: 8px;
     font-size: 0.75rem;
     margin-left: 0.5rem;
@@ -917,9 +917,9 @@ body {
 .btn-bounty-action {
     flex: 1;
     padding: 0.75rem 1.5rem;
-    background: rgba(0, 255, 157, 0.1);
-    color: #10B981;
-    border: 1px solid rgba(0, 255, 157, 0.3);
+    background: rgba(6, 182, 212, 0.1);
+    color: #06B6D4;
+    border: 1px solid rgba(6, 182, 212, 0.3);
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
@@ -932,7 +932,7 @@ body {
 }
 
 .btn-bounty-action:hover {
-    background: rgba(0, 255, 157, 0.2);
+    background: rgba(6, 182, 212, 0.2);
     transform: scale(1.02);
 }
 
@@ -966,9 +966,9 @@ body {
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 1.5rem;
-    background: rgba(0, 255, 157, 0.1);
-    color: #10B981;
-    border: 1px solid rgba(0, 255, 157, 0.3);
+    background: rgba(6, 182, 212, 0.1);
+    color: #06B6D4;
+    border: 1px solid rgba(6, 182, 212, 0.3);
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s;
@@ -977,7 +977,7 @@ body {
 }
 
 .btn-refresh:hover:not(:disabled) {
-    background: rgba(0, 255, 157, 0.2);
+    background: rgba(6, 182, 212, 0.2);
 }
 
 .btn-refresh:disabled {
@@ -998,8 +998,8 @@ body {
     align-items: center;
     gap: 1rem;
     padding: 1rem 1.5rem;
-    background: #111111;
-    border: 1px solid rgba(0, 255, 157, 0.2);
+    background: #0F1423;
+    border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     max-width: 600px;
 }
@@ -1037,8 +1037,8 @@ body {
 .spinner {
     width: 48px;
     height: 48px;
-    border: 4px solid rgba(0, 255, 157, 0.1);
-    border-top-color: #10B981;
+    border: 4px solid rgba(6, 182, 212, 0.1);
+    border-top-color: #06B6D4;
     border-radius: 50%;
     margin: 0 auto 1rem;
     animation: spin 1s linear infinite;
@@ -1063,8 +1063,8 @@ body {
 }
 
 .stat-card {
-    background: #111111;
-    border: 1px solid rgba(0, 255, 157, 0.2);
+    background: #0F1423;
+    border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 1.5rem;
     display: flex;
@@ -1080,7 +1080,7 @@ body {
 }
 
 .stat-card .stat-value {
-    color: #10B981;
+    color: #06B6D4;
     font-size: 2rem;
     font-weight: 900;
 }
@@ -1096,8 +1096,8 @@ body {
 }
 
 .transactions-table {
-    background: #111111;
-    border: 1px solid rgba(0, 255, 157, 0.2);
+    background: #0F1423;
+    border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     overflow: hidden;
 }
@@ -1108,13 +1108,13 @@ body {
 }
 
 .transactions-table thead {
-    background: rgba(0, 255, 157, 0.1);
+    background: rgba(6, 182, 212, 0.1);
 }
 
 .transactions-table th {
     padding: 1rem;
     text-align: left;
-    color: #10B981;
+    color: #06B6D4;
     font-weight: 600;
     font-size: 0.875rem;
     text-transform: uppercase;
@@ -1141,7 +1141,7 @@ body {
 
 .type-icon.payout,
 .status-icon.approved {
-    color: #10B981;
+    color: #06B6D4;
 }
 
 .type-icon.withdrawal,
@@ -1170,8 +1170,8 @@ body {
 }
 
 .status-label.approved {
-    background: rgba(0, 255, 157, 0.2);
-    color: #10B981;
+    background: rgba(6, 182, 212, 0.2);
+    color: #06B6D4;
 }
 
 .status-label.pending {
@@ -1190,7 +1190,7 @@ body {
 }
 
 .amount.positive {
-    color: #10B981;
+    color: #06B6D4;
 }
 
 .amount.negative {
@@ -1220,8 +1220,8 @@ body {
 }
 
 .modal {
-    background: #111111;
-    border: 1px solid rgba(0, 255, 157, 0.3);
+    background: #0F1423;
+    border: 1px solid rgba(6, 182, 212, 0.3);
     border-radius: 16px;
     padding: 2rem;
     max-width: 500px;
@@ -1243,8 +1243,8 @@ body {
 
 /* Info Box */
 .info-box {
-    background: rgba(0, 255, 157, 0.1);
-    border: 1px solid rgba(0, 255, 157, 0.3);
+    background: rgba(6, 182, 212, 0.1);
+    border: 1px solid rgba(6, 182, 212, 0.3);
     padding: 1rem;
     border-radius: 8px;
     margin-bottom: 1.5rem;
@@ -1252,7 +1252,7 @@ body {
 
 .info-box p {
     margin: 0;
-    color: #10B981;
+    color: #06B6D4;
 }
 
 /* Deposit Instructions */
@@ -1272,8 +1272,8 @@ body {
 .step-number {
     width: 32px;
     height: 32px;
-    background: rgba(0, 255, 157, 0.2);
-    color: #10B981;
+    background: rgba(6, 182, 212, 0.2);
+    color: #06B6D4;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1298,24 +1298,24 @@ body {
     gap: 0.75rem;
     margin-top: 0.5rem;
     padding: 0.75rem;
-    background: rgba(0, 255, 157, 0.05);
-    border: 1px solid rgba(0, 255, 157, 0.2);
+    background: rgba(6, 182, 212, 0.05);
+    border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 6px;
 }
 
 .upi-info code {
     flex: 1;
-    color: #10B981;
+    color: #06B6D4;
     font-size: 1.125rem;
     font-weight: 600;
 }
 
 .btn-copy {
     padding: 0.5rem;
-    background: rgba(0, 255, 157, 0.1);
-    border: 1px solid rgba(0, 255, 157, 0.3);
+    background: rgba(6, 182, 212, 0.1);
+    border: 1px solid rgba(6, 182, 212, 0.3);
     border-radius: 6px;
-    color: #10B981;
+    color: #06B6D4;
     cursor: pointer;
     transition: all 0.2s;
     display: flex;
@@ -1324,20 +1324,20 @@ body {
 }
 
 .btn-copy:hover {
-    background: rgba(0, 255, 157, 0.2);
+    background: rgba(6, 182, 212, 0.2);
 }
 
 /* Static Pages */
 .static-page {
     min-height: 100vh;
-    background: #0a0a0a;
+    background: #050814;
     color: #ffffff;
 }
 
 .static-header {
     padding: 1.5rem 4rem;
-    background: #111111;
-    border-bottom: 1px solid rgba(0, 255, 157, 0.2);
+    background: #0F1423;
+    border-bottom: 1px solid rgba(6, 182, 212, 0.2);
 }
 
 .static-content {
@@ -1367,7 +1367,7 @@ body {
     font-size: 1.75rem;
     font-weight: 700;
     margin-bottom: 1rem;
-    color: #10B981;
+    color: #06B6D4;
 }
 
 .static-content h3 {
@@ -1402,17 +1402,17 @@ body {
 }
 
 .static-content a {
-    color: #10B981;
+    color: #06B6D4;
     text-decoration: underline;
 }
 
 .static-content a:hover {
-    color: #00d67d;
+    color: #3B82F6;
 }
 
 .contact-section {
-    background: rgba(0, 255, 157, 0.1);
-    border: 1px solid rgba(0, 255, 157, 0.3);
+    background: rgba(6, 182, 212, 0.1);
+    border: 1px solid rgba(6, 182, 212, 0.3);
     border-radius: 12px;
     padding: 2rem;
     text-align: center;
@@ -1420,7 +1420,7 @@ body {
 }
 
 .contact-section h3 {
-    color: #10B981;
+    color: #06B6D4;
     margin-bottom: 1rem;
 }
 
@@ -1433,8 +1433,8 @@ body {
 }
 
 .contact-card {
-    background: #111111;
-    border: 1px solid rgba(0, 255, 157, 0.2);
+    background: #0F1423;
+    border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 2rem;
     text-align: center;
@@ -1442,21 +1442,21 @@ body {
 }
 
 .contact-card:hover {
-    border-color: #10B981;
+    border-color: #06B6D4;
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 255, 157, 0.2);
+    box-shadow: 0 8px 24px rgba(6, 182, 212, 0.2);
 }
 
 .contact-icon {
     width: 64px;
     height: 64px;
-    background: rgba(0, 255, 157, 0.2);
+    background: rgba(6, 182, 212, 0.2);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 1.5rem;
-    color: #10B981;
+    color: #06B6D4;
 }
 
 .contact-card h3 {
@@ -1472,9 +1472,9 @@ body {
 .contact-link {
     display: inline-block;
     padding: 0.75rem 1.5rem;
-    background: rgba(0, 255, 157, 0.1);
-    color: #10B981;
-    border: 1px solid rgba(0, 255, 157, 0.3);
+    background: rgba(6, 182, 212, 0.1);
+    color: #06B6D4;
+    border: 1px solid rgba(6, 182, 212, 0.3);
     border-radius: 8px;
     text-decoration: none;
     font-weight: 600;
@@ -1483,7 +1483,7 @@ body {
 }
 
 .contact-link:hover {
-    background: rgba(0, 255, 157, 0.2);
+    background: rgba(6, 182, 212, 0.2);
     transform: scale(1.05);
 }
 
@@ -1494,7 +1494,7 @@ body {
 }
 
 .faq-item {
-    background: #111111;
+    background: #0F1423;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     padding: 1.5rem;
@@ -1502,7 +1502,7 @@ body {
 }
 
 .faq-item h4 {
-    color: #10B981;
+    color: #06B6D4;
     margin-bottom: 0.75rem;
 }
 
@@ -1523,7 +1523,7 @@ body {
 
 .covenant-hero h1 {
     font-size: 4rem;
-    background: linear-gradient(135deg, #10B981 0%, #00d67d 100%);
+    background: linear-gradient(135deg, #06B6D4 0%, #3B82F6 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1536,8 +1536,8 @@ body {
 }
 
 .covenant-intro {
-    background: rgba(0, 255, 157, 0.05);
-    border-left: 4px solid #10B981;
+    background: rgba(6, 182, 212, 0.05);
+    border-left: 4px solid #06B6D4;
     padding: 1.5rem;
     margin-bottom: 3rem;
     font-size: 1.125rem;
@@ -1552,28 +1552,28 @@ body {
 }
 
 .pillar-card {
-    background: #111111;
-    border: 1px solid rgba(0, 255, 157, 0.2);
+    background: #0F1423;
+    border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 2rem;
     transition: all 0.3s;
 }
 
 .pillar-card:hover {
-    border-color: #10B981;
-    box-shadow: 0 8px 24px rgba(0, 255, 157, 0.2);
+    border-color: #06B6D4;
+    box-shadow: 0 8px 24px rgba(6, 182, 212, 0.2);
 }
 
 .pillar-icon {
     width: 80px;
     height: 80px;
-    background: rgba(0, 255, 157, 0.2);
+    background: rgba(6, 182, 212, 0.2);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 1.5rem;
-    color: #10B981;
+    color: #06B6D4;
 }
 
 .pillar-card h2 {
@@ -1615,7 +1615,7 @@ body {
 .covenant-seal {
     font-size: 1.25rem;
     font-weight: 700;
-    color: #10B981;
+    color: #06B6D4;
     margin-top: 1.5rem;
 }
 
@@ -1630,8 +1630,8 @@ body {
     align-items: center;
     margin-bottom: 2rem;
     padding: 2rem;
-    background: linear-gradient(135deg, rgba(0, 255, 157, 0.1) 0%, rgba(0, 255, 157, 0.05) 100%);
-    border: 1px solid rgba(0, 255, 157, 0.2);
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(6, 182, 212, 0.05) 100%);
+    border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 16px;
 }
 
@@ -1653,8 +1653,8 @@ body {
 }
 
 .stat-card {
-    background: #111111;
-    border: 1px solid rgba(0, 255, 157, 0.2);
+    background: #0F1423;
+    border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 1.5rem;
     display: flex;
@@ -1664,20 +1664,20 @@ body {
 }
 
 .stat-card:hover {
-    border-color: #10B981;
+    border-color: #06B6D4;
     transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0, 255, 157, 0.2);
+    box-shadow: 0 4px 16px rgba(6, 182, 212, 0.2);
 }
 
 .stat-icon {
     width: 56px;
     height: 56px;
-    background: rgba(0, 255, 157, 0.1);
+    background: rgba(6, 182, 212, 0.1);
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #10B981;
+    color: #06B6D4;
 }
 
 .stat-content {
@@ -1703,7 +1703,7 @@ body {
 }
 
 .stat-value.highlight {
-    color: #10B981;
+    color: #06B6D4;
 }
 
 /* Active Hunt Section */
@@ -1717,8 +1717,8 @@ body {
 }
 
 .active-hunt-card {
-    background: #111111;
-    border: 2px solid rgba(0, 255, 157, 0.3);
+    background: #0F1423;
+    border: 2px solid rgba(6, 182, 212, 0.3);
     border-radius: 16px;
     padding: 2rem;
 }
@@ -1757,7 +1757,7 @@ body {
 }
 
 .hunt-stat svg {
-    color: #10B981;
+    color: #06B6D4;
 }
 
 .deadline-bar {
@@ -1780,13 +1780,13 @@ body {
 
 .deadline-fill {
     height: 100%;
-    background: linear-gradient(90deg, #10B981 0%, #00d67d 100%);
+    background: linear-gradient(90deg, #06B6D4 0%, #3B82F6 100%);
     transition: width 0.3s;
 }
 
 /* No Active Hunt */
 .no-active-hunt {
-    background: #111111;
+    background: #0F1423;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
     padding: 3rem;
@@ -1830,7 +1830,7 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: #10B981;
+    color: #06B6D4;
     text-decoration: none;
     font-weight: 600;
     transition: all 0.2s;
@@ -1847,8 +1847,8 @@ body {
 }
 
 .bounty-item {
-    background: #111111;
-    border: 1px solid rgba(0, 255, 157, 0.2);
+    background: #0F1423;
+    border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 1.5rem;
     display: flex;
@@ -1858,7 +1858,7 @@ body {
 }
 
 .bounty-item:hover {
-    border-color: #10B981;
+    border-color: #06B6D4;
     transform: translateX(4px);
 }
 
@@ -1886,8 +1886,8 @@ body {
 
 .reward-badge {
     padding: 0.25rem 0.75rem;
-    background: rgba(0, 255, 157, 0.2);
-    color: #10B981;
+    background: rgba(6, 182, 212, 0.2);
+    color: #06B6D4;
     border-radius: 12px;
     font-weight: 600;
     font-size: 0.875rem;
@@ -1903,9 +1903,9 @@ body {
 
 .btn-bounty-view {
     padding: 0.75rem 1.5rem;
-    background: rgba(0, 255, 157, 0.1);
-    color: #10B981;
-    border: 1px solid rgba(0, 255, 157, 0.3);
+    background: rgba(6, 182, 212, 0.1);
+    color: #06B6D4;
+    border: 1px solid rgba(6, 182, 212, 0.3);
     border-radius: 8px;
     font-weight: 600;
     text-decoration: none;
@@ -1914,7 +1914,7 @@ body {
 }
 
 .btn-bounty-view:hover {
-    background: rgba(0, 255, 157, 0.2);
+    background: rgba(6, 182, 212, 0.2);
     transform: scale(1.05);
 }
 
@@ -1935,8 +1935,8 @@ body {
 }
 
 .action-card {
-    background: #111111;
-    border: 1px solid rgba(0, 255, 157, 0.2);
+    background: #0F1423;
+    border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 2rem;
     text-align: center;
@@ -1949,18 +1949,18 @@ body {
 }
 
 .action-card:hover {
-    border-color: #10B981;
+    border-color: #06B6D4;
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 255, 157, 0.2);
+    box-shadow: 0 8px 24px rgba(6, 182, 212, 0.2);
 }
 
 .action-card.highlight {
-    background: rgba(0, 255, 157, 0.05);
-    border-color: #10B981;
+    background: rgba(6, 182, 212, 0.05);
+    border-color: #06B6D4;
 }
 
 .action-card svg {
-    color: #10B981;
+    color: #06B6D4;
 }
 
 .action-card h3 {
@@ -1999,7 +1999,7 @@ body {
 }
 
 .back-link:hover {
-    color: #10B981;
+    color: #06B6D4;
 }
 
 .status-badges {
@@ -2019,9 +2019,9 @@ body {
 }
 
 .status-badge.live {
-    background: rgba(0, 255, 157, 0.2);
-    color: #10B981;
-    border: 1px solid rgba(0, 255, 157, 0.3);
+    background: rgba(6, 182, 212, 0.2);
+    color: #06B6D4;
+    border: 1px solid rgba(6, 182, 212, 0.3);
 }
 
 .status-badge.expired {
@@ -2063,8 +2063,8 @@ body {
 }
 
 .stat-box {
-    background: #111111;
-    border: 1px solid rgba(0, 255, 157, 0.2);
+    background: #0F1423;
+    border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 1.5rem;
     display: flex;
@@ -2075,12 +2075,12 @@ body {
 .stat-box .stat-icon {
     width: 56px;
     height: 56px;
-    background: rgba(0, 255, 157, 0.1);
+    background: rgba(6, 182, 212, 0.1);
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #10B981;
+    color: #06B6D4;
 }
 
 .stat-box .stat-info {
@@ -2104,8 +2104,8 @@ body {
 }
 
 .mission-section {
-    background: #111111;
-    border: 2px solid rgba(0, 255, 157, 0.3);
+    background: #0F1423;
+    border: 2px solid rgba(6, 182, 212, 0.3);
     border-radius: 16px;
     padding: 2rem;
     margin-bottom: 3rem;
@@ -2166,8 +2166,8 @@ body {
 }
 
 .hunter-actions .action-card {
-    background: #111111;
-    border: 1px solid rgba(0, 255, 157, 0.2);
+    background: #0F1423;
+    border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 2rem;
     text-align: center;
@@ -2178,7 +2178,7 @@ body {
 }
 
 .hunter-actions .action-card svg {
-    color: #10B981;
+    color: #06B6D4;
 }
 
 .hunter-actions .action-card h3 {
@@ -2193,14 +2193,14 @@ body {
 }
 
 .bounty-info-section {
-    background: rgba(0, 255, 157, 0.05);
-    border: 1px solid rgba(0, 255, 157, 0.2);
+    background: rgba(6, 182, 212, 0.05);
+    border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 2rem;
 }
 
 .bounty-info-section h3 {
-    color: #10B981;
+    color: #06B6D4;
     margin-bottom: 1rem;
 }
 
@@ -2286,12 +2286,12 @@ body {
 }
 
 .form-group label svg {
-    color: #10B981;
+    color: #06B6D4;
 }
 
 .form-group input,
 .form-group textarea {
-    background: #111111;
+    background: #0F1423;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     padding: 0.875rem;
@@ -2304,8 +2304,8 @@ body {
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #10B981;
-    box-shadow: 0 0 0 3px rgba(0, 255, 157, 0.1);
+    border-color: #06B6D4;
+    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
 }
 
 .form-group input.error,
@@ -2349,8 +2349,8 @@ body {
     align-items: center;
     gap: 0.75rem;
     padding: 3rem 2rem;
-    background: #111111;
-    border: 2px dashed rgba(0, 255, 157, 0.3);
+    background: #0F1423;
+    border: 2px dashed rgba(6, 182, 212, 0.3);
     border-radius: 12px;
     cursor: pointer;
     transition: all 0.2s;
@@ -2358,12 +2358,12 @@ body {
 }
 
 .file-upload-label:hover {
-    background: rgba(0, 255, 157, 0.05);
-    border-color: #10B981;
+    background: rgba(6, 182, 212, 0.05);
+    border-color: #06B6D4;
 }
 
 .file-upload-label svg {
-    color: #10B981;
+    color: #06B6D4;
 }
 
 .file-name {
@@ -2385,9 +2385,9 @@ body {
 }
 
 .vault-info.success {
-    background: rgba(0, 255, 157, 0.1);
-    border-color: rgba(0, 255, 157, 0.3);
-    color: #10B981;
+    background: rgba(6, 182, 212, 0.1);
+    border-color: rgba(6, 182, 212, 0.3);
+    color: #06B6D4;
 }
 
 .vault-info.warning {
@@ -2461,17 +2461,17 @@ body {
 }
 
 .payer-bounty-card {
-    background: #111111;
-    border: 1px solid rgba(0, 255, 157, 0.2);
+    background: #0F1423;
+    border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 2rem;
     transition: all 0.3s;
 }
 
 .payer-bounty-card:hover {
-    border-color: #10B981;
+    border-color: #06B6D4;
     transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0, 255, 157, 0.2);
+    box-shadow: 0 4px 16px rgba(6, 182, 212, 0.2);
 }
 
 .bounty-card-header {
@@ -2541,7 +2541,7 @@ body {
     align-items: center;
     gap: 1.5rem;
     padding: 4rem 2rem;
-    background: #111111;
+    background: #0F1423;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     text-align: center;
@@ -2565,8 +2565,8 @@ body {
 }
 
 .mission-pdf-section {
-    background: #111111;
-    border: 1px solid rgba(0, 255, 157, 0.2);
+    background: #0F1423;
+    border: 1px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 2rem;
     margin-bottom: 3rem;
@@ -2604,7 +2604,7 @@ body {
 }
 
 .hunter-card {
-    background: #111111;
+    background: #0F1423;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     padding: 1.25rem;
@@ -2615,7 +2615,7 @@ body {
 }
 
 .hunter-card:hover {
-    border-color: rgba(0, 255, 157, 0.3);
+    border-color: rgba(6, 182, 212, 0.3);
     transform: translateY(-2px);
 }
 
@@ -2639,8 +2639,8 @@ body {
 
 .tag-small {
     padding: 0.25rem 0.625rem;
-    background: rgba(0, 255, 157, 0.1);
-    color: #10B981;
+    background: rgba(6, 182, 212, 0.1);
+    color: #06B6D4;
     border-radius: 12px;
     font-size: 0.75rem;
     font-weight: 500;
@@ -2653,7 +2653,7 @@ body {
 }
 
 .empty-state-small {
-    background: #111111;
+    background: #0F1423;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     padding: 3rem 2rem;
@@ -2678,16 +2678,16 @@ body {
 }
 
 .submission-card {
-    background: #111111;
-    border: 2px solid rgba(0, 255, 157, 0.2);
+    background: #0F1423;
+    border: 2px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 2rem;
     transition: all 0.3s;
 }
 
 .submission-card:hover {
-    border-color: #10B981;
-    box-shadow: 0 4px 16px rgba(0, 255, 157, 0.2);
+    border-color: #06B6D4;
+    box-shadow: 0 4px 16px rgba(6, 182, 212, 0.2);
 }
 
 .submission-header {
@@ -2711,8 +2711,8 @@ body {
 }
 
 .ai-score {
-    background: rgba(0, 255, 157, 0.1);
-    border: 1px solid rgba(0, 255, 157, 0.3);
+    background: rgba(6, 182, 212, 0.1);
+    border: 1px solid rgba(6, 182, 212, 0.3);
     border-radius: 8px;
     padding: 0.75rem 1.25rem;
     text-align: center;
@@ -2729,7 +2729,7 @@ body {
 
 .ai-score .score-value {
     display: block;
-    color: #10B981;
+    color: #06B6D4;
     font-size: 1.5rem;
     font-weight: 900;
 }
@@ -2760,7 +2760,7 @@ body {
 }
 
 .btn-select-winner {
-    background: linear-gradient(135deg, #10B981 0%, #00cc7d 100%) !important;
+    background: linear-gradient(135deg, #06B6D4 0%, #00cc7d 100%) !important;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -2768,7 +2768,7 @@ body {
 
 .btn-select-winner:hover:not(:disabled) {
     transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 8px 24px rgba(0, 255, 157, 0.4) !important;
+    box-shadow: 0 8px 24px rgba(6, 182, 212, 0.4) !important;
 }
 
 .winner-badge {
@@ -2830,14 +2830,14 @@ body {
 }
 
 .modal-content {
-    background: #0a0a0a;
-    border: 1px solid rgba(0, 255, 157, 0.3);
+    background: #050814;
+    border: 1px solid rgba(6, 182, 212, 0.3);
     border-radius: 16px;
     max-width: 700px;
     width: 100%;
     max-height: 90vh;
     overflow-y: auto;
-    box-shadow: 0 20px 60px rgba(0, 255, 157, 0.2);
+    box-shadow: 0 20px 60px rgba(6, 182, 212, 0.2);
 }
 
 .submit-modal {
@@ -2933,10 +2933,10 @@ body {
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 1.5rem;
-    background: rgba(0, 255, 157, 0.1);
-    border: 1px solid rgba(0, 255, 157, 0.3);
+    background: rgba(6, 182, 212, 0.1);
+    border: 1px solid rgba(6, 182, 212, 0.3);
     border-radius: 8px;
-    color: #10B981;
+    color: #06B6D4;
     font-weight: 600;
     justify-content: center;
 }
@@ -2945,8 +2945,8 @@ body {
 .spinner {
     width: 40px;
     height: 40px;
-    border: 3px solid rgba(0, 255, 157, 0.2);
-    border-top-color: #10B981;
+    border: 3px solid rgba(6, 182, 212, 0.2);
+    border-top-color: #06B6D4;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
 }
@@ -3000,8 +3000,8 @@ body {
 }
 
 .admin-transaction-card {
-    background: #111111;
-    border: 2px solid rgba(0, 255, 157, 0.2);
+    background: #0F1423;
+    border: 2px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
     padding: 2rem;
     display: flex;
@@ -3012,8 +3012,8 @@ body {
 }
 
 .admin-transaction-card:hover {
-    border-color: #10B981;
-    box-shadow: 0 4px 16px rgba(0, 255, 157, 0.2);
+    border-color: #06B6D4;
+    box-shadow: 0 4px 16px rgba(6, 182, 212, 0.2);
 }
 
 .transaction-info {
@@ -3036,7 +3036,7 @@ body {
 }
 
 .transaction-amount {
-    color: #10B981;
+    color: #06B6D4;
     font-size: 1.5rem;
     font-weight: 900;
 }
@@ -3066,12 +3066,12 @@ body {
 }
 
 .btn-verify {
-    background: linear-gradient(135deg, #10B981 0%, #00cc7d 100%) !important;
+    background: linear-gradient(135deg, #06B6D4 0%, #00cc7d 100%) !important;
 }
 
 .btn-verify:hover:not(:disabled) {
     transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 8px 24px rgba(0, 255, 157, 0.4) !important;
+    box-shadow: 0 8px 24px rgba(6, 182, 212, 0.4) !important;
 }
 
 .btn-reject {
@@ -3137,8 +3137,8 @@ body {
 }
 
 .balance-card {
-    background: #111111;
-    border: 2px solid rgba(0, 255, 157, 0.3);
+    background: #0F1423;
+    border: 2px solid rgba(6, 182, 212, 0.3);
     border-radius: 12px;
     padding: 2rem;
     display: flex;
@@ -3149,12 +3149,12 @@ body {
 
 .balance-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 255, 157, 0.2);
+    box-shadow: 0 8px 24px rgba(6, 182, 212, 0.2);
 }
 
 .balance-card.main {
-    border-color: #10B981;
-    background: linear-gradient(135deg, rgba(0, 255, 157, 0.1) 0%, rgba(0, 204, 125, 0.05) 100%);
+    border-color: #06B6D4;
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(0, 204, 125, 0.05) 100%);
 }
 
 .balance-card.locked {
@@ -3163,7 +3163,7 @@ body {
 }
 
 .balance-card svg {
-    color: #10B981;
+    color: #06B6D4;
     flex-shrink: 0;
 }
 
@@ -3209,7 +3209,7 @@ body {
 }
 
 .transaction-item {
-    background: #111111;
+    background: #0F1423;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     padding: 1.25rem;
@@ -3220,7 +3220,7 @@ body {
 }
 
 .transaction-item:hover {
-    border-color: rgba(0, 255, 157, 0.3);
+    border-color: rgba(6, 182, 212, 0.3);
     transform: translateX(4px);
 }
 
@@ -3228,7 +3228,7 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 8px;
-    background: rgba(0, 255, 157, 0.1);
+    background: rgba(6, 182, 212, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3261,7 +3261,7 @@ body {
 }
 
 .tx-amount .positive {
-    color: #10B981;
+    color: #06B6D4;
     font-size: 1.25rem;
     font-weight: 700;
 }
@@ -3290,8 +3290,8 @@ body {
 }
 
 .tx-status.completed {
-    background: rgba(0, 255, 157, 0.1);
-    color: #10B981;
+    background: rgba(6, 182, 212, 0.1);
+    color: #06B6D4;
 }
 
 .tx-status.failed {
@@ -3325,7 +3325,7 @@ body {
 }
 
 .history-card {
-    background: #111111;
+    background: #0F1423;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     padding: 2rem;
@@ -3333,9 +3333,9 @@ body {
 }
 
 .history-card:hover {
-    border-color: rgba(0, 255, 157, 0.3);
+    border-color: rgba(6, 182, 212, 0.3);
     transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0, 255, 157, 0.1);
+    box-shadow: 0 4px 16px rgba(6, 182, 212, 0.1);
 }
 
 .history-card-header {
@@ -3359,9 +3359,9 @@ body {
 }
 
 .status-badge.completed {
-    background: rgba(0, 255, 157, 0.1);
-    color: #10B981;
-    border: 1px solid rgba(0, 255, 157, 0.3);
+    background: rgba(6, 182, 212, 0.1);
+    color: #06B6D4;
+    border: 1px solid rgba(6, 182, 212, 0.3);
 }
 
 .history-card-details {
@@ -3778,8 +3778,8 @@ body {
 
 /* Footer */
 .footer {
-    background: #111111;
-    border-top: 1px solid rgba(0, 255, 157, 0.2);
+    background: #0F1423;
+    border-top: 1px solid rgba(6, 182, 212, 0.2);
     margin-top: auto;
     padding: 3rem 2rem 1.5rem;
 }
@@ -3794,7 +3794,7 @@ body {
 }
 
 .footer-section h4 {
-    color: #10B981;
+    color: #06B6D4;
     font-size: 1rem;
     font-weight: 700;
     margin-bottom: 1rem;
@@ -3810,13 +3810,13 @@ body {
 }
 
 .footer-brand svg {
-    color: #10B981;
+    color: #06B6D4;
 }
 
 .footer-logo {
     font-size: 1.5rem;
     font-weight: 900;
-    color: #10B981;
+    color: #06B6D4;
     letter-spacing: 0.05em;
 }
 
@@ -3843,7 +3843,7 @@ body {
 }
 
 .footer-links a:hover {
-    color: #10B981;
+    color: #06B6D4;
 }
 
 .footer-social {
@@ -3866,9 +3866,9 @@ body {
 }
 
 .social-link:hover {
-    background: rgba(0, 255, 157, 0.1);
-    border-color: rgba(0, 255, 157, 0.3);
-    color: #10B981;
+    background: rgba(6, 182, 212, 0.1);
+    border-color: rgba(6, 182, 212, 0.3);
+    color: #06B6D4;
 }
 
 .footer-bottom {

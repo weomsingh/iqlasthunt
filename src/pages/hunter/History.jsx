@@ -137,7 +137,7 @@ function BountyHistoryCard({ bounty, currency, navigate }) {
     const isCancelled = bounty.status === 'cancelled' || bounty.status === 'canceled' || bounty.status === 'deleted';
 
     const statusConfig = isCompleted
-        ? { label: 'Completed', color: '#10B981', bg: 'rgba(0,255,148,0.1)', Icon: CheckCircle }
+        ? { label: 'Completed', color: '#06B6D4', bg: 'rgba(6, 182, 212,0.1)', Icon: CheckCircle }
         : isCancelled
             ? { label: 'Cancelled', color: '#8892AA', bg: 'rgba(255,255,255,0.05)', Icon: XCircle }
             : { label: 'Expired', color: '#F59E0B', bg: 'rgba(255,230,0,0.1)', Icon: AlertCircle };
@@ -176,7 +176,7 @@ function BountyHistoryCard({ bounty, currency, navigate }) {
                 <h3 style={{ color: '#F0F4FF', fontWeight: '700', fontSize: '15px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     {bounty.title}
                 </h3>
-                <p style={{ color: '#10B981', fontFamily: 'JetBrains Mono', fontWeight: '700', fontSize: '14px', marginTop: '4px' }}>
+                <p style={{ color: '#06B6D4', fontFamily: 'JetBrains Mono', fontWeight: '700', fontSize: '14px', marginTop: '4px' }}>
                     {currency}{(bounty.rewardPool || bounty.reward || 0).toLocaleString()}
                 </p>
             </div>

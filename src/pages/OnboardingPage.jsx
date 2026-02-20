@@ -196,13 +196,13 @@ export default function OnboardingPage() {
                         {/* Hunter India Notice */}
                         {formData.role === 'hunter' && (
                             <div className="info-box" style={{
-                                background: 'rgba(0, 255, 157, 0.08)',
-                                border: '1px solid rgba(0, 255, 157, 0.25)',
+                                background: 'rgba(6, 182, 212, 0.08)',
+                                border: '1px solid rgba(6, 182, 212, 0.25)',
                                 padding: '1rem',
                                 borderRadius: '10px',
                                 marginBottom: '1.5rem'
                             }}>
-                                <p style={{ margin: 0, color: '#10B981', fontWeight: '600' }}>
+                                <p style={{ margin: 0, color: '#06B6D4', fontWeight: '600' }}>
                                     Indian Hunter — All earnings credited in INR (Rs.)
                                 </p>
                             </div>
@@ -309,7 +309,7 @@ export default function OnboardingPage() {
                     <div className="form-step">
                         <h2>The Covenant</h2>
                         <div className="covenant-text">
-                            <h3 style={{ color: '#10B981', marginBottom: '1rem' }}>
+                            <h3 style={{ color: '#06B6D4', marginBottom: '1rem' }}>
                                 Digital Blood Oath
                             </h3>
                             <p>

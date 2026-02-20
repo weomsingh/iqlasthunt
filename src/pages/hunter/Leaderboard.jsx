@@ -87,7 +87,7 @@ export default function Leaderboard() {
                                     borderBottom: i < topHunters.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none',
                                     display: 'grid', gridTemplateColumns: '60px 1fr 80px 80px',
                                     gap: '12px', alignItems: 'center',
-                                    background: isMe ? 'rgba(0,255,148,0.04)' : 'transparent',
+                                    background: isMe ? 'rgba(6, 182, 212,0.04)' : 'transparent',
                                     transition: 'background 0.2s ease',
                                 }}
                                 onMouseOver={e => !isMe && (e.currentTarget.style.background = 'rgba(255,255,255,0.02)')}
@@ -105,7 +105,7 @@ export default function Leaderboard() {
                                         width: '36px', height: '36px', borderRadius: '50%', flexShrink: 0,
                                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                                         fontSize: '14px', fontWeight: '800',
-                                        background: isMe ? 'linear-gradient(135deg, #10B981, #06B6D4)' : `rgba(255,255,255,0.06)`,
+                                        background: isMe ? 'linear-gradient(135deg, #06B6D4, #06B6D4)' : `rgba(255,255,255,0.06)`,
                                         color: isMe ? '#000' : '#8892AA',
                                         border: isMe ? 'none' : '1px solid rgba(255,255,255,0.1)',
                                     }}>
@@ -114,7 +114,7 @@ export default function Leaderboard() {
                                     <div>
                                         <p style={{ color: '#F0F4FF', fontWeight: '700', fontSize: '14px' }}>
                                             {hunter.username || 'Anonymous'}
-                                            {isMe && <span style={{ marginLeft: '8px', fontSize: '10px', color: '#10B981', fontWeight: '700', background: 'rgba(0,255,148,0.1)', padding: '2px 6px', borderRadius: '4px' }}>YOU</span>}
+                                            {isMe && <span style={{ marginLeft: '8px', fontSize: '10px', color: '#06B6D4', fontWeight: '700', background: 'rgba(6, 182, 212,0.1)', padding: '2px 6px', borderRadius: '4px' }}>YOU</span>}
                                         </p>
                                         {hunter.expertise?.length > 0 && (
                                             <p style={{ color: '#4A5568', fontSize: '11px' }}>{hunter.expertise.slice(0, 2).join(', ')}</p>
@@ -126,7 +126,7 @@ export default function Leaderboard() {
                                 <p style={{ color: '#F59E0B', fontWeight: '800', fontFamily: 'JetBrains Mono', fontSize: '15px' }}>{hunter.wins || 0}</p>
 
                                 {/* Earnings (wallet balance as proxy) */}
-                                <p style={{ color: '#10B981', fontWeight: '700', fontFamily: 'JetBrains Mono', fontSize: '13px' }}>
+                                <p style={{ color: '#06B6D4', fontWeight: '700', fontFamily: 'JetBrains Mono', fontSize: '13px' }}>
                                     {currency}{(hunter.wallet_balance || 0).toLocaleString()}
                                 </p>
                             </div>

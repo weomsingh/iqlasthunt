@@ -132,7 +132,7 @@ export default function HunterDashboard() {
     const statsCards = [
         {
             label: 'Total Earnings', value: `${currency}${(currentUser?.total_earnings || 0).toLocaleString()}`,
-            icon: Wallet, color: '#10B981', bg: 'rgba(0,255,148,0.08)', border: 'rgba(0,255,148,0.15)'
+            icon: Wallet, color: '#06B6D4', bg: 'rgba(6, 182, 212,0.08)', border: 'rgba(6, 182, 212,0.15)'
         },
         {
             label: 'Active Hunts', value: activeStake ? '1' : '0',
@@ -140,7 +140,7 @@ export default function HunterDashboard() {
         },
         {
             label: 'Completed', value: currentUser?.hunts_completed || 0,
-            icon: CheckCircle, color: '#06B6D4', bg: 'rgba(0,229,255,0.08)', border: 'rgba(0,229,255,0.15)'
+            icon: CheckCircle, color: '#06B6D4', bg: 'rgba(139, 92, 246,0.08)', border: 'rgba(139, 92, 246,0.15)'
         },
         {
             label: 'Win Rate', value: `${currentUser?.success_rate?.toFixed(0) || 0}%`,
@@ -165,7 +165,7 @@ export default function HunterDashboard() {
                 }}>
                     Welcome back,{' '}
                     <span style={{
-                        background: 'linear-gradient(135deg, #10B981, #06B6D4)',
+                        background: 'linear-gradient(135deg, #06B6D4, #06B6D4)',
                         WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text'
                     }}>
                         {currentUser?.username}
@@ -214,8 +214,8 @@ export default function HunterDashboard() {
             {activeStake ? (
                 <div style={{
                     borderRadius: '20px',
-                    background: 'linear-gradient(135deg, rgba(0,255,148,0.05), rgba(0,229,255,0.05), rgba(168,85,247,0.05))',
-                    border: '1px solid rgba(0,255,148,0.2)',
+                    background: 'linear-gradient(135deg, rgba(6, 182, 212,0.05), rgba(139, 92, 246,0.05), rgba(168,85,247,0.05))',
+                    border: '1px solid rgba(6, 182, 212,0.2)',
                     padding: '28px',
                     position: 'relative',
                     overflow: 'hidden',
@@ -224,7 +224,7 @@ export default function HunterDashboard() {
                     <div style={{
                         position: 'absolute', top: '-40px', right: '-40px',
                         width: '200px', height: '200px', borderRadius: '50%',
-                        background: 'rgba(0,255,148,0.08)', filter: 'blur(60px)',
+                        background: 'rgba(6, 182, 212,0.08)', filter: 'blur(60px)',
                         pointerEvents: 'none',
                     }} />
 
@@ -269,7 +269,7 @@ export default function HunterDashboard() {
                                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
                                     <span style={{ color: '#8892AA', fontSize: '12px', fontWeight: '600' }}>Time Remaining</span>
                                     <span style={{
-                                        color: isUrgent ? '#F43F5E' : '#10B981',
+                                        color: isUrgent ? '#F43F5E' : '#06B6D4',
                                         fontSize: '12px', fontWeight: '800', fontFamily: 'JetBrains Mono'
                                     }}>
                                         {Math.round(progressPct)}%
@@ -281,9 +281,9 @@ export default function HunterDashboard() {
                                         width: `${Math.min(100, Math.max(0, progressPct))}%`,
                                         background: isUrgent
                                             ? 'linear-gradient(90deg, #F43F5E, #F97316)'
-                                            : 'linear-gradient(90deg, #10B981, #06B6D4)',
+                                            : 'linear-gradient(90deg, #06B6D4, #06B6D4)',
                                         transition: 'width 1s ease, background 0.5s ease',
-                                        boxShadow: isUrgent ? '0 0 15px rgba(244,63,94,0.5)' : '0 0 15px rgba(0,255,148,0.4)',
+                                        boxShadow: isUrgent ? '0 0 15px rgba(244,63,94,0.5)' : '0 0 15px rgba(6, 182, 212,0.4)',
                                     }} />
                                 </div>
                             </div>
@@ -294,7 +294,7 @@ export default function HunterDashboard() {
                                 <p style={{ color: '#8892AA', fontSize: '12px', fontWeight: '600', marginBottom: '4px' }}>Reward Pool</p>
                                 <p style={{
                                     fontSize: '28px', fontWeight: '900', fontFamily: 'Space Grotesk',
-                                    background: 'linear-gradient(135deg, #10B981, #06B6D4)',
+                                    background: 'linear-gradient(135deg, #06B6D4, #06B6D4)',
                                     WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
                                 }}>
                                     {currency}{activeStake.bounty.reward.toLocaleString()}
@@ -360,7 +360,7 @@ export default function HunterDashboard() {
                     </div>
                     <Link to="/hunter/arena" style={{
                         display: 'flex', alignItems: 'center', gap: '4px',
-                        color: '#10B981', fontSize: '13px', fontWeight: '700', textDecoration: 'none',
+                        color: '#06B6D4', fontSize: '13px', fontWeight: '700', textDecoration: 'none',
                         transition: 'color 0.2s ease',
                     }}>
                         View All <ArrowRight size={14} />
@@ -392,7 +392,7 @@ export default function HunterDashboard() {
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
                     {[
                         { to: '/hunter/arena', icon: Target, label: 'Browse Arena', desc: 'Find new missions', color: '#F97316', bg: 'rgba(255,107,53,0.08)', border: 'rgba(255,107,53,0.15)' },
-                        { to: '/hunter/vault', icon: Wallet, label: 'My Vault', desc: 'Manage earnings', color: '#10B981', bg: 'rgba(0,255,148,0.08)', border: 'rgba(0,255,148,0.15)' },
+                        { to: '/hunter/vault', icon: Wallet, label: 'My Vault', desc: 'Manage earnings', color: '#06B6D4', bg: 'rgba(6, 182, 212,0.08)', border: 'rgba(6, 182, 212,0.15)' },
                         { to: '/hunter/war-room', icon: MessageSquare, label: 'War Room', desc: 'Mission comms', color: '#8B5CF6', bg: 'rgba(168,85,247,0.08)', border: 'rgba(168,85,247,0.15)' },
                         { to: '/hunter/leaderboard', icon: Trophy, label: 'Leaderboard', desc: 'Your ranking', color: '#F59E0B', bg: 'rgba(255,230,0,0.08)', border: 'rgba(255,230,0,0.15)' },
                     ].map((action) => (

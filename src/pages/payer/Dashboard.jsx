@@ -66,7 +66,7 @@ export default function PayerDashboard() {
     const statsData = [
         {
             label: 'Active Bounties', value: stats.active, icon: Briefcase,
-            color: '#06B6D4', bg: 'rgba(0,229,255,0.08)', border: 'rgba(0,229,255,0.15)',
+            color: '#06B6D4', bg: 'rgba(139, 92, 246,0.08)', border: 'rgba(139, 92, 246,0.15)',
         },
         {
             label: 'Pending Reviews', value: stats.pendingReviews, icon: AlertCircle,
@@ -75,7 +75,7 @@ export default function PayerDashboard() {
         },
         {
             label: 'Completed', value: stats.completed, icon: CheckCircle,
-            color: '#10B981', bg: 'rgba(0,255,148,0.08)', border: 'rgba(0,255,148,0.15)',
+            color: '#06B6D4', bg: 'rgba(6, 182, 212,0.08)', border: 'rgba(6, 182, 212,0.15)',
         },
         {
             label: 'Total Spent', value: `${currency}${stats.totalSpent.toLocaleString()}`, icon: DollarSign,
@@ -260,8 +260,8 @@ export default function PayerDashboard() {
                 </h2>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
                     {[
-                        { to: '/payer/post-bounty', icon: Plus, label: 'Post Bounty', desc: 'Create new task', color: '#10B981', bg: 'rgba(0,255,148,0.08)', border: 'rgba(0,255,148,0.2)', featured: true },
-                        { to: '/payer/live-bounties', icon: Target, label: 'My Bounties', desc: 'View all bounties', color: '#06B6D4', bg: 'rgba(0,229,255,0.08)', border: 'rgba(0,229,255,0.15)' },
+                        { to: '/payer/post-bounty', icon: Plus, label: 'Post Bounty', desc: 'Create new task', color: '#06B6D4', bg: 'rgba(6, 182, 212,0.08)', border: 'rgba(6, 182, 212,0.2)', featured: true },
+                        { to: '/payer/live-bounties', icon: Target, label: 'My Bounties', desc: 'View all bounties', color: '#06B6D4', bg: 'rgba(139, 92, 246,0.08)', border: 'rgba(139, 92, 246,0.15)' },
                         { to: '/payer/war-room', icon: MessageSquare, label: 'War Room', desc: 'Talk to hunters', color: '#8B5CF6', bg: 'rgba(168,85,247,0.08)', border: 'rgba(168,85,247,0.15)' },
                         { to: '/payer/vault', icon: TrendingUp, label: 'Payments', desc: 'Transaction history', color: '#F59E0B', bg: 'rgba(255,230,0,0.08)', border: 'rgba(255,230,0,0.15)' },
                     ].map((action) => (
@@ -272,7 +272,7 @@ export default function PayerDashboard() {
                                 display: 'flex', alignItems: 'center', gap: '14px',
                                 padding: '18px 16px', borderRadius: '16px',
                                 background: action.featured
-                                    ? 'linear-gradient(135deg, rgba(0,255,148,0.1), rgba(0,229,255,0.05))'
+                                    ? 'linear-gradient(135deg, rgba(6, 182, 212,0.1), rgba(139, 92, 246,0.05))'
                                     : action.bg,
                                 border: `1px solid ${action.border}`,
                                 textDecoration: 'none',
@@ -290,7 +290,7 @@ export default function PayerDashboard() {
                             <div style={{
                                 width: '44px', height: '44px', borderRadius: '12px',
                                 background: action.featured
-                                    ? 'linear-gradient(135deg, #10B981, #06B6D4)'
+                                    ? 'linear-gradient(135deg, #06B6D4, #06B6D4)'
                                     : `${action.color}15`,
                                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                                 flexShrink: 0,
@@ -332,9 +332,9 @@ function PayerBountyCard({ bounty, currency }) {
                 transition: 'all 0.2s ease',
             }}
             onMouseOver={e => {
-                e.currentTarget.style.borderColor = 'rgba(0,229,255,0.25)';
+                e.currentTarget.style.borderColor = 'rgba(139, 92, 246,0.25)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,229,255,0.08)';
+                e.currentTarget.style.boxShadow = '0 8px 25px rgba(139, 92, 246,0.08)';
             }}
             onMouseOut={e => {
                 e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)';
@@ -345,9 +345,9 @@ function PayerBountyCard({ bounty, currency }) {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
                 <span style={{
                     padding: '3px 10px', borderRadius: '6px', fontSize: '10px', fontWeight: '700',
-                    background: isExpired ? 'rgba(74,85,104,0.2)' : 'rgba(0,255,148,0.1)',
-                    color: isExpired ? '#4A5568' : '#10B981',
-                    border: `1px solid ${isExpired ? 'rgba(74,85,104,0.2)' : 'rgba(0,255,148,0.2)'}`,
+                    background: isExpired ? 'rgba(74,85,104,0.2)' : 'rgba(6, 182, 212,0.1)',
+                    color: isExpired ? '#4A5568' : '#06B6D4',
+                    border: `1px solid ${isExpired ? 'rgba(74,85,104,0.2)' : 'rgba(6, 182, 212,0.2)'}`,
                     letterSpacing: '0.08em',
                 }}>
                     {isExpired ? 'CLOSED' : 'LIVE'}

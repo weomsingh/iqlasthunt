@@ -73,32 +73,32 @@ export default function Header() {
     // Role-specific config
     const roleConfig = {
         hunter: {
-            color: '#10B981',
+            color: '#06B6D4',
             label: 'HUNTER',
-            bg: 'rgba(0,255,148,0.1)',
-            border: 'rgba(0,255,148,0.2)',
+            bg: 'rgba(6, 182, 212,0.1)',
+            border: 'rgba(6, 182, 212,0.2)',
             navLinks: [
                 { icon: Home, label: 'Dashboard', path: '/hunter/dashboard', color: '#06B6D4' },
                 { icon: Target, label: 'Arena', path: '/hunter/arena', color: '#F97316' },
                 { icon: MessageSquare, label: 'War Room', path: '/hunter/war-room', color: '#8B5CF6' },
                 { icon: Clock, label: 'History', path: '/hunter/history', color: '#6366F1' },
                 { icon: Trophy, label: 'Leaderboard', path: '/hunter/leaderboard', color: '#F59E0B' },
-                { icon: Wallet, label: 'Vault', path: '/hunter/vault', color: '#10B981' },
+                { icon: Wallet, label: 'Vault', path: '/hunter/vault', color: '#06B6D4' },
                 { icon: Settings, label: 'Settings', path: '/hunter/settings', color: '#8892AA' },
             ]
         },
         payer: {
             color: '#06B6D4',
             label: 'PAYER',
-            bg: 'rgba(0,229,255,0.1)',
-            border: 'rgba(0,229,255,0.2)',
+            bg: 'rgba(139, 92, 246,0.1)',
+            border: 'rgba(139, 92, 246,0.2)',
             navLinks: [
                 { icon: Home, label: 'Dashboard', path: '/payer/dashboard', color: '#06B6D4' },
                 { icon: Target, label: 'My Bounties', path: '/payer/live-bounties', color: '#F97316' },
-                { icon: Briefcase, label: 'Post Bounty', path: '/payer/post-bounty', color: '#10B981' },
+                { icon: Briefcase, label: 'Post Bounty', path: '/payer/post-bounty', color: '#06B6D4' },
                 { icon: MessageSquare, label: 'War Room', path: '/payer/war-room', color: '#8B5CF6' },
                 { icon: Clock, label: 'History', path: '/payer/history', color: '#6366F1' },
-                { icon: Wallet, label: 'Vault', path: '/payer/vault', color: '#10B981' },
+                { icon: Wallet, label: 'Vault', path: '/payer/vault', color: '#06B6D4' },
                 { icon: Settings, label: 'Settings', path: '/payer/settings', color: '#8892AA' },
             ]
         },
@@ -226,8 +226,8 @@ export default function Header() {
                             display: 'flex',
                             alignItems: 'center',
                             gap: '7px',
-                            background: 'rgba(0,255,148,0.08)',
-                            border: '1px solid rgba(0,255,148,0.2)',
+                            background: 'rgba(6, 182, 212,0.08)',
+                            border: '1px solid rgba(6, 182, 212,0.2)',
                             borderRadius: '10px',
                             padding: '7px 12px',
                             cursor: 'pointer',
@@ -235,16 +235,16 @@ export default function Header() {
                             minHeight: '38px',
                         }}
                         onMouseOver={e => {
-                            e.currentTarget.style.background = 'rgba(0,255,148,0.14)';
-                            e.currentTarget.style.boxShadow = '0 0 20px rgba(0,255,148,0.15)';
+                            e.currentTarget.style.background = 'rgba(6, 182, 212,0.14)';
+                            e.currentTarget.style.boxShadow = '0 0 20px rgba(6, 182, 212,0.15)';
                         }}
                         onMouseOut={e => {
-                            e.currentTarget.style.background = 'rgba(0,255,148,0.08)';
+                            e.currentTarget.style.background = 'rgba(6, 182, 212,0.08)';
                             e.currentTarget.style.boxShadow = 'none';
                         }}
                     >
-                        <Wallet size={15} style={{ color: '#10B981' }} />
-                        <span style={{ color: '#10B981', fontWeight: '700', fontFamily: 'JetBrains Mono', fontSize: '13px' }}>
+                        <Wallet size={15} style={{ color: '#06B6D4' }} />
+                        <span style={{ color: '#06B6D4', fontWeight: '700', fontFamily: 'JetBrains Mono', fontSize: '13px' }}>
                             {currency}{walletBalance}
                         </span>
                     </button>
@@ -269,7 +269,7 @@ export default function Header() {
                             <div style={{
                                 width: '36px', height: '36px',
                                 borderRadius: '50%',
-                                background: 'linear-gradient(135deg, #10B981, #06B6D4)',
+                                background: 'linear-gradient(135deg, #06B6D4, #06B6D4)',
                                 padding: '2px',
                             }}>
                                 <div style={{
@@ -282,7 +282,7 @@ export default function Header() {
                                     {currentUser.avatar_url ? (
                                         <img src={currentUser.avatar_url} alt={currentUser.username} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                     ) : (
-                                        <span style={{ color: '#10B981', fontSize: '12px', fontWeight: '800', fontFamily: 'Space Grotesk' }}>
+                                        <span style={{ color: '#06B6D4', fontSize: '12px', fontWeight: '800', fontFamily: 'Space Grotesk' }}>
                                             {initials}
                                         </span>
                                     )}
@@ -307,7 +307,7 @@ export default function Header() {
                                 border: '1px solid rgba(255,255,255,0.1)',
                                 borderRadius: '16px',
                                 padding: '8px',
-                                boxShadow: '0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(0,255,148,0.05)',
+                                boxShadow: '0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(6, 182, 212,0.05)',
                                 zIndex: 100,
                                 animation: 'scaleIn 0.15s ease',
                             }}>
@@ -330,7 +330,7 @@ export default function Header() {
                                 {[
                                     { icon: User, label: 'View Profile', action: () => goTo(`/${role}/profile`), color: '#06B6D4' },
                                     { icon: Settings, label: 'Account Settings', action: () => goTo(`/${role}/settings`), color: '#8B5CF6' },
-                                    { icon: Wallet, label: 'My Vault', action: () => goTo(`/${role}/vault`), color: '#10B981' },
+                                    { icon: Wallet, label: 'My Vault', action: () => goTo(`/${role}/vault`), color: '#06B6D4' },
                                     ...(role === 'hunter' ? [{ icon: Trophy, label: 'Leaderboard', action: () => goTo('/hunter/leaderboard'), color: '#F59E0B' }] : []),
                                     ...(role === 'hunter' ? [{ icon: MessageSquare, label: 'War Room', action: () => goTo('/hunter/war-room'), color: '#F97316' }] : []),
                                     ...(role === 'payer' ? [{ icon: Briefcase, label: 'Post Bounty', action: () => goTo('/payer/post-bounty'), color: '#F97316' }] : []),
@@ -443,7 +443,7 @@ export default function Header() {
                                 <div style={{
                                     width: '42px', height: '42px',
                                     borderRadius: '50%',
-                                    background: 'linear-gradient(135deg, #10B981, #06B6D4)',
+                                    background: 'linear-gradient(135deg, #06B6D4, #06B6D4)',
                                     padding: '2px',
                                     flexShrink: 0,
                                 }}>
@@ -457,7 +457,7 @@ export default function Header() {
                                         {currentUser.avatar_url ? (
                                             <img src={currentUser.avatar_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                         ) : (
-                                            <span style={{ color: '#10B981', fontSize: '13px', fontWeight: '800' }}>{initials}</span>
+                                            <span style={{ color: '#06B6D4', fontSize: '13px', fontWeight: '800' }}>{initials}</span>
                                         )}
                                     </div>
                                 </div>
@@ -503,23 +503,23 @@ export default function Header() {
                                     alignItems: 'center',
                                     justifyContent: 'space-between',
                                     padding: '12px 16px',
-                                    background: 'rgba(0,255,148,0.08)',
-                                    border: '1px solid rgba(0,255,148,0.2)',
+                                    background: 'rgba(6, 182, 212,0.08)',
+                                    border: '1px solid rgba(6, 182, 212,0.2)',
                                     borderRadius: '12px',
                                     cursor: 'pointer',
                                     minHeight: '50px',
                                 }}
                             >
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                    <Wallet size={18} style={{ color: '#10B981' }} />
+                                    <Wallet size={18} style={{ color: '#06B6D4' }} />
                                     <div style={{ textAlign: 'left' }}>
                                         <p style={{ color: '#8892AA', fontSize: '11px', fontWeight: '600' }}>Available Balance</p>
-                                        <p style={{ color: '#10B981', fontWeight: '800', fontFamily: 'JetBrains Mono', fontSize: '16px' }}>
+                                        <p style={{ color: '#06B6D4', fontWeight: '800', fontFamily: 'JetBrains Mono', fontSize: '16px' }}>
                                             {currency}{walletBalance}
                                         </p>
                                     </div>
                                 </div>
-                                <TrendingUp size={16} style={{ color: '#10B98180' }} />
+                                <TrendingUp size={16} style={{ color: '#06B6D480' }} />
                             </button>
                         </div>
 

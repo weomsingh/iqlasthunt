@@ -278,7 +278,7 @@ export default function AdminDashboard() {
 
                 {pendingDeposits.length === 0 ? (
                     <div className="empty-state-small">
-                        <CheckCircle size={32} color="#10B981" />
+                        <CheckCircle size={32} color="#06B6D4" />
                         <p>No pending deposits</p>
                     </div>
                 ) : (
@@ -340,7 +340,7 @@ export default function AdminDashboard() {
 
                 {pendingWithdrawals.length === 0 ? (
                     <div className="empty-state-small">
-                        <CheckCircle size={32} color="#10B981" />
+                        <CheckCircle size={32} color="#06B6D4" />
                         <p>No pending withdrawals</p>
                     </div>
                 ) : (
