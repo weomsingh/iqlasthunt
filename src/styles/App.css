@@ -1,3 +1,17 @@
+/* ===== CRITICAL SCROLL FIX — DO NOT REMOVE ===== */
+/* These overrides ensure body/html always scroll, no matter what other rules say */
+html,
+body,
+#root {
+    overflow-x: hidden !important;
+}
+
+html,
+body {
+    overflow-y: auto !important;
+    height: auto !important;
+}
+
 @keyframes spin {
     0% {
         transform: rotate(0deg);
@@ -167,9 +181,8 @@
     .dashboard-layout {
         display: flex;
         flex-direction: column;
-        height: 100vh;
-        overflow: hidden;
-        /* Prevent body scroll because we scroll main-content */
+        min-height: 100vh;
+        /* overflow: hidden REMOVED — it was blocking page scroll */
     }
 
     .sidebar {

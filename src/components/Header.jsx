@@ -26,10 +26,23 @@ export default function Header() {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    // Lock body scroll when sidebar is open (prevents background scroll on mobile)
+    useEffect(() => {
+        if (showSidebar) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [showSidebar]);
+
     // Close sidebar on route change
     useEffect(() => {
         setShowSidebar(false);
     }, [location.pathname]);
+
 
     if (!currentUser) return null;
 
