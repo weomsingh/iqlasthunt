@@ -3,21 +3,21 @@ import { Link } from 'react-router-dom';
 
 // Vibrant color palette for categories
 const categoryColors = {
-    'Design': { color: '#A855F7', bg: 'rgba(168,85,247,0.1)', border: 'rgba(168,85,247,0.2)' },
-    'Development': { color: '#00E5FF', bg: 'rgba(0,229,255,0.1)', border: 'rgba(0,229,255,0.2)' },
+    'Design': { color: '#8B5CF6', bg: 'rgba(168,85,247,0.1)', border: 'rgba(168,85,247,0.2)' },
+    'Development': { color: '#06B6D4', bg: 'rgba(0,229,255,0.1)', border: 'rgba(0,229,255,0.2)' },
     'Writing': { color: '#14B8A6', bg: 'rgba(20,184,166,0.1)', border: 'rgba(20,184,166,0.2)' },
-    'Marketing': { color: '#FF6B35', bg: 'rgba(255,107,53,0.1)', border: 'rgba(255,107,53,0.2)' },
-    'Research': { color: '#FFE600', bg: 'rgba(255,230,0,0.1)', border: 'rgba(255,230,0,0.2)' },
+    'Marketing': { color: '#F97316', bg: 'rgba(255,107,53,0.1)', border: 'rgba(255,107,53,0.2)' },
+    'Research': { color: '#F59E0B', bg: 'rgba(255,230,0,0.1)', border: 'rgba(255,230,0,0.2)' },
     'Business': { color: '#6366F1', bg: 'rgba(99,102,241,0.1)', border: 'rgba(99,102,241,0.2)' },
-    'Finance': { color: '#00FF94', bg: 'rgba(0,255,148,0.1)', border: 'rgba(0,255,148,0.2)' },
+    'Finance': { color: '#10B981', bg: 'rgba(0,255,148,0.1)', border: 'rgba(0,255,148,0.2)' },
     'default': { color: '#8892AA', bg: 'rgba(136,146,170,0.1)', border: 'rgba(136,146,170,0.2)' },
 };
 
 const difficultyConfig = {
-    'Easy': { color: '#00FF94', bg: 'rgba(0,255,148,0.1)', border: 'rgba(0,255,148,0.2)' },
-    'Medium': { color: '#FFE600', bg: 'rgba(255,230,0,0.1)', border: 'rgba(255,230,0,0.2)' },
-    'Hard': { color: '#FF6B35', bg: 'rgba(255,107,53,0.1)', border: 'rgba(255,107,53,0.2)' },
-    'Extreme': { color: '#FF2D78', bg: 'rgba(255,45,120,0.1)', border: 'rgba(255,45,120,0.2)' },
+    'Easy': { color: '#10B981', bg: 'rgba(0,255,148,0.1)', border: 'rgba(0,255,148,0.2)' },
+    'Medium': { color: '#F59E0B', bg: 'rgba(255,230,0,0.1)', border: 'rgba(255,230,0,0.2)' },
+    'Hard': { color: '#F97316', bg: 'rgba(255,107,53,0.1)', border: 'rgba(255,107,53,0.2)' },
+    'Extreme': { color: '#EC4899', bg: 'rgba(255,45,120,0.1)', border: 'rgba(255,45,120,0.2)' },
 };
 
 export default function BountyCard({ bounty, userRole = 'hunter' }) {
@@ -97,7 +97,7 @@ export default function BountyCard({ bounty, userRole = 'hunter' }) {
                         <span style={{
                             display: 'inline-flex', alignItems: 'center', gap: '4px',
                             padding: '4px 10px', borderRadius: '6px',
-                            background: 'rgba(255,230,0,0.1)', color: '#FFE600', border: '1px solid rgba(255,230,0,0.25)',
+                            background: 'rgba(255,230,0,0.1)', color: '#F59E0B', border: '1px solid rgba(255,230,0,0.25)',
                             fontSize: '10px', fontWeight: '700'
                         }}>
                             <Star size={9} fill="currentColor" /> FEATURED
@@ -109,7 +109,7 @@ export default function BountyCard({ bounty, userRole = 'hunter' }) {
                         <span style={{
                             display: 'inline-flex', alignItems: 'center', gap: '4px',
                             padding: '4px 10px', borderRadius: '6px',
-                            background: 'rgba(255,107,53,0.12)', color: '#FF6B35', border: '1px solid rgba(255,107,53,0.3)',
+                            background: 'rgba(255,107,53,0.12)', color: '#F97316', border: '1px solid rgba(255,107,53,0.3)',
                             fontSize: '10px', fontWeight: '700',
                             animation: 'pulseDot 2s ease-in-out infinite'
                         }}>
@@ -122,7 +122,7 @@ export default function BountyCard({ bounty, userRole = 'hunter' }) {
                         <span style={{
                             display: 'inline-flex', alignItems: 'center', gap: '4px',
                             padding: '4px 10px', borderRadius: '6px',
-                            background: 'rgba(0,255,148,0.1)', color: '#00FF94', border: '1px solid rgba(0,255,148,0.2)',
+                            background: 'rgba(0,255,148,0.1)', color: '#10B981', border: '1px solid rgba(0,255,148,0.2)',
                             fontSize: '10px', fontWeight: '700'
                         }}>
                             <ShieldCheck size={9} /> SECURED
@@ -170,11 +170,11 @@ export default function BountyCard({ bounty, userRole = 'hunter' }) {
                 }}>
                     {/* Time */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
-                        <Clock size={13} style={{ color: isExpiringSoon ? '#FFE600' : '#8892AA', flexShrink: 0 }} />
+                        <Clock size={13} style={{ color: isExpiringSoon ? '#F59E0B' : '#8892AA', flexShrink: 0 }} />
                         <span style={{
                             fontSize: '12px', fontFamily: 'JetBrains Mono',
                             fontWeight: isExpiringSoon ? '800' : '600',
-                            color: isExpired ? '#F43F5E' : isExpiringSoon ? '#FFE600' : '#8892AA'
+                            color: isExpired ? '#F43F5E' : isExpiringSoon ? '#F59E0B' : '#8892AA'
                         }}>
                             {timeDisplay}
                         </span>
@@ -191,7 +191,7 @@ export default function BountyCard({ bounty, userRole = 'hunter' }) {
                     {/* Entry Fee */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
                         <Lock size={13} style={{ color: '#8892AA', flexShrink: 0 }} />
-                        <span style={{ fontSize: '12px', fontFamily: 'JetBrains Mono', fontWeight: '600', color: entry_fee > 0 ? '#FF6B35' : '#00FF94' }}>
+                        <span style={{ fontSize: '12px', fontFamily: 'JetBrains Mono', fontWeight: '600', color: entry_fee > 0 ? '#F97316' : '#10B981' }}>
                             {entry_fee > 0 ? `${symbol}${entry_fee} stake` : 'Free entry'}
                         </span>
                     </div>
@@ -200,10 +200,10 @@ export default function BountyCard({ bounty, userRole = 'hunter' }) {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
                         <span style={{
                             width: '7px', height: '7px', borderRadius: '50%', flexShrink: 0,
-                            background: isExpired ? '#4A5568' : '#00FF94',
+                            background: isExpired ? '#4A5568' : '#10B981',
                             animation: isExpired ? 'none' : 'pulseDot 2s ease-in-out infinite',
                         }} />
-                        <span style={{ fontSize: '12px', fontWeight: '700', color: isExpired ? '#4A5568' : '#00FF94', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                        <span style={{ fontSize: '12px', fontWeight: '700', color: isExpired ? '#4A5568' : '#10B981', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                             {isExpired ? 'Closed' : 'Live'}
                         </span>
                     </div>
@@ -221,7 +221,7 @@ export default function BountyCard({ bounty, userRole = 'hunter' }) {
                         <div style={{
                             height: '100%', borderRadius: '2px',
                             background: fillPercent >= 80
-                                ? 'linear-gradient(90deg, #FF6B35, #FF2D78)'
+                                ? 'linear-gradient(90deg, #F97316, #EC4899)'
                                 : `linear-gradient(90deg, ${catColor.color}, ${catColor.color}90)`,
                             width: `${Math.min(100, fillPercent)}%`,
                             transition: 'width 0.8s ease',

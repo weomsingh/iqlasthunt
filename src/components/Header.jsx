@@ -73,42 +73,42 @@ export default function Header() {
     // Role-specific config
     const roleConfig = {
         hunter: {
-            color: '#00FF94',
+            color: '#10B981',
             label: 'HUNTER',
             bg: 'rgba(0,255,148,0.1)',
             border: 'rgba(0,255,148,0.2)',
             navLinks: [
-                { icon: Home, label: 'Dashboard', path: '/hunter/dashboard', color: '#00E5FF' },
-                { icon: Target, label: 'Arena', path: '/hunter/arena', color: '#FF6B35' },
-                { icon: MessageSquare, label: 'War Room', path: '/hunter/war-room', color: '#A855F7' },
+                { icon: Home, label: 'Dashboard', path: '/hunter/dashboard', color: '#06B6D4' },
+                { icon: Target, label: 'Arena', path: '/hunter/arena', color: '#F97316' },
+                { icon: MessageSquare, label: 'War Room', path: '/hunter/war-room', color: '#8B5CF6' },
                 { icon: Clock, label: 'History', path: '/hunter/history', color: '#6366F1' },
-                { icon: Trophy, label: 'Leaderboard', path: '/hunter/leaderboard', color: '#FFE600' },
-                { icon: Wallet, label: 'Vault', path: '/hunter/vault', color: '#00FF94' },
+                { icon: Trophy, label: 'Leaderboard', path: '/hunter/leaderboard', color: '#F59E0B' },
+                { icon: Wallet, label: 'Vault', path: '/hunter/vault', color: '#10B981' },
                 { icon: Settings, label: 'Settings', path: '/hunter/settings', color: '#8892AA' },
             ]
         },
         payer: {
-            color: '#00E5FF',
+            color: '#06B6D4',
             label: 'PAYER',
             bg: 'rgba(0,229,255,0.1)',
             border: 'rgba(0,229,255,0.2)',
             navLinks: [
-                { icon: Home, label: 'Dashboard', path: '/payer/dashboard', color: '#00E5FF' },
-                { icon: Target, label: 'My Bounties', path: '/payer/live-bounties', color: '#FF6B35' },
-                { icon: Briefcase, label: 'Post Bounty', path: '/payer/post-bounty', color: '#00FF94' },
-                { icon: MessageSquare, label: 'War Room', path: '/payer/war-room', color: '#A855F7' },
+                { icon: Home, label: 'Dashboard', path: '/payer/dashboard', color: '#06B6D4' },
+                { icon: Target, label: 'My Bounties', path: '/payer/live-bounties', color: '#F97316' },
+                { icon: Briefcase, label: 'Post Bounty', path: '/payer/post-bounty', color: '#10B981' },
+                { icon: MessageSquare, label: 'War Room', path: '/payer/war-room', color: '#8B5CF6' },
                 { icon: Clock, label: 'History', path: '/payer/history', color: '#6366F1' },
-                { icon: Wallet, label: 'Vault', path: '/payer/vault', color: '#00FF94' },
+                { icon: Wallet, label: 'Vault', path: '/payer/vault', color: '#10B981' },
                 { icon: Settings, label: 'Settings', path: '/payer/settings', color: '#8892AA' },
             ]
         },
         admin: {
-            color: '#FF2D78',
+            color: '#EC4899',
             label: 'ADMIN',
             bg: 'rgba(255,45,120,0.1)',
             border: 'rgba(255,45,120,0.2)',
             navLinks: [
-                { icon: Home, label: 'Dashboard', path: '/admin/dashboard', color: '#FF2D78' },
+                { icon: Home, label: 'Dashboard', path: '/admin/dashboard', color: '#EC4899' },
             ]
         }
     };
@@ -243,8 +243,8 @@ export default function Header() {
                             e.currentTarget.style.boxShadow = 'none';
                         }}
                     >
-                        <Wallet size={15} style={{ color: '#00FF94' }} />
-                        <span style={{ color: '#00FF94', fontWeight: '700', fontFamily: 'JetBrains Mono', fontSize: '13px' }}>
+                        <Wallet size={15} style={{ color: '#10B981' }} />
+                        <span style={{ color: '#10B981', fontWeight: '700', fontFamily: 'JetBrains Mono', fontSize: '13px' }}>
                             {currency}{walletBalance}
                         </span>
                     </button>
@@ -269,7 +269,7 @@ export default function Header() {
                             <div style={{
                                 width: '36px', height: '36px',
                                 borderRadius: '50%',
-                                background: 'linear-gradient(135deg, #00FF94, #00E5FF)',
+                                background: 'linear-gradient(135deg, #10B981, #06B6D4)',
                                 padding: '2px',
                             }}>
                                 <div style={{
@@ -282,7 +282,7 @@ export default function Header() {
                                     {currentUser.avatar_url ? (
                                         <img src={currentUser.avatar_url} alt={currentUser.username} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                     ) : (
-                                        <span style={{ color: '#00FF94', fontSize: '12px', fontWeight: '800', fontFamily: 'Space Grotesk' }}>
+                                        <span style={{ color: '#10B981', fontSize: '12px', fontWeight: '800', fontFamily: 'Space Grotesk' }}>
                                             {initials}
                                         </span>
                                     )}
@@ -328,12 +328,12 @@ export default function Header() {
 
                                 {/* Menu items */}
                                 {[
-                                    { icon: User, label: 'View Profile', action: () => goTo(`/${role}/profile`), color: '#00E5FF' },
-                                    { icon: Settings, label: 'Account Settings', action: () => goTo(`/${role}/settings`), color: '#A855F7' },
-                                    { icon: Wallet, label: 'My Vault', action: () => goTo(`/${role}/vault`), color: '#00FF94' },
-                                    ...(role === 'hunter' ? [{ icon: Trophy, label: 'Leaderboard', action: () => goTo('/hunter/leaderboard'), color: '#FFE600' }] : []),
-                                    ...(role === 'hunter' ? [{ icon: MessageSquare, label: 'War Room', action: () => goTo('/hunter/war-room'), color: '#FF6B35' }] : []),
-                                    ...(role === 'payer' ? [{ icon: Briefcase, label: 'Post Bounty', action: () => goTo('/payer/post-bounty'), color: '#FF6B35' }] : []),
+                                    { icon: User, label: 'View Profile', action: () => goTo(`/${role}/profile`), color: '#06B6D4' },
+                                    { icon: Settings, label: 'Account Settings', action: () => goTo(`/${role}/settings`), color: '#8B5CF6' },
+                                    { icon: Wallet, label: 'My Vault', action: () => goTo(`/${role}/vault`), color: '#10B981' },
+                                    ...(role === 'hunter' ? [{ icon: Trophy, label: 'Leaderboard', action: () => goTo('/hunter/leaderboard'), color: '#F59E0B' }] : []),
+                                    ...(role === 'hunter' ? [{ icon: MessageSquare, label: 'War Room', action: () => goTo('/hunter/war-room'), color: '#F97316' }] : []),
+                                    ...(role === 'payer' ? [{ icon: Briefcase, label: 'Post Bounty', action: () => goTo('/payer/post-bounty'), color: '#F97316' }] : []),
                                 ].map((item, i) => (
                                     <button
                                         key={i}
@@ -443,7 +443,7 @@ export default function Header() {
                                 <div style={{
                                     width: '42px', height: '42px',
                                     borderRadius: '50%',
-                                    background: 'linear-gradient(135deg, #00FF94, #00E5FF)',
+                                    background: 'linear-gradient(135deg, #10B981, #06B6D4)',
                                     padding: '2px',
                                     flexShrink: 0,
                                 }}>
@@ -457,7 +457,7 @@ export default function Header() {
                                         {currentUser.avatar_url ? (
                                             <img src={currentUser.avatar_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                         ) : (
-                                            <span style={{ color: '#00FF94', fontSize: '13px', fontWeight: '800' }}>{initials}</span>
+                                            <span style={{ color: '#10B981', fontSize: '13px', fontWeight: '800' }}>{initials}</span>
                                         )}
                                     </div>
                                 </div>
@@ -511,15 +511,15 @@ export default function Header() {
                                 }}
                             >
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                    <Wallet size={18} style={{ color: '#00FF94' }} />
+                                    <Wallet size={18} style={{ color: '#10B981' }} />
                                     <div style={{ textAlign: 'left' }}>
                                         <p style={{ color: '#8892AA', fontSize: '11px', fontWeight: '600' }}>Available Balance</p>
-                                        <p style={{ color: '#00FF94', fontWeight: '800', fontFamily: 'JetBrains Mono', fontSize: '16px' }}>
+                                        <p style={{ color: '#10B981', fontWeight: '800', fontFamily: 'JetBrains Mono', fontSize: '16px' }}>
                                             {currency}{walletBalance}
                                         </p>
                                     </div>
                                 </div>
-                                <TrendingUp size={16} style={{ color: '#00FF9480' }} />
+                                <TrendingUp size={16} style={{ color: '#10B98180' }} />
                             </button>
                         </div>
 
@@ -592,7 +592,7 @@ export default function Header() {
                                 onMouseOver={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.color = '#F0F4FF'; }}
                                 onMouseOut={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = '#8892AA'; }}
                             >
-                                <HelpCircle size={20} style={{ color: '#FFE600', flexShrink: 0 }} />
+                                <HelpCircle size={20} style={{ color: '#F59E0B', flexShrink: 0 }} />
                                 <span>Help & Support</span>
                             </button>
                         </div>

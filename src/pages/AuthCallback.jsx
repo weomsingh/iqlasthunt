@@ -150,7 +150,7 @@ export default function AuthCallback() {
                     <div className="space-y-3">
                         <button
                             onClick={() => routeToDashboard({ role: roleMismatch.actual })}
-                            className="w-full py-3 bg-[#00ff9d] text-black font-bold rounded-xl hover:scale-105 transition-transform"
+                            className="w-full py-3 bg-[#10B981] text-black font-bold rounded-xl hover:scale-105 transition-transform"
                         >
                             Go to {roleMismatch.actual === 'hunter' ? 'Hunter Dashboard' : 'Payer Dashboard'}
                         </button>

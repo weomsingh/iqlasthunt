@@ -66,20 +66,20 @@ export default function PayerDashboard() {
     const statsData = [
         {
             label: 'Active Bounties', value: stats.active, icon: Briefcase,
-            color: '#00E5FF', bg: 'rgba(0,229,255,0.08)', border: 'rgba(0,229,255,0.15)',
+            color: '#06B6D4', bg: 'rgba(0,229,255,0.08)', border: 'rgba(0,229,255,0.15)',
         },
         {
             label: 'Pending Reviews', value: stats.pendingReviews, icon: AlertCircle,
-            color: '#FFE600', bg: 'rgba(255,230,0,0.08)', border: 'rgba(255,230,0,0.15)',
+            color: '#F59E0B', bg: 'rgba(255,230,0,0.08)', border: 'rgba(255,230,0,0.15)',
             urgent: stats.pendingReviews > 0,
         },
         {
             label: 'Completed', value: stats.completed, icon: CheckCircle,
-            color: '#00FF94', bg: 'rgba(0,255,148,0.08)', border: 'rgba(0,255,148,0.15)',
+            color: '#10B981', bg: 'rgba(0,255,148,0.08)', border: 'rgba(0,255,148,0.15)',
         },
         {
             label: 'Total Spent', value: `${currency}${stats.totalSpent.toLocaleString()}`, icon: DollarSign,
-            color: '#A855F7', bg: 'rgba(168,85,247,0.08)', border: 'rgba(168,85,247,0.15)',
+            color: '#8B5CF6', bg: 'rgba(168,85,247,0.08)', border: 'rgba(168,85,247,0.15)',
         },
     ];
 
@@ -98,7 +98,7 @@ export default function PayerDashboard() {
                 }}>
                     Welcome back,{' '}
                     <span style={{
-                        background: 'linear-gradient(135deg, #00E5FF, #A855F7)',
+                        background: 'linear-gradient(135deg, #06B6D4, #8B5CF6)',
                         WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text'
                     }}>
                         {currentUser?.username}
@@ -159,13 +159,13 @@ export default function PayerDashboard() {
                 <div>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                            <AlertCircle size={20} style={{ color: '#FFE600' }} />
+                            <AlertCircle size={20} style={{ color: '#F59E0B' }} />
                             <h2 style={{ fontSize: '18px', fontWeight: '800', color: '#F0F4FF', fontFamily: 'Space Grotesk' }}>
                                 Pending Reviews
                             </h2>
                             <span style={{
                                 padding: '2px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: '800',
-                                background: 'rgba(255,230,0,0.15)', color: '#FFE600', border: '1px solid rgba(255,230,0,0.3)',
+                                background: 'rgba(255,230,0,0.15)', color: '#F59E0B', border: '1px solid rgba(255,230,0,0.3)',
                                 animation: 'pulseDot 2s infinite',
                             }}>
                                 {pendingSubmissions.length} WAITING
@@ -188,7 +188,7 @@ export default function PayerDashboard() {
                                         width: '40px', height: '40px', borderRadius: '50%',
                                         background: 'rgba(255,230,0,0.12)', border: '1px solid rgba(255,230,0,0.25)',
                                         display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                        color: '#FFE600', fontWeight: '800', fontSize: '13px',
+                                        color: '#F59E0B', fontWeight: '800', fontSize: '13px',
                                     }}>H</div>
                                     <div>
                                         <p style={{ color: '#F0F4FF', fontWeight: '700', fontSize: '14px' }}>Hunter Submission</p>
@@ -202,7 +202,7 @@ export default function PayerDashboard() {
                                     style={{
                                         display: 'block', textAlign: 'center',
                                         padding: '10px', borderRadius: '10px',
-                                        background: 'rgba(255,230,0,0.12)', color: '#FFE600',
+                                        background: 'rgba(255,230,0,0.12)', color: '#F59E0B',
                                         border: '1px solid rgba(255,230,0,0.3)',
                                         fontWeight: '700', fontSize: '13px', textDecoration: 'none',
                                         transition: 'all 0.2s ease',
@@ -219,14 +219,14 @@ export default function PayerDashboard() {
             <div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <Zap size={20} style={{ color: '#00E5FF' }} />
+                        <Zap size={20} style={{ color: '#06B6D4' }} />
                         <h2 style={{ fontSize: '18px', fontWeight: '800', color: '#F0F4FF', fontFamily: 'Space Grotesk' }}>
                             Active Bounties
                         </h2>
                     </div>
                     <Link to="/payer/live-bounties" style={{
                         display: 'flex', alignItems: 'center', gap: '4px',
-                        color: '#00E5FF', fontSize: '13px', fontWeight: '700', textDecoration: 'none',
+                        color: '#06B6D4', fontSize: '13px', fontWeight: '700', textDecoration: 'none',
                     }}>
                         View All <ArrowRight size={14} />
                     </Link>
@@ -260,10 +260,10 @@ export default function PayerDashboard() {
                 </h2>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
                     {[
-                        { to: '/payer/post-bounty', icon: Plus, label: 'Post Bounty', desc: 'Create new task', color: '#00FF94', bg: 'rgba(0,255,148,0.08)', border: 'rgba(0,255,148,0.2)', featured: true },
-                        { to: '/payer/live-bounties', icon: Target, label: 'My Bounties', desc: 'View all bounties', color: '#00E5FF', bg: 'rgba(0,229,255,0.08)', border: 'rgba(0,229,255,0.15)' },
-                        { to: '/payer/war-room', icon: MessageSquare, label: 'War Room', desc: 'Talk to hunters', color: '#A855F7', bg: 'rgba(168,85,247,0.08)', border: 'rgba(168,85,247,0.15)' },
-                        { to: '/payer/vault', icon: TrendingUp, label: 'Payments', desc: 'Transaction history', color: '#FFE600', bg: 'rgba(255,230,0,0.08)', border: 'rgba(255,230,0,0.15)' },
+                        { to: '/payer/post-bounty', icon: Plus, label: 'Post Bounty', desc: 'Create new task', color: '#10B981', bg: 'rgba(0,255,148,0.08)', border: 'rgba(0,255,148,0.2)', featured: true },
+                        { to: '/payer/live-bounties', icon: Target, label: 'My Bounties', desc: 'View all bounties', color: '#06B6D4', bg: 'rgba(0,229,255,0.08)', border: 'rgba(0,229,255,0.15)' },
+                        { to: '/payer/war-room', icon: MessageSquare, label: 'War Room', desc: 'Talk to hunters', color: '#8B5CF6', bg: 'rgba(168,85,247,0.08)', border: 'rgba(168,85,247,0.15)' },
+                        { to: '/payer/vault', icon: TrendingUp, label: 'Payments', desc: 'Transaction history', color: '#F59E0B', bg: 'rgba(255,230,0,0.08)', border: 'rgba(255,230,0,0.15)' },
                     ].map((action) => (
                         <Link
                             key={action.to}
@@ -290,7 +290,7 @@ export default function PayerDashboard() {
                             <div style={{
                                 width: '44px', height: '44px', borderRadius: '12px',
                                 background: action.featured
-                                    ? 'linear-gradient(135deg, #00FF94, #00E5FF)'
+                                    ? 'linear-gradient(135deg, #10B981, #06B6D4)'
                                     : `${action.color}15`,
                                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                                 flexShrink: 0,
@@ -346,14 +346,14 @@ function PayerBountyCard({ bounty, currency }) {
                 <span style={{
                     padding: '3px 10px', borderRadius: '6px', fontSize: '10px', fontWeight: '700',
                     background: isExpired ? 'rgba(74,85,104,0.2)' : 'rgba(0,255,148,0.1)',
-                    color: isExpired ? '#4A5568' : '#00FF94',
+                    color: isExpired ? '#4A5568' : '#10B981',
                     border: `1px solid ${isExpired ? 'rgba(74,85,104,0.2)' : 'rgba(0,255,148,0.2)'}`,
                     letterSpacing: '0.08em',
                 }}>
                     {isExpired ? 'CLOSED' : 'LIVE'}
                 </span>
                 <span style={{
-                    fontSize: '16px', fontWeight: '900', color: '#00E5FF',
+                    fontSize: '16px', fontWeight: '900', color: '#06B6D4',
                     fontFamily: 'Space Grotesk',
                 }}>
                     {currency}{(bounty.reward || 0).toLocaleString()}
@@ -376,8 +376,8 @@ function PayerBountyCard({ bounty, currency }) {
                     <span style={{ fontSize: '11px', color: '#8892AA', fontWeight: '600' }}>{subCount} submissions</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                    <Clock size={12} style={{ color: isUrgent ? '#FF6B35' : '#8892AA' }} />
-                    <span style={{ fontSize: '11px', color: isUrgent ? '#FF6B35' : '#8892AA', fontWeight: isUrgent ? '700' : '600' }}>
+                    <Clock size={12} style={{ color: isUrgent ? '#F97316' : '#8892AA' }} />
+                    <span style={{ fontSize: '11px', color: isUrgent ? '#F97316' : '#8892AA', fontWeight: isUrgent ? '700' : '600' }}>
                         {isExpired ? 'Expired' : `${daysLeft}d left`}
                     </span>
                 </div>

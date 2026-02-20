@@ -32,14 +32,12 @@ export default function PayerSettings() {
         e.preventDefault();
         setLoading(true);
         try {
-            // Create update object strictly with known columns
             const updates = {
-                username: profileData.username,
-                bio: profileData.bio,
-                website: profileData.website,
-                company: profileData.company,
-                // full_name: profileData.full_name, // Temporarily disabled if causing schema errors
-                updated_at: new Date()
+                username: profileData.username.trim(),
+                bio: profileData.bio.trim() || null,
+                website: profileData.website.trim() || null,
+                company: profileData.company.trim() || null,
+                updated_at: new Date().toISOString(),
             };
 
             const { error } = await supabase

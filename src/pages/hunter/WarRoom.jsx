@@ -229,15 +229,15 @@ export default function HunterWarRoom() {
         return (
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', textAlign: 'center', gap: '24px', animation: 'fadeInUp 0.4s ease' }}>
                 <div style={{ width: '96px', height: '96px', borderRadius: '50%', background: 'rgba(0,255,148,0.1)', border: '1px solid rgba(0,255,148,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Shield size={48} style={{ color: '#00FF94' }} />
+                    <Shield size={48} style={{ color: '#10B981' }} />
                 </div>
                 <div>
                     <h1 style={{ fontSize: '28px', fontWeight: '800', color: '#F0F4FF', marginBottom: '8px', fontFamily: 'Space Grotesk' }}>Protocol Terminated</h1>
                     <p style={{ color: '#8892AA', maxWidth: '360px' }}>This mission has concluded. Communications have been securely archived by HQ.</p>
                 </div>
                 <div style={{ padding: '12px 20px', borderRadius: '12px', background: 'rgba(0,255,148,0.08)', border: '1px solid rgba(0,255,148,0.2)', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <Shield size={16} style={{ color: '#00FF94' }} />
-                    <span style={{ color: '#00FF94', fontSize: '13px', fontWeight: '600' }}>Logs encrypted & sent to Admins</span>
+                    <Shield size={16} style={{ color: '#10B981' }} />
+                    <span style={{ color: '#10B981', fontSize: '13px', fontWeight: '600' }}>Logs encrypted & sent to Admins</span>
                 </div>
                 <button
                     onClick={() => window.location.href = '/hunter/dashboard'}
@@ -280,8 +280,8 @@ export default function HunterWarRoom() {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', flexShrink: 0 }}>
                 <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-                        <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#FF2D78', display: 'inline-block', animation: 'pulseDot 1.5s ease-in-out infinite' }} />
-                        <span style={{ color: '#FF2D78', fontSize: '11px', fontWeight: '800', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Live Mission</span>
+                        <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#EC4899', display: 'inline-block', animation: 'pulseDot 1.5s ease-in-out infinite' }} />
+                        <span style={{ color: '#EC4899', fontSize: '11px', fontWeight: '800', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Live Mission</span>
                     </div>
                     <h1 style={{ fontSize: 'clamp(18px, 3vw, 24px)', fontWeight: '800', color: '#F0F4FF', fontFamily: 'Space Grotesk', lineHeight: 1.3 }}>
                         {activeBounty.title}
@@ -289,7 +289,7 @@ export default function HunterWarRoom() {
                 </div>
                 <div style={{ textAlign: 'right' }}>
                     <p style={{ color: '#8892AA', fontSize: '11px', fontWeight: '600', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '4px' }}>Reward Pool</p>
-                    <p style={{ fontSize: '24px', fontWeight: '900', fontFamily: 'Space Grotesk', background: 'linear-gradient(135deg, #00FF94, #00E5FF)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                    <p style={{ fontSize: '24px', fontWeight: '900', fontFamily: 'Space Grotesk', background: 'linear-gradient(135deg, #10B981, #06B6D4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                         {currency}{activeBounty.reward.toLocaleString()}
                     </p>
                 </div>
@@ -330,7 +330,7 @@ export default function HunterWarRoom() {
                                                     <div style={{
                                                         background: 'rgba(0,0,0,0.4)', borderRadius: '10px', padding: '8px 12px',
                                                         fontFamily: 'JetBrains Mono', fontWeight: '900', fontSize: '28px',
-                                                        color: timer.days === 0 && (timer.hours || 0) < 3 ? '#FF6B35' : '#FFE600',
+                                                        color: timer.days === 0 && (timer.hours || 0) < 3 ? '#F97316' : '#F59E0B',
                                                         textShadow: '0 0 20px currentColor',
                                                         minWidth: '52px', textAlign: 'center',
                                                     }}>
@@ -347,7 +347,7 @@ export default function HunterWarRoom() {
                                         <div style={{
                                             height: '100%', borderRadius: '3px',
                                             width: `${Math.max(0, Math.min(100, 100 - ((timer.days || 0) * 24 + (timer.hours || 0)) / (3 * 24) * 100))}%`,
-                                            background: timer.days === 0 && (timer.hours || 0) < 3 ? 'linear-gradient(90deg, #FF6B35, #F43F5E)' : 'linear-gradient(90deg, #FFE600, #FF6B35)',
+                                            background: timer.days === 0 && (timer.hours || 0) < 3 ? 'linear-gradient(90deg, #F97316, #F43F5E)' : 'linear-gradient(90deg, #F59E0B, #F97316)',
                                             transition: 'width 1s ease',
                                             boxShadow: '0 0 10px rgba(255,230,0,0.5)',
                                         }} />
@@ -384,7 +384,7 @@ export default function HunterWarRoom() {
                         }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                                 <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(0,255,148,0.1)', border: '1px solid rgba(0,255,148,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                    <MessageSquare size={18} style={{ color: '#00FF94' }} />
+                                    <MessageSquare size={18} style={{ color: '#10B981' }} />
                                 </div>
                                 <div>
                                     <h3 style={{ color: '#F0F4FF', fontWeight: '700', fontSize: '14px' }}>Operative Comms</h3>
@@ -395,7 +395,7 @@ export default function HunterWarRoom() {
                                 </div>
                             </div>
                             <div style={{ padding: '6px 12px', borderRadius: '8px', background: 'rgba(0,255,148,0.08)', border: '1px solid rgba(0,255,148,0.2)' }}>
-                                <span style={{ color: '#00FF94', fontSize: '11px', fontWeight: '700' }}>{messages.length} msgs</span>
+                                <span style={{ color: '#10B981', fontSize: '11px', fontWeight: '700' }}>{messages.length} msgs</span>
                             </div>
                         </div>
 
@@ -416,7 +416,7 @@ export default function HunterWarRoom() {
                                                 width: '34px', height: '34px', borderRadius: '50%', flexShrink: 0,
                                                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                                                 fontSize: '12px', fontWeight: '800',
-                                                background: isMe ? 'linear-gradient(135deg, #00FF94, #00E5FF)' : 'rgba(255,255,255,0.06)',
+                                                background: isMe ? 'linear-gradient(135deg, #10B981, #06B6D4)' : 'rgba(255,255,255,0.06)',
                                                 color: isMe ? '#000' : '#8892AA',
                                                 border: isMe ? 'none' : '1px solid rgba(255,255,255,0.1)',
                                             }}>
@@ -425,7 +425,7 @@ export default function HunterWarRoom() {
                                             <div style={{ maxWidth: '70%', display: 'flex', flexDirection: 'column', gap: '4px', alignItems: isMe ? 'flex-end' : 'flex-start' }}>
                                                 <div style={{
                                                     padding: '12px 16px', borderRadius: isMe ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
-                                                    background: isMe ? 'linear-gradient(135deg, #00FF94, #00E5FF)' : 'rgba(255,255,255,0.07)',
+                                                    background: isMe ? 'linear-gradient(135deg, #10B981, #06B6D4)' : 'rgba(255,255,255,0.07)',
                                                     color: isMe ? '#000000' : '#F0F4FF',
                                                     fontSize: '14px', lineHeight: '1.5',
                                                     border: isMe ? 'none' : '1px solid rgba(255,255,255,0.08)',
@@ -470,7 +470,7 @@ export default function HunterWarRoom() {
                                 disabled={!newMessage.trim()}
                                 style={{
                                     width: '48px', height: '48px', borderRadius: '12px', flexShrink: 0,
-                                    background: newMessage.trim() ? 'linear-gradient(135deg, #00FF94, #00E5FF)' : 'rgba(255,255,255,0.06)',
+                                    background: newMessage.trim() ? 'linear-gradient(135deg, #10B981, #06B6D4)' : 'rgba(255,255,255,0.06)',
                                     border: 'none', cursor: newMessage.trim() ? 'pointer' : 'not-allowed',
                                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                                     transition: 'all 0.2s ease',

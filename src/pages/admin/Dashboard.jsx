@@ -123,7 +123,7 @@ export default function AdminDashboard() {
             }
 
             if (data.success) {
-                alert('✅ Deposit verified successfully!');
+                alert('Deposit verified successfully!');
                 await loadDashboardData();
             } else {
                 // This shows the actual error message from the database
@@ -169,7 +169,7 @@ export default function AdminDashboard() {
             `Process withdrawal of ₹${amount.toLocaleString()}?\n\n` +
             `UPI ID: ${metadata?.upi_id}\n` +
             `Name: ${metadata?.account_holder_name}\n\n` +
-            `⚠️ Make sure you've sent the money before confirming!`
+            `Note: Make sure you've sent the money before confirming!`
         );
 
         if (!confirmed) return;
@@ -184,7 +184,7 @@ export default function AdminDashboard() {
             if (error) throw error;
 
             if (data.success) {
-                alert('✅ Withdrawal processed successfully!');
+                alert('Withdrawal processed successfully!');
                 await loadDashboardData();
             } else {
                 alert(data.error || 'Failed to process withdrawal');
@@ -213,7 +213,7 @@ export default function AdminDashboard() {
             {/* Header */}
             <div className="dashboard-hero">
                 <div>
-                    <h1>Admin Dashboard 👨‍💼</h1>
+                    <h1>Admin Dashboard ‍</h1>
                     <p className="hero-subtitle">
                         Platform monitoring and transaction verification
                     </p>
@@ -278,7 +278,7 @@ export default function AdminDashboard() {
 
                 {pendingDeposits.length === 0 ? (
                     <div className="empty-state-small">
-                        <CheckCircle size={32} color="#00ff9d" />
+                        <CheckCircle size={32} color="#10B981" />
                         <p>No pending deposits</p>
                     </div>
                 ) : (
@@ -340,7 +340,7 @@ export default function AdminDashboard() {
 
                 {pendingWithdrawals.length === 0 ? (
                     <div className="empty-state-small">
-                        <CheckCircle size={32} color="#00ff9d" />
+                        <CheckCircle size={32} color="#10B981" />
                         <p>No pending withdrawals</p>
                     </div>
                 ) : (

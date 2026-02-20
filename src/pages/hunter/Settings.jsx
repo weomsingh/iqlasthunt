@@ -160,17 +160,17 @@ export default function HunterSettings() {
         setSuccess(false);
 
         try {
-            // Prepare updates for Supabase
             const updates = {
-                id: currentUser.id,
-                username: formData.codename,
-                bio: formData.operativeBio,
+                username: formData.codename.trim(),
+                bio: formData.operativeBio.trim() || null,
                 expertise: formData.expertiseTags.split(',').map(s => s.trim()).filter(Boolean),
-                updated_at: new Date(),
-                role: 'hunter' // Added role to satisfy DB constraint
+                updated_at: new Date().toISOString(),
             };
 
-            const { error: updateError } = await supabase.from('profiles').upsert(updates);
+            const { error: updateError } = await supabase
+                .from('profiles')
+                .update(updates)
+                .eq('id', currentUser.id);
 
             if (updateError) throw updateError;
 
@@ -185,6 +185,7 @@ export default function HunterSettings() {
         } finally {
             setIsLoading(false);
         }
+
     };
 
     return (
@@ -192,7 +193,7 @@ export default function HunterSettings() {
             {/* Header */}
             <div className="mb-8 p-8 bg-iq-card border border-white/5 rounded-3xl relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-iq-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-                <h1 className="text-3xl font-bold text-white mb-2 relative z-10">Operative Profile 🛡️</h1>
+                <h1 className="text-3xl font-bold text-white mb-2 relative z-10">Operative Profile</h1>
                 <p className="text-iq-text-secondary relative z-10">Manage your identity and security clearance.</p>
             </div>
 

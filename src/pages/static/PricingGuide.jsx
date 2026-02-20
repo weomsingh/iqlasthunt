@@ -9,7 +9,7 @@ export default function PricingGuide() {
             range: 'Under ₹1,500',
             stake: '₹15',
             maxHunters: 4,
-            color: '#00ff9d',
+            color: '#10B981',
             example: '₹1,000 bounty',
             description: 'Perfect for quick tasks and small projects'
         },
@@ -61,7 +61,7 @@ export default function PricingGuide() {
                 <div className="info-grid">
                     <div className="info-card">
                         <div className="info-icon" style={{ background: 'rgba(0, 255, 157, 0.1)' }}>
-                            <Shield size={32} style={{ color: '#00ff9d' }} />
+                            <Shield size={32} style={{ color: '#10B981' }} />
                         </div>
                         <h3>Pay to Play</h3>
                         <p>Hunters pay a small entry fee (stake) to participate in bounties. This ensures serious commitment.</p>
@@ -153,7 +153,7 @@ export default function PricingGuide() {
                             </div>
                             <div className="calc-row highlight">
                                 <span>Hunter Stakes (2.5%)</span>
-                                <strong style={{ color: '#00ff9d' }}>₹125</strong>
+                                <strong style={{ color: '#10B981' }}>₹125</strong>
                             </div>
                             <div className="calc-row">
                                 <span>Max Hunters</span>
@@ -186,7 +186,7 @@ export default function PricingGuide() {
                             </div>
                             <div className="calc-row highlight">
                                 <span>Hunter Stakes (Fixed)</span>
-                                <strong style={{ color: '#00ff9d' }}>₹15</strong>
+                                <strong style={{ color: '#10B981' }}>₹15</strong>
                             </div>
                             <div className="calc-row">
                                 <span>Max Hunters</span>

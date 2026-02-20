@@ -387,7 +387,7 @@ export default function PostBounty() {
                         <div className="w-20 h-20 bg-iq-success/20 rounded-full flex items-center justify-center mb-6 animate-bounce">
                             <Check size={40} className="text-iq-success" />
                         </div>
-                        <h2 className="text-3xl font-bold text-white mb-2">Bounty Live! 🎉</h2>
+                        <h2 className="text-3xl font-bold text-white mb-2">Bounty Live! </h2>
                         <p className="text-iq-text-secondary max-w-md mb-8">
                             Your bounty is now visible to thousands of skilled hunters. You'll be notified when applications arrive.
                         </p>

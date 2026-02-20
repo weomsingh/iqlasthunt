@@ -197,7 +197,7 @@ export function AuthProvider({ children }) {
                 justifyContent: 'center',
                 minHeight: '100vh',
                 background: '#0a0a0a',
-                color: '#00ff9d',
+                color: '#10B981',
                 fontSize: '1.5rem',
                 flexDirection: 'column',
                 gap: '1rem',

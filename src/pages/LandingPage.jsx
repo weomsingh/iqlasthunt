@@ -58,16 +58,16 @@ export default function LandingPage() {
     }
 
     const categories = [
-        { icon: Code, label: 'Development', color: '#00FF94', bg: 'rgba(0,255,148,0.1)' },
-        { icon: Palette, label: 'Design', color: '#A855F7', bg: 'rgba(168,85,247,0.1)' },
-        { icon: PenTool, label: 'Writing', color: '#00E5FF', bg: 'rgba(0,229,255,0.1)' },
-        { icon: BarChart2, label: 'Marketing', color: '#FF6B35', bg: 'rgba(255,107,53,0.1)' },
-        { icon: Brain, label: 'Research', color: '#FFE600', bg: 'rgba(255,230,0,0.1)' },
+        { icon: Code, label: 'Development', color: '#10B981', bg: 'rgba(0,255,148,0.1)' },
+        { icon: Palette, label: 'Design', color: '#8B5CF6', bg: 'rgba(168,85,247,0.1)' },
+        { icon: PenTool, label: 'Writing', color: '#06B6D4', bg: 'rgba(0,229,255,0.1)' },
+        { icon: BarChart2, label: 'Marketing', color: '#F97316', bg: 'rgba(255,107,53,0.1)' },
+        { icon: Brain, label: 'Research', color: '#F59E0B', bg: 'rgba(255,230,0,0.1)' },
         { icon: Globe, label: 'Business', color: '#6366F1', bg: 'rgba(99,102,241,0.1)' },
     ];
 
     return (
-        <div className="min-h-screen text-white overflow-x-hidden" style={{ background: '#080B14' }}>
+        <div className="min-h-screen text-white overflow-x-hidden" style={{ background: '#090E17' }}>
 
             {/* ===== ROLE MISMATCH MODAL ===== */}
             {roleMismatch && (
@@ -128,19 +128,19 @@ export default function LandingPage() {
                         style={{ color: '#8892AA' }}>
                         <a href="#how-it-works"
                             className="hover:text-white transition-colors hover:text-neon-green"
-                            onMouseOver={e => e.target.style.color = '#00FF94'}
+                            onMouseOver={e => e.target.style.color = '#10B981'}
                             onMouseOut={e => e.target.style.color = '#8892AA'}>
                             How It Works
                         </a>
                         <a href="#bounties"
                             className="transition-colors"
-                            onMouseOver={e => e.target.style.color = '#00E5FF'}
+                            onMouseOver={e => e.target.style.color = '#06B6D4'}
                             onMouseOut={e => e.target.style.color = '#8892AA'}>
                             Live Bounties
                         </a>
                         <a href="#testimonials"
                             className="transition-colors"
-                            onMouseOver={e => e.target.style.color = '#A855F7'}
+                            onMouseOver={e => e.target.style.color = '#8B5CF6'}
                             onMouseOut={e => e.target.style.color = '#8892AA'}>
                             Success Stories
                         </a>
@@ -212,7 +212,7 @@ export default function LandingPage() {
                             WHERE SKILL {' '}
                             <br className="hidden sm:block" />
                             <span style={{
-                                background: 'linear-gradient(135deg, #00FF94 0%, #00E5FF 50%, #A855F7 100%)',
+                                background: 'linear-gradient(135deg, #10B981 0%, #06B6D4 50%, #8B5CF6 100%)',
                                 WebkitBackgroundClip: 'text',
                                 WebkitTextFillColor: 'transparent',
                                 backgroundClip: 'text'
@@ -226,7 +226,7 @@ export default function LandingPage() {
                             style={{ color: '#8892AA' }}>
                             A private competitive arena for skilled professionals. Deploy capital,
                             stake your expertise, and{' '}
-                            <span style={{ color: '#00FF94' }}>extract the reward</span>.
+                            <span style={{ color: '#10B981' }}>extract the reward</span>.
                         </p>
 
                         {/* CTA Buttons */}
@@ -244,9 +244,9 @@ export default function LandingPage() {
                         {/* Stats Grid */}
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
                             {[
-                                { value: '98%', label: 'Success Rate', color: '#00FF94', bg: 'rgba(0,255,148,0.08)', border: 'rgba(0,255,148,0.15)' },
-                                { value: '100+', label: 'Elite Hunters', color: '#00E5FF', bg: 'rgba(0,229,255,0.08)', border: 'rgba(0,229,255,0.15)' },
-                                { value: '90+', label: 'Happy Payers', color: '#A855F7', bg: 'rgba(168,85,247,0.08)', border: 'rgba(168,85,247,0.15)', colSpan: '2 md:col-span-1' },
+                                { value: '98%', label: 'Success Rate', color: '#10B981', bg: 'rgba(0,255,148,0.08)', border: 'rgba(0,255,148,0.15)' },
+                                { value: '100+', label: 'Elite Hunters', color: '#06B6D4', bg: 'rgba(0,229,255,0.08)', border: 'rgba(0,229,255,0.15)' },
+                                { value: '90+', label: 'Happy Payers', color: '#8B5CF6', bg: 'rgba(168,85,247,0.08)', border: 'rgba(168,85,247,0.15)', colSpan: '2 md:col-span-1' },
                             ].map((stat, i) => (
                                 <div key={i} className={`rounded-2xl p-5 text-center ${stat.colSpan ? 'col-span-2 md:col-span-1' : ''}`}
                                     style={{ background: stat.bg, border: `1px solid ${stat.border}`, backdropFilter: 'blur(10px)' }}>
@@ -297,7 +297,7 @@ export default function LandingPage() {
                 <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
                     <div className="text-center mb-16">
                         <span className="inline-block px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest mb-4"
-                            style={{ background: 'rgba(0,229,255,0.1)', border: '1px solid rgba(0,229,255,0.2)', color: '#00E5FF' }}>
+                            style={{ background: 'rgba(0,229,255,0.1)', border: '1px solid rgba(0,229,255,0.2)', color: '#06B6D4' }}>
                             The Protocol
                         </span>
                         <h2 className="text-4xl md:text-5xl font-bold mb-4">How IQHUNT Works</h2>
@@ -314,19 +314,19 @@ export default function LandingPage() {
                                 icon: Target, number: '01',
                                 title: 'Post Your Bounty',
                                 desc: 'Describe your task, set the reward pool, and deploy funds to escrow. Our smart system helps define the perfect brief.',
-                                color: '#00FF94', shadow: 'rgba(0,255,148,0.2)', bg: 'rgba(0,255,148,0.08)', border: 'rgba(0,255,148,0.2)'
+                                color: '#10B981', shadow: 'rgba(0,255,148,0.2)', bg: 'rgba(0,255,148,0.08)', border: 'rgba(0,255,148,0.2)'
                             },
                             {
                                 icon: Users, number: '02',
                                 title: 'Hunters Compete',
                                 desc: 'Verified expert hunters stake their own funds to participate, ensuring only serious talent applies. May the best hunter win.',
-                                color: '#00E5FF', shadow: 'rgba(0,229,255,0.2)', bg: 'rgba(0,229,255,0.08)', border: 'rgba(0,229,255,0.2)'
+                                color: '#06B6D4', shadow: 'rgba(0,229,255,0.2)', bg: 'rgba(0,229,255,0.08)', border: 'rgba(0,229,255,0.2)'
                             },
                             {
                                 icon: CheckCircle, number: '03',
                                 title: 'Approve & Pay Out',
                                 desc: 'Review submissions, approve the best work, and payment releases instantly from escrow. Fast, secure, and guaranteed.',
-                                color: '#A855F7', shadow: 'rgba(168,85,247,0.2)', bg: 'rgba(168,85,247,0.08)', border: 'rgba(168,85,247,0.2)'
+                                color: '#8B5CF6', shadow: 'rgba(168,85,247,0.2)', bg: 'rgba(168,85,247,0.08)', border: 'rgba(168,85,247,0.2)'
                             }
                         ].map((step, idx) => (
                             <div key={idx} className="relative group">
@@ -371,7 +371,7 @@ export default function LandingPage() {
                         <div className="flex items-end justify-between mb-12">
                             <div>
                                 <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold mb-4"
-                                    style={{ background: 'rgba(255,45,120,0.1)', border: '1px solid rgba(255,45,120,0.25)', color: '#FF2D78' }}>
+                                    style={{ background: 'rgba(255,45,120,0.1)', border: '1px solid rgba(255,45,120,0.25)', color: '#EC4899' }}>
                                     <Flame size={12} />
                                     HOT RIGHT NOW
                                 </span>
@@ -379,9 +379,9 @@ export default function LandingPage() {
                             </div>
                             <button onClick={handleEnterAsHunter}
                                 className="hidden md:flex items-center gap-2 text-sm font-semibold transition-colors"
-                                style={{ color: '#00FF94' }}
-                                onMouseOver={e => e.currentTarget.style.color = '#00E5FF'}
-                                onMouseOut={e => e.currentTarget.style.color = '#00FF94'}>
+                                style={{ color: '#10B981' }}
+                                onMouseOver={e => e.currentTarget.style.color = '#06B6D4'}
+                                onMouseOut={e => e.currentTarget.style.color = '#10B981'}>
                                 View All <ArrowRight size={16} />
                             </button>
                         </div>
@@ -402,9 +402,9 @@ export default function LandingPage() {
                             <div className="grid md:grid-cols-3 gap-6">
                                 {hotBounties.map((bounty, i) => {
                                     const colors = [
-                                        { accent: '#00FF94', bg: 'rgba(0,255,148,0.08)', border: 'rgba(0,255,148,0.2)' },
-                                        { accent: '#A855F7', bg: 'rgba(168,85,247,0.08)', border: 'rgba(168,85,247,0.2)' },
-                                        { accent: '#FF6B35', bg: 'rgba(255,107,53,0.08)', border: 'rgba(255,107,53,0.2)' },
+                                        { accent: '#10B981', bg: 'rgba(0,255,148,0.08)', border: 'rgba(0,255,148,0.2)' },
+                                        { accent: '#8B5CF6', bg: 'rgba(168,85,247,0.08)', border: 'rgba(168,85,247,0.2)' },
+                                        { accent: '#F97316', bg: 'rgba(255,107,53,0.08)', border: 'rgba(255,107,53,0.2)' },
                                     ][i % 3];
                                     return (
                                         <div key={bounty.id}
@@ -452,17 +452,17 @@ export default function LandingPage() {
                             {
                                 icon: Shield, title: 'Escrow Protection',
                                 desc: 'Funds are held securely in escrow until work is approved. Zero risk of payment fraud.',
-                                color: '#00FF94', bg: 'rgba(0,255,148,0.08)', border: 'rgba(0,255,148,0.15)'
+                                color: '#10B981', bg: 'rgba(0,255,148,0.08)', border: 'rgba(0,255,148,0.15)'
                             },
                             {
                                 icon: Zap, title: 'Fast Payouts',
                                 desc: 'Winners get paid within 2-4 business hours via UPI or bank transfer. No delays.',
-                                color: '#FFE600', bg: 'rgba(255,230,0,0.08)', border: 'rgba(255,230,0,0.15)'
+                                color: '#F59E0B', bg: 'rgba(255,230,0,0.08)', border: 'rgba(255,230,0,0.15)'
                             },
                             {
                                 icon: Lock, title: 'Verified Hunters',
                                 desc: 'All hunters are skill-tested upon onboarding. No fakes, no time-wasters.',
-                                color: '#A855F7', bg: 'rgba(168,85,247,0.08)', border: 'rgba(168,85,247,0.15)'
+                                color: '#8B5CF6', bg: 'rgba(168,85,247,0.08)', border: 'rgba(168,85,247,0.15)'
                             }
                         ].map((item, i) => (
                             <div key={i} className="flex flex-col items-center text-center p-8 rounded-3xl transition-all hover-lift"
@@ -486,7 +486,7 @@ export default function LandingPage() {
                 <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
                     <div className="text-center mb-16">
                         <span className="inline-block px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest mb-4"
-                            style={{ background: 'rgba(255,230,0,0.1)', border: '1px solid rgba(255,230,0,0.2)', color: '#FFE600' }}>
+                            style={{ background: 'rgba(255,230,0,0.1)', border: '1px solid rgba(255,230,0,0.2)', color: '#F59E0B' }}>
                             Success Stories
                         </span>
                         <h2 className="text-4xl md:text-5xl font-bold">Real Results</h2>
@@ -497,12 +497,12 @@ export default function LandingPage() {
                             {
                                 quote: "Got my logo designed in 24 hours. The quality was lightyears ahead of generic freelance sites. IQHUNT is a game changer for startups.",
                                 name: "Anant Singh", company: "Founder, AMCRO INDIA",
-                                initials: "AS", color: '#00FF94', bg: 'rgba(0,255,148,0.1)'
+                                initials: "AS", color: '#10B981', bg: 'rgba(0,255,148,0.1)'
                             },
                             {
                                 quote: "Excellent service by IQHunt. They delivered our product design in exact formats we needed at a very cost-effective price. Highly satisfied.",
                                 name: "Niteesh Kumar", company: "Sunsprout Foods",
-                                initials: "NK", color: '#A855F7', bg: 'rgba(168,85,247,0.1)'
+                                initials: "NK", color: '#8B5CF6', bg: 'rgba(168,85,247,0.1)'
                             }
                         ].map((t, i) => (
                             <div key={i} className="relative p-8 rounded-3xl transition-all hover-lift"
@@ -528,7 +528,7 @@ export default function LandingPage() {
                                     </div>
                                     <div className="ml-auto flex gap-1">
                                         {[1, 2, 3, 4, 5].map(s => (
-                                            <Star key={s} size={14} fill="#FFE600" style={{ color: '#FFE600' }} />
+                                            <Star key={s} size={14} fill="#F59E0B" style={{ color: '#F59E0B' }} />
                                         ))}
                                     </div>
                                 </div>
@@ -547,7 +547,7 @@ export default function LandingPage() {
                 <div className="hero-grid absolute inset-0 pointer-events-none opacity-30" />
                 <div className="max-w-4xl mx-auto px-4 md:px-6 relative z-10 text-center">
                     <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold mb-8"
-                        style={{ background: 'rgba(0,255,148,0.1)', border: '1px solid rgba(0,255,148,0.25)', color: '#00FF94' }}>
+                        style={{ background: 'rgba(0,255,148,0.1)', border: '1px solid rgba(0,255,148,0.25)', color: '#10B981' }}>
                         <TrendingUp size={16} />
                         Ready to Compete?
                     </span>
@@ -555,7 +555,7 @@ export default function LandingPage() {
                     <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
                         Join the{' '}
                         <span style={{
-                            background: 'linear-gradient(135deg, #00FF94 0%, #00E5FF 50%, #A855F7 100%)',
+                            background: 'linear-gradient(135deg, #10B981 0%, #06B6D4 50%, #8B5CF6 100%)',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
                             backgroundClip: 'text'

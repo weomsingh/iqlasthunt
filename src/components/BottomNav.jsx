@@ -5,19 +5,19 @@ export default function BottomNav({ role }) {
     const location = useLocation();
 
     const hunterLinks = [
-        { path: '/hunter/dashboard', label: 'Home', icon: Home, color: '#00E5FF' },
-        { path: '/hunter/arena', label: 'Arena', icon: Target, color: '#FF6B35' },
-        { path: '/hunter/war-room', label: 'War Room', icon: MessageSquare, color: '#A855F7' },
-        { path: '/hunter/vault', label: 'Vault', icon: Wallet, color: '#00FF94' },
+        { path: '/hunter/dashboard', label: 'Home', icon: Home, color: '#06B6D4' },
+        { path: '/hunter/arena', label: 'Arena', icon: Target, color: '#F97316' },
+        { path: '/hunter/war-room', label: 'War Room', icon: MessageSquare, color: '#8B5CF6' },
+        { path: '/hunter/vault', label: 'Vault', icon: Wallet, color: '#10B981' },
         { path: '/hunter/settings', label: 'Profile', icon: Settings, color: '#8892AA' },
     ];
 
     const payerLinks = [
-        { path: '/payer/dashboard', label: 'Home', icon: Home, color: '#00E5FF' },
-        { path: '/payer/live-bounties', label: 'Bounties', icon: Target, color: '#FF6B35' },
-        { path: '/payer/post-bounty', label: 'Post', icon: Plus, color: '#00FF94', isAccent: true },
-        { path: '/payer/war-room', label: 'War Room', icon: MessageSquare, color: '#A855F7' },
-        { path: '/payer/vault', label: 'Vault', icon: Wallet, color: '#FFE600' },
+        { path: '/payer/dashboard', label: 'Home', icon: Home, color: '#06B6D4' },
+        { path: '/payer/live-bounties', label: 'Bounties', icon: Target, color: '#F97316' },
+        { path: '/payer/post-bounty', label: 'Post', icon: Plus, color: '#10B981', isAccent: true },
+        { path: '/payer/war-room', label: 'War Room', icon: MessageSquare, color: '#8B5CF6' },
+        { path: '/payer/vault', label: 'Vault', icon: Wallet, color: '#F59E0B' },
     ];
 
     const links = role === 'hunter' ? hunterLinks : payerLinks;
@@ -63,13 +63,13 @@ export default function BottomNav({ role }) {
                                 <div style={{
                                     width: '52px', height: '52px',
                                     borderRadius: '16px',
-                                    background: 'linear-gradient(135deg, #00FF94, #00E5FF)',
+                                    background: 'linear-gradient(135deg, #10B981, #06B6D4)',
                                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                                     boxShadow: '0 8px 30px rgba(0,255,148,0.4)',
                                 }}>
                                     <Icon size={24} style={{ color: '#000' }} />
                                 </div>
-                                <span style={{ fontSize: '9px', fontWeight: '700', color: '#00FF94', letterSpacing: '0.05em' }}>
+                                <span style={{ fontSize: '9px', fontWeight: '700', color: '#10B981', letterSpacing: '0.05em' }}>
                                     {link.label}
                                 </span>
                             </Link>

@@ -5,7 +5,7 @@ import BottomNav from '../../components/BottomNav';
 
 export default function HunterLayout() {
     return (
-        <div style={{ minHeight: '100vh', background: '#080B14', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ minHeight: '100vh', background: '#090E17', display: 'flex', flexDirection: 'column' }}>
             {/* Main Content Area */}
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                 <Header />

@@ -147,7 +147,7 @@ export default function OnboardingPage() {
 
                 <h1>Complete Your Profile</h1>
                 <p className="onboarding-subtitle">
-                    You're joining as a <strong>{intendedRole === 'hunter' ? 'Hunter 🎯' : 'Payer 💰'}</strong>
+                    You're joining as a <strong>{intendedRole === 'hunter' ? 'Hunter' : 'Payer'}</strong>
                 </p>
 
                 {error && (
@@ -170,7 +170,7 @@ export default function OnboardingPage() {
                                     currency: 'INR'
                                 })}
                             >
-                                <span className="flag">🇮🇳</span>
+                                <span className="flag" style={{ fontFamily: 'monospace', fontWeight: '800', fontSize: '1rem', letterSpacing: '0.05em' }}>IN</span>
                                 <span>India (INR)</span>
                             </button>
                             <button
@@ -181,7 +181,7 @@ export default function OnboardingPage() {
                                     currency: 'USD'
                                 })}
                             >
-                                <span className="flag">🌍</span>
+                                <span className="flag" style={{ fontFamily: 'monospace', fontWeight: '800', fontSize: '1rem', letterSpacing: '0.05em' }}>GL</span>
                                 <span>Global (USD)</span>
                             </button>
                         </div>
@@ -196,14 +196,14 @@ export default function OnboardingPage() {
                         {/* Hunter India Notice */}
                         {formData.role === 'hunter' && (
                             <div className="info-box" style={{
-                                background: 'rgba(0, 255, 157, 0.1)',
-                                border: '1px solid rgba(0, 255, 157, 0.3)',
+                                background: 'rgba(0, 255, 157, 0.08)',
+                                border: '1px solid rgba(0, 255, 157, 0.25)',
                                 padding: '1rem',
-                                borderRadius: '8px',
+                                borderRadius: '10px',
                                 marginBottom: '1.5rem'
                             }}>
-                                <p style={{ margin: 0, color: '#00ff9d' }}>
-                                    🇮🇳 <strong>Indian Hunter</strong> - All earnings in INR (₹)
+                                <p style={{ margin: 0, color: '#10B981', fontWeight: '600' }}>
+                                    Indian Hunter — All earnings credited in INR (Rs.)
                                 </p>
                             </div>
                         )}
@@ -309,7 +309,7 @@ export default function OnboardingPage() {
                     <div className="form-step">
                         <h2>The Covenant</h2>
                         <div className="covenant-text">
-                            <h3 style={{ color: '#00ff9d', marginBottom: '1rem' }}>
+                            <h3 style={{ color: '#10B981', marginBottom: '1rem' }}>
                                 Digital Blood Oath
                             </h3>
                             <p>
@@ -326,7 +326,7 @@ export default function OnboardingPage() {
                                 purged immediately upon mission completion—zero history is stored.
                             </p>
                             <p style={{ color: '#ff5252', marginTop: '1rem' }}>
-                                ⚠️ This is a skill-based competitive platform. Participate responsibly.
+                                Note: This is a skill-based competitive platform. Participate responsibly.
                             </p>
                         </div>
                         <div className="covenant-checkbox">

@@ -90,9 +90,9 @@ export default function BountyDetails() {
         // Confirm stake
         const confirmed = window.confirm(
             `Stake ${currency}${bounty.entry_fee} to enter this hunt?\n\n` +
-            `⚠️ Entry fees are NON-REFUNDABLE\n` +
-            `⚠️ You can only have ONE active stake at a time\n` +
-            `⚠️ You will be locked until mission completion`
+            `Note: Entry fees are NON-REFUNDABLE\n` +
+            `Note: You can only have ONE active stake at a time\n` +
+            `Note: You will be locked until mission completion`
         );
 
         if (!confirmed) return;
@@ -109,7 +109,7 @@ export default function BountyDetails() {
             if (error) throw error;
 
             if (data.success) {
-                alert('✅ Stake successful! You are now locked in.\n\nAccess the War Room to start hunting.');
+                alert('Stake successful! You are now locked in.\n\nAccess the War Room to start hunting.');
                 await refreshUser();
                 await loadBountyData();
             } else {

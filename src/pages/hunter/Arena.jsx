@@ -81,21 +81,21 @@ export default function Arena() {
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '20px', position: 'relative' }}>
                     <div>
-                        <p style={{ color: '#00FF94', fontSize: '11px', fontWeight: '800', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '8px' }}>
+                        <p style={{ color: '#10B981', fontSize: '11px', fontWeight: '800', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '8px' }}>
                             ⚔️ Live Operations
                         </p>
                         <h1 style={{ fontSize: 'clamp(24px, 4vw, 36px)', fontWeight: '900', color: '#F0F4FF', fontFamily: 'Space Grotesk', marginBottom: '8px', lineHeight: 1.2 }}>
                             The Arena
                         </h1>
                         <p style={{ color: '#8892AA', fontSize: '15px', maxWidth: '480px' }}>
-                            Welcome, <span style={{ color: '#00FF94', fontWeight: '700' }}>{currentUser?.username}</span>. Browse active operations, stake your claim, and prove your skills.
+                            Welcome, <span style={{ color: '#10B981', fontWeight: '700' }}>{currentUser?.username}</span>. Browse active operations, stake your claim, and prove your skills.
                         </p>
                     </div>
 
                     <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                         {[
-                            { label: 'Active', value: bounties.length, color: '#00FF94' },
-                            { label: 'Total Pool', value: `${currency}${totalPool.toLocaleString(undefined, { maximumFractionDigits: 0, notation: 'compact' })}`, color: '#00E5FF' },
+                            { label: 'Active', value: bounties.length, color: '#10B981' },
+                            { label: 'Total Pool', value: `${currency}${totalPool.toLocaleString(undefined, { maximumFractionDigits: 0, notation: 'compact' })}`, color: '#06B6D4' },
                         ].map((stat, i) => (
                             <div key={i} style={{
                                 padding: '12px 20px', borderRadius: '14px',
@@ -154,7 +154,7 @@ export default function Arena() {
                                     minHeight: 'auto', minWidth: 'auto',
                                     background: activeCategory === cat ? 'rgba(0,255,148,0.15)' : 'rgba(255,255,255,0.04)',
                                     border: activeCategory === cat ? '1px solid rgba(0,255,148,0.4)' : '1px solid rgba(255,255,255,0.08)',
-                                    color: activeCategory === cat ? '#00FF94' : '#8892AA',
+                                    color: activeCategory === cat ? '#10B981' : '#8892AA',
                                 }}
                             >
                                 {cat}

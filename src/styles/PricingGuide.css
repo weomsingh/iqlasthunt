@@ -22,7 +22,7 @@
 }
 
 .pricing-hero-icon {
-    color: #00ff9d;
+    color: #10B981;
     margin-bottom: 1.5rem;
     animation: float 3s ease-in-out infinite;
 }
@@ -30,7 +30,7 @@
 .pricing-hero h1 {
     font-size: 3rem;
     margin: 0 0 1rem;
-    background: linear-gradient(135deg, #00ff9d, #00cc7d);
+    background: linear-gradient(135deg, #10B981, #00cc7d);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -194,7 +194,7 @@
 }
 
 .tier-example strong {
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .tier-description {
@@ -230,7 +230,7 @@
 .calc-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 32px rgba(0, 255, 157, 0.3);
-    border-color: #00ff9d;
+    border-color: #10B981;
 }
 
 .calc-header {
@@ -244,13 +244,13 @@
 
 .calc-header h3 {
     margin: 0;
-    color: #00ff9d;
+    color: #10B981;
     font-size: 1.5rem;
 }
 
 .calc-badge {
     background: rgba(0, 255, 157, 0.2);
-    color: #00ff9d;
+    color: #10B981;
     padding: 0.5rem 1rem;
     border-radius: 20px;
     font-size: 0.875rem;
@@ -312,7 +312,7 @@
 .faq-item {
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-left: 3px solid #00ff9d;
+    border-left: 3px solid #10B981;
     border-radius: 12px;
     padding: 1.5rem;
     transition: all 0.3s ease;
@@ -346,7 +346,7 @@
 .pricing-cta h2 {
     font-size: 2.5rem;
     margin: 0 0 1rem;
-    background: linear-gradient(135deg, #00ff9d, #00cc7d);
+    background: linear-gradient(135deg, #10B981, #00cc7d);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

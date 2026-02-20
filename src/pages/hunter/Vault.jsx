@@ -189,7 +189,7 @@ export default function HunterVault() {
             {/* Header */}
             <div className="mb-8 relative overflow-hidden bg-iq-card border border-white/5 rounded-3xl p-8">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-iq-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-                <h1 className="text-3xl font-bold text-white mb-2 relative z-10">Hunter Vault 💰</h1>
+                <h1 className="text-3xl font-bold text-white mb-2 relative z-10">Hunter Vault</h1>
                 <p className="text-iq-text-secondary relative z-10">Manage your earnings, stakes, and secure withdrawals.</p>
             </div>
 
@@ -311,8 +311,8 @@ export default function HunterVault() {
                                     return (
                                         <div key={tx.id} className="p-4 flex items-center gap-4 hover:bg-white/5 transition-colors">
                                             <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${tx.type === 'win_prize' ? 'bg-iq-accent/10 text-iq-accent' :
-                                                    tx.type === 'stake' ? 'bg-iq-warning/10 text-iq-warning' :
-                                                        isPositive ? 'bg-iq-success/10 text-iq-success' : 'bg-iq-error/10 text-iq-error'
+                                                tx.type === 'stake' ? 'bg-iq-warning/10 text-iq-warning' :
+                                                    isPositive ? 'bg-iq-success/10 text-iq-success' : 'bg-iq-error/10 text-iq-error'
                                                 }`}>
                                                 <Icon size={18} />
                                             </div>
@@ -331,8 +331,8 @@ export default function HunterVault() {
                                                     {isPositive ? '+' : '-'}{currency}{tx.amount.toLocaleString()}
                                                 </p>
                                                 <div className={`inline-flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded capitalize ${tx.status === 'completed' ? 'bg-iq-success/10 text-iq-success' :
-                                                        tx.status === 'failed' ? 'bg-iq-error/10 text-iq-error' :
-                                                            'bg-iq-warning/10 text-iq-warning'
+                                                    tx.status === 'failed' ? 'bg-iq-error/10 text-iq-error' :
+                                                        'bg-iq-warning/10 text-iq-warning'
                                                     }`}>
                                                     {tx.status}
                                                 </div>

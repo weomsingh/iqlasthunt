@@ -54,7 +54,7 @@ body {
     gap: 0.75rem;
     font-size: 1.5rem;
     font-weight: bold;
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .landing-header nav {
@@ -70,7 +70,7 @@ body {
 }
 
 .landing-header nav a:hover {
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .hero {
@@ -102,7 +102,7 @@ body {
 }
 
 .hero .highlight {
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .hero .subtitle {
@@ -136,7 +136,7 @@ body {
 }
 
 .btn-primary {
-    background: #00ff9d;
+    background: #10B981;
     color: #0a0a0a;
 }
 
@@ -154,7 +154,7 @@ body {
 .btn-secondary {
     background: transparent;
     color: #ffffff;
-    border: 2px solid #00ff9d;
+    border: 2px solid #10B981;
 }
 
 .btn-secondary:hover:not(:disabled) {
@@ -280,7 +280,7 @@ body {
 .header-title {
     font-size: 1.5rem;
     font-weight: 900;
-    color: #00ff9d;
+    color: #10B981;
     margin: 0;
     letter-spacing: 0.05em;
 }
@@ -288,7 +288,7 @@ body {
 .header-role-badge {
     padding: 0.375rem 0.875rem;
     background: rgba(0, 255, 157, 0.1);
-    color: #00ff9d;
+    color: #10B981;
     border: 1px solid rgba(0, 255, 157, 0.3);
     border-radius: 20px;
     font-size: 0.875rem;
@@ -309,7 +309,7 @@ body {
     background: rgba(0, 255, 157, 0.05);
     border: 1px solid rgba(0, 255, 157, 0.2);
     border-radius: 8px;
-    color: #00ff9d;
+    color: #10B981;
     text-decoration: none;
     transition: all 0.2s;
 }
@@ -342,7 +342,7 @@ body {
 .header-icon-btn:hover {
     background: rgba(255, 255, 255, 0.05);
     border-color: rgba(0, 255, 157, 0.3);
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .notification-badge {
@@ -373,7 +373,7 @@ body {
 }
 
 .header-user svg {
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .username {
@@ -408,13 +408,13 @@ body {
 
 .sidebar-link:hover {
     background: rgba(0, 255, 157, 0.1);
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .sidebar-link.active {
     background: rgba(0, 255, 157, 0.2);
-    color: #00ff9d;
-    border-right: 3px solid #00ff9d;
+    color: #10B981;
+    border-right: 3px solid #10B981;
 }
 
 .sidebar-spacer {
@@ -466,8 +466,8 @@ body {
 }
 
 .help-btn:hover {
-    border-color: #00ff9d;
-    color: #00ff9d;
+    border-color: #10B981;
+    color: #10B981;
 }
 
 .onboarding-container {
@@ -486,7 +486,7 @@ body {
 
 .progress-fill {
     height: 100%;
-    background: #00ff9d;
+    background: #10B981;
     border-radius: 2px;
     transition: width 0.3s;
 }
@@ -538,7 +538,7 @@ body {
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #00ff9d;
+    border-color: #10B981;
 }
 
 .region-buttons {
@@ -562,12 +562,12 @@ body {
 }
 
 .region-btn:hover {
-    border-color: #00ff9d;
+    border-color: #10B981;
 }
 
 .region-btn.selected {
     background: rgba(0, 255, 157, 0.2);
-    border-color: #00ff9d;
+    border-color: #10B981;
 }
 
 .flag {
@@ -591,12 +591,12 @@ body {
 }
 
 .tag:hover {
-    border-color: #00ff9d;
+    border-color: #10B981;
 }
 
 .tag.selected {
     background: rgba(0, 255, 157, 0.2);
-    border-color: #00ff9d;
+    border-color: #10B981;
 }
 
 .toggle-buttons {
@@ -618,8 +618,8 @@ body {
 
 .toggle-buttons button.active {
     background: rgba(0, 255, 157, 0.2);
-    border-color: #00ff9d;
-    color: #00ff9d;
+    border-color: #10B981;
+    color: #10B981;
 }
 
 .covenant-text {
@@ -662,13 +662,13 @@ body {
 }
 
 .btn-back:hover {
-    border-color: #00ff9d;
-    color: #00ff9d;
+    border-color: #10B981;
+    color: #10B981;
 }
 
 .btn-continue {
     padding: 0.75rem 2rem;
-    background: #00ff9d;
+    background: #10B981;
     border: none;
     border-radius: 6px;
     color: #0a0a0a;
@@ -712,7 +712,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .wallet-info {
@@ -729,7 +729,7 @@ body {
 .wallet-balance {
     font-size: 2.5rem;
     font-weight: 900;
-    color: #00ff9d;
+    color: #10B981;
     margin: 0;
     line-height: 1;
 }
@@ -763,7 +763,7 @@ body {
 
 .btn-wallet-action.deposit {
     background: rgba(0, 255, 157, 0.1);
-    color: #00ff9d;
+    color: #10B981;
     border: 1px solid rgba(0, 255, 157, 0.3);
 }
 
@@ -813,7 +813,7 @@ body {
 }
 
 .bounty-card:hover {
-    border-color: #00ff9d;
+    border-color: #10B981;
     transform: translateY(-4px);
     box-shadow: 0 8px 24px rgba(0, 255, 157, 0.2);
 }
@@ -831,7 +831,7 @@ body {
     font-size: 0.75rem;
     font-weight: 600;
     background: rgba(0, 255, 157, 0.2);
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .expiry-badge {
@@ -878,7 +878,7 @@ body {
 }
 
 .stat svg {
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .stat-label {
@@ -895,7 +895,7 @@ body {
 }
 
 .stat-value.reward {
-    color: #00ff9d;
+    color: #10B981;
     font-size: 1.25rem;
 }
 
@@ -903,7 +903,7 @@ body {
     display: inline-block;
     padding: 0.125rem 0.5rem;
     background: rgba(0, 255, 157, 0.2);
-    color: #00ff9d;
+    color: #10B981;
     border-radius: 8px;
     font-size: 0.75rem;
     margin-left: 0.5rem;
@@ -918,7 +918,7 @@ body {
     flex: 1;
     padding: 0.75rem 1.5rem;
     background: rgba(0, 255, 157, 0.1);
-    color: #00ff9d;
+    color: #10B981;
     border: 1px solid rgba(0, 255, 157, 0.3);
     border-radius: 8px;
     font-weight: 600;
@@ -967,7 +967,7 @@ body {
     gap: 0.5rem;
     padding: 0.75rem 1.5rem;
     background: rgba(0, 255, 157, 0.1);
-    color: #00ff9d;
+    color: #10B981;
     border: 1px solid rgba(0, 255, 157, 0.3);
     border-radius: 8px;
     cursor: pointer;
@@ -1038,7 +1038,7 @@ body {
     width: 48px;
     height: 48px;
     border: 4px solid rgba(0, 255, 157, 0.1);
-    border-top-color: #00ff9d;
+    border-top-color: #10B981;
     border-radius: 50%;
     margin: 0 auto 1rem;
     animation: spin 1s linear infinite;
@@ -1080,7 +1080,7 @@ body {
 }
 
 .stat-card .stat-value {
-    color: #00ff9d;
+    color: #10B981;
     font-size: 2rem;
     font-weight: 900;
 }
@@ -1114,7 +1114,7 @@ body {
 .transactions-table th {
     padding: 1rem;
     text-align: left;
-    color: #00ff9d;
+    color: #10B981;
     font-weight: 600;
     font-size: 0.875rem;
     text-transform: uppercase;
@@ -1141,7 +1141,7 @@ body {
 
 .type-icon.payout,
 .status-icon.approved {
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .type-icon.withdrawal,
@@ -1171,7 +1171,7 @@ body {
 
 .status-label.approved {
     background: rgba(0, 255, 157, 0.2);
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .status-label.pending {
@@ -1190,7 +1190,7 @@ body {
 }
 
 .amount.positive {
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .amount.negative {
@@ -1252,7 +1252,7 @@ body {
 
 .info-box p {
     margin: 0;
-    color: #00ff9d;
+    color: #10B981;
 }
 
 /* Deposit Instructions */
@@ -1273,7 +1273,7 @@ body {
     width: 32px;
     height: 32px;
     background: rgba(0, 255, 157, 0.2);
-    color: #00ff9d;
+    color: #10B981;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1305,7 +1305,7 @@ body {
 
 .upi-info code {
     flex: 1;
-    color: #00ff9d;
+    color: #10B981;
     font-size: 1.125rem;
     font-weight: 600;
 }
@@ -1315,7 +1315,7 @@ body {
     background: rgba(0, 255, 157, 0.1);
     border: 1px solid rgba(0, 255, 157, 0.3);
     border-radius: 6px;
-    color: #00ff9d;
+    color: #10B981;
     cursor: pointer;
     transition: all 0.2s;
     display: flex;
@@ -1367,7 +1367,7 @@ body {
     font-size: 1.75rem;
     font-weight: 700;
     margin-bottom: 1rem;
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .static-content h3 {
@@ -1402,7 +1402,7 @@ body {
 }
 
 .static-content a {
-    color: #00ff9d;
+    color: #10B981;
     text-decoration: underline;
 }
 
@@ -1420,7 +1420,7 @@ body {
 }
 
 .contact-section h3 {
-    color: #00ff9d;
+    color: #10B981;
     margin-bottom: 1rem;
 }
 
@@ -1442,7 +1442,7 @@ body {
 }
 
 .contact-card:hover {
-    border-color: #00ff9d;
+    border-color: #10B981;
     transform: translateY(-4px);
     box-shadow: 0 8px 24px rgba(0, 255, 157, 0.2);
 }
@@ -1456,7 +1456,7 @@ body {
     align-items: center;
     justify-content: center;
     margin: 0 auto 1.5rem;
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .contact-card h3 {
@@ -1473,7 +1473,7 @@ body {
     display: inline-block;
     padding: 0.75rem 1.5rem;
     background: rgba(0, 255, 157, 0.1);
-    color: #00ff9d;
+    color: #10B981;
     border: 1px solid rgba(0, 255, 157, 0.3);
     border-radius: 8px;
     text-decoration: none;
@@ -1502,7 +1502,7 @@ body {
 }
 
 .faq-item h4 {
-    color: #00ff9d;
+    color: #10B981;
     margin-bottom: 0.75rem;
 }
 
@@ -1523,7 +1523,7 @@ body {
 
 .covenant-hero h1 {
     font-size: 4rem;
-    background: linear-gradient(135deg, #00ff9d 0%, #00d67d 100%);
+    background: linear-gradient(135deg, #10B981 0%, #00d67d 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1537,7 +1537,7 @@ body {
 
 .covenant-intro {
     background: rgba(0, 255, 157, 0.05);
-    border-left: 4px solid #00ff9d;
+    border-left: 4px solid #10B981;
     padding: 1.5rem;
     margin-bottom: 3rem;
     font-size: 1.125rem;
@@ -1560,7 +1560,7 @@ body {
 }
 
 .pillar-card:hover {
-    border-color: #00ff9d;
+    border-color: #10B981;
     box-shadow: 0 8px 24px rgba(0, 255, 157, 0.2);
 }
 
@@ -1573,7 +1573,7 @@ body {
     align-items: center;
     justify-content: center;
     margin-bottom: 1.5rem;
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .pillar-card h2 {
@@ -1615,7 +1615,7 @@ body {
 .covenant-seal {
     font-size: 1.25rem;
     font-weight: 700;
-    color: #00ff9d;
+    color: #10B981;
     margin-top: 1.5rem;
 }
 
@@ -1664,7 +1664,7 @@ body {
 }
 
 .stat-card:hover {
-    border-color: #00ff9d;
+    border-color: #10B981;
     transform: translateY(-2px);
     box-shadow: 0 4px 16px rgba(0, 255, 157, 0.2);
 }
@@ -1677,7 +1677,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .stat-content {
@@ -1703,7 +1703,7 @@ body {
 }
 
 .stat-value.highlight {
-    color: #00ff9d;
+    color: #10B981;
 }
 
 /* Active Hunt Section */
@@ -1757,7 +1757,7 @@ body {
 }
 
 .hunt-stat svg {
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .deadline-bar {
@@ -1780,7 +1780,7 @@ body {
 
 .deadline-fill {
     height: 100%;
-    background: linear-gradient(90deg, #00ff9d 0%, #00d67d 100%);
+    background: linear-gradient(90deg, #10B981 0%, #00d67d 100%);
     transition: width 0.3s;
 }
 
@@ -1830,7 +1830,7 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: #00ff9d;
+    color: #10B981;
     text-decoration: none;
     font-weight: 600;
     transition: all 0.2s;
@@ -1858,7 +1858,7 @@ body {
 }
 
 .bounty-item:hover {
-    border-color: #00ff9d;
+    border-color: #10B981;
     transform: translateX(4px);
 }
 
@@ -1887,7 +1887,7 @@ body {
 .reward-badge {
     padding: 0.25rem 0.75rem;
     background: rgba(0, 255, 157, 0.2);
-    color: #00ff9d;
+    color: #10B981;
     border-radius: 12px;
     font-weight: 600;
     font-size: 0.875rem;
@@ -1904,7 +1904,7 @@ body {
 .btn-bounty-view {
     padding: 0.75rem 1.5rem;
     background: rgba(0, 255, 157, 0.1);
-    color: #00ff9d;
+    color: #10B981;
     border: 1px solid rgba(0, 255, 157, 0.3);
     border-radius: 8px;
     font-weight: 600;
@@ -1949,18 +1949,18 @@ body {
 }
 
 .action-card:hover {
-    border-color: #00ff9d;
+    border-color: #10B981;
     transform: translateY(-4px);
     box-shadow: 0 8px 24px rgba(0, 255, 157, 0.2);
 }
 
 .action-card.highlight {
     background: rgba(0, 255, 157, 0.05);
-    border-color: #00ff9d;
+    border-color: #10B981;
 }
 
 .action-card svg {
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .action-card h3 {
@@ -1999,7 +1999,7 @@ body {
 }
 
 .back-link:hover {
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .status-badges {
@@ -2020,7 +2020,7 @@ body {
 
 .status-badge.live {
     background: rgba(0, 255, 157, 0.2);
-    color: #00ff9d;
+    color: #10B981;
     border: 1px solid rgba(0, 255, 157, 0.3);
 }
 
@@ -2080,7 +2080,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .stat-box .stat-info {
@@ -2178,7 +2178,7 @@ body {
 }
 
 .hunter-actions .action-card svg {
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .hunter-actions .action-card h3 {
@@ -2200,7 +2200,7 @@ body {
 }
 
 .bounty-info-section h3 {
-    color: #00ff9d;
+    color: #10B981;
     margin-bottom: 1rem;
 }
 
@@ -2286,7 +2286,7 @@ body {
 }
 
 .form-group label svg {
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .form-group input,
@@ -2304,7 +2304,7 @@ body {
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #00ff9d;
+    border-color: #10B981;
     box-shadow: 0 0 0 3px rgba(0, 255, 157, 0.1);
 }
 
@@ -2359,11 +2359,11 @@ body {
 
 .file-upload-label:hover {
     background: rgba(0, 255, 157, 0.05);
-    border-color: #00ff9d;
+    border-color: #10B981;
 }
 
 .file-upload-label svg {
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .file-name {
@@ -2387,7 +2387,7 @@ body {
 .vault-info.success {
     background: rgba(0, 255, 157, 0.1);
     border-color: rgba(0, 255, 157, 0.3);
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .vault-info.warning {
@@ -2469,7 +2469,7 @@ body {
 }
 
 .payer-bounty-card:hover {
-    border-color: #00ff9d;
+    border-color: #10B981;
     transform: translateY(-2px);
     box-shadow: 0 4px 16px rgba(0, 255, 157, 0.2);
 }
@@ -2640,7 +2640,7 @@ body {
 .tag-small {
     padding: 0.25rem 0.625rem;
     background: rgba(0, 255, 157, 0.1);
-    color: #00ff9d;
+    color: #10B981;
     border-radius: 12px;
     font-size: 0.75rem;
     font-weight: 500;
@@ -2686,7 +2686,7 @@ body {
 }
 
 .submission-card:hover {
-    border-color: #00ff9d;
+    border-color: #10B981;
     box-shadow: 0 4px 16px rgba(0, 255, 157, 0.2);
 }
 
@@ -2729,7 +2729,7 @@ body {
 
 .ai-score .score-value {
     display: block;
-    color: #00ff9d;
+    color: #10B981;
     font-size: 1.5rem;
     font-weight: 900;
 }
@@ -2760,7 +2760,7 @@ body {
 }
 
 .btn-select-winner {
-    background: linear-gradient(135deg, #00ff9d 0%, #00cc7d 100%) !important;
+    background: linear-gradient(135deg, #10B981 0%, #00cc7d 100%) !important;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -2936,7 +2936,7 @@ body {
     background: rgba(0, 255, 157, 0.1);
     border: 1px solid rgba(0, 255, 157, 0.3);
     border-radius: 8px;
-    color: #00ff9d;
+    color: #10B981;
     font-weight: 600;
     justify-content: center;
 }
@@ -2946,7 +2946,7 @@ body {
     width: 40px;
     height: 40px;
     border: 3px solid rgba(0, 255, 157, 0.2);
-    border-top-color: #00ff9d;
+    border-top-color: #10B981;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
 }
@@ -3012,7 +3012,7 @@ body {
 }
 
 .admin-transaction-card:hover {
-    border-color: #00ff9d;
+    border-color: #10B981;
     box-shadow: 0 4px 16px rgba(0, 255, 157, 0.2);
 }
 
@@ -3036,7 +3036,7 @@ body {
 }
 
 .transaction-amount {
-    color: #00ff9d;
+    color: #10B981;
     font-size: 1.5rem;
     font-weight: 900;
 }
@@ -3066,7 +3066,7 @@ body {
 }
 
 .btn-verify {
-    background: linear-gradient(135deg, #00ff9d 0%, #00cc7d 100%) !important;
+    background: linear-gradient(135deg, #10B981 0%, #00cc7d 100%) !important;
 }
 
 .btn-verify:hover:not(:disabled) {
@@ -3153,7 +3153,7 @@ body {
 }
 
 .balance-card.main {
-    border-color: #00ff9d;
+    border-color: #10B981;
     background: linear-gradient(135deg, rgba(0, 255, 157, 0.1) 0%, rgba(0, 204, 125, 0.05) 100%);
 }
 
@@ -3163,7 +3163,7 @@ body {
 }
 
 .balance-card svg {
-    color: #00ff9d;
+    color: #10B981;
     flex-shrink: 0;
 }
 
@@ -3261,7 +3261,7 @@ body {
 }
 
 .tx-amount .positive {
-    color: #00ff9d;
+    color: #10B981;
     font-size: 1.25rem;
     font-weight: 700;
 }
@@ -3291,7 +3291,7 @@ body {
 
 .tx-status.completed {
     background: rgba(0, 255, 157, 0.1);
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .tx-status.failed {
@@ -3360,7 +3360,7 @@ body {
 
 .status-badge.completed {
     background: rgba(0, 255, 157, 0.1);
-    color: #00ff9d;
+    color: #10B981;
     border: 1px solid rgba(0, 255, 157, 0.3);
 }
 
@@ -3794,7 +3794,7 @@ body {
 }
 
 .footer-section h4 {
-    color: #00ff9d;
+    color: #10B981;
     font-size: 1rem;
     font-weight: 700;
     margin-bottom: 1rem;
@@ -3810,13 +3810,13 @@ body {
 }
 
 .footer-brand svg {
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .footer-logo {
     font-size: 1.5rem;
     font-weight: 900;
-    color: #00ff9d;
+    color: #10B981;
     letter-spacing: 0.05em;
 }
 
@@ -3843,7 +3843,7 @@ body {
 }
 
 .footer-links a:hover {
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .footer-social {
@@ -3868,7 +3868,7 @@ body {
 .social-link:hover {
     background: rgba(0, 255, 157, 0.1);
     border-color: rgba(0, 255, 157, 0.3);
-    color: #00ff9d;
+    color: #10B981;
 }
 
 .footer-bottom {

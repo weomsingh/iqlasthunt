@@ -9,7 +9,7 @@ export default function Footer() {
             backdropFilter: 'blur(20px)',
         }}>
             {/* Top gradient accent */}
-            <div style={{ height: '3px', background: 'linear-gradient(90deg, #00FF94, #00E5FF, #A855F7, #FF6B35, #00FF94)', opacity: 0.6 }} />
+            <div style={{ height: '3px', background: 'linear-gradient(90deg, #10B981, #06B6D4, #8B5CF6, #F97316, #10B981)', opacity: 0.6 }} />
 
             <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '60px 24px 40px' }}>
                 {/* Main Grid */}
@@ -29,8 +29,8 @@ export default function Footer() {
                         {/* Social links */}
                         <div style={{ display: 'flex', gap: '10px' }}>
                             {[
-                                { href: 'mailto:contact@iqhunt.com', icon: Mail, color: '#00E5FF', bg: 'rgba(0,229,255,0.1)', border: 'rgba(0,229,255,0.2)' },
-                                { href: 'https://www.instagram.com/iqhunt.arena?igsh=MW16d3RseXp6N3VreA==', icon: Instagram, color: '#A855F7', bg: 'rgba(168,85,247,0.1)', border: 'rgba(168,85,247,0.2)', external: true },
+                                { href: 'mailto:contact@iqhunt.com', icon: Mail, color: '#06B6D4', bg: 'rgba(0,229,255,0.1)', border: 'rgba(0,229,255,0.2)' },
+                                { href: 'https://www.instagram.com/iqhunt.arena?igsh=MW16d3RseXp6N3VreA==', icon: Instagram, color: '#8B5CF6', bg: 'rgba(168,85,247,0.1)', border: 'rgba(168,85,247,0.2)', external: true },
                                 { href: 'https://linkedin.com/company/iqhunt', icon: Linkedin, color: '#3B82F6', bg: 'rgba(59,130,246,0.1)', border: 'rgba(59,130,246,0.2)', external: true },
                             ].map((social, i) => (
                                 <a
@@ -61,7 +61,7 @@ export default function Footer() {
                     </div>
 
                     {/* Platform Links */}
-                    <FooterSection title="Platform" color="#00FF94" links={[
+                    <FooterSection title="Platform" color="#10B981" links={[
                         { label: 'The Covenant', to: '/covenant' },
                         { label: 'Terms of Service', to: '/terms' },
                         { label: 'Privacy Policy', to: '/privacy' },
@@ -69,7 +69,7 @@ export default function Footer() {
                     ]} />
 
                     {/* Support Links */}
-                    <FooterSection title="Support" color="#00E5FF" links={[
+                    <FooterSection title="Support" color="#06B6D4" links={[
                         { label: 'Help Center', to: '/help' },
                         { label: 'Contact Us', to: '/contact' },
                         { label: 'Email Support', href: 'mailto:support@iqhunt.com' },

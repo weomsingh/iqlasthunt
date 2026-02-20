@@ -3,7 +3,7 @@ export default function LoadingScreen() {
         <div style={{
             position: 'fixed',
             inset: 0,
-            background: '#080B14',
+            background: '#090E17',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -22,7 +22,7 @@ export default function LoadingScreen() {
             <div style={{
                 width: '48px', height: '48px',
                 border: '3px solid rgba(0,255,148,0.15)',
-                borderTop: '3px solid #00FF94',
+                borderTop: '3px solid #10B981',
                 borderRadius: '50%',
                 animation: 'spin 0.8s linear infinite',
             }} />

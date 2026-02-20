@@ -91,7 +91,7 @@ export default function HistoryPage() {
                             minHeight: 'auto', minWidth: 'auto',
                             background: filter === tab.id ? 'rgba(168,85,247,0.15)' : 'rgba(255,255,255,0.04)',
                             border: filter === tab.id ? '1px solid rgba(168,85,247,0.4)' : '1px solid rgba(255,255,255,0.08)',
-                            color: filter === tab.id ? '#A855F7' : '#8892AA',
+                            color: filter === tab.id ? '#8B5CF6' : '#8892AA',
                         }}
                     >
                         {tab.label}
@@ -137,10 +137,10 @@ function BountyHistoryCard({ bounty, currency, navigate }) {
     const isCancelled = bounty.status === 'cancelled' || bounty.status === 'canceled' || bounty.status === 'deleted';
 
     const statusConfig = isCompleted
-        ? { label: 'Completed', color: '#00FF94', bg: 'rgba(0,255,148,0.1)', Icon: CheckCircle }
+        ? { label: 'Completed', color: '#10B981', bg: 'rgba(0,255,148,0.1)', Icon: CheckCircle }
         : isCancelled
             ? { label: 'Cancelled', color: '#8892AA', bg: 'rgba(255,255,255,0.05)', Icon: XCircle }
-            : { label: 'Expired', color: '#FFE600', bg: 'rgba(255,230,0,0.1)', Icon: AlertCircle };
+            : { label: 'Expired', color: '#F59E0B', bg: 'rgba(255,230,0,0.1)', Icon: AlertCircle };
 
     const { Icon } = statusConfig;
 
@@ -176,7 +176,7 @@ function BountyHistoryCard({ bounty, currency, navigate }) {
                 <h3 style={{ color: '#F0F4FF', fontWeight: '700', fontSize: '15px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     {bounty.title}
                 </h3>
-                <p style={{ color: '#00FF94', fontFamily: 'JetBrains Mono', fontWeight: '700', fontSize: '14px', marginTop: '4px' }}>
+                <p style={{ color: '#10B981', fontFamily: 'JetBrains Mono', fontWeight: '700', fontSize: '14px', marginTop: '4px' }}>
                     {currency}{(bounty.rewardPool || bounty.reward || 0).toLocaleString()}
                 </p>
             </div>
