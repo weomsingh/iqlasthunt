@@ -1,10 +1,10 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { supabase } from '../../supabaseClient';
 import {
     Target, FileText, Calendar, DollarSign, Upload, ArrowRight, ArrowLeft,
-    Check, Sparkles, MessageSquare, Briefcase, Zap, Info, X
+    Check, MessageSquare, Briefcase, Zap, Info, X
 } from 'lucide-react';
 
 export default function PostBounty() {
@@ -30,17 +30,7 @@ export default function PostBounty() {
         }
     });
 
-    // Chat State
-    const [messages, setMessages] = useState([
-        { type: 'ai', text: "Hi! I'm your AI assistant. Let's create the perfect bounty together. What do you need help with?" }
-    ]);
-    const chatEndRef = useRef(null);
-
     const currency = currentUser?.currency === 'INR' ? '₹' : '$';
-
-    useEffect(() => {
-        chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, [messages]);
 
     // Helper to calculate deadline date based on timeline selection
     useEffect(() => {
@@ -54,23 +44,8 @@ export default function PostBounty() {
         setFormData(prev => ({ ...prev, deadlineDate: isoString }));
     }, [formData.timeline]);
 
-    // AI Simulation
-    const addAiMessage = (text, delay = 500) => {
-        setTimeout(() => {
-            setMessages(prev => [...prev, { type: 'ai', text }]);
-        }, delay);
-    };
-
     const handleInputChange = (field, value) => {
         setFormData(prev => ({ ...prev, [field]: value }));
-
-        // AI Reactions
-        if (field === 'title' && value.length > 10 && messages.length < 2) {
-            addAiMessage(`"${value}" sounds interesting! I can help you refine the description in the next step.`);
-        }
-        if (field === 'category' && value) {
-            addAiMessage(`Great choice! For ${value} projects, clarity is key. I'll guide you through the requirements.`);
-        }
     };
 
     const toggleRequirement = (req) => {
@@ -171,8 +146,8 @@ export default function PostBounty() {
                                         key={cat}
                                         onClick={() => handleInputChange('category', cat)}
                                         className={`p-3 rounded-xl border text-left transition-all ${formData.category === cat
-                                                ? 'bg-iq-primary/10 border-iq-primary text-iq-primary'
-                                                : 'bg-iq-card border-white/10 text-white hover:border-white/30'
+                                            ? 'bg-iq-primary/10 border-iq-primary text-iq-primary'
+                                            : 'bg-iq-card border-white/10 text-white hover:border-white/30'
                                             }`}
                                     >
                                         {cat}
@@ -203,11 +178,19 @@ export default function PostBounty() {
                     <div className="space-y-6 animate-fade-in">
                         <h2 className="text-2xl font-bold text-white">Describe your mission</h2>
 
-                        <div className="bg-iq-surface/50 p-4 rounded-xl border border-dashed border-iq-primary/30 flex items-start gap-3">
-                            <Sparkles className="text-iq-primary shrink-0 mt-1" size={18} />
-                            <div className="text-sm text-iq-text-secondary">
-                                <p className="text-white font-medium mb-1">AI Suggestion:</p>
-                                <p>Try to include your brand colors, target audience, and examples of styles you like. The more details, the better the results.</p>
+                        <div style={{
+                            borderRadius: '14px',
+                            padding: '16px 20px',
+                            background: 'rgba(59, 130, 246, 0.06)',
+                            border: '1px solid rgba(59, 130, 246, 0.2)',
+                            display: 'flex',
+                            alignItems: 'flex-start',
+                            gap: '12px',
+                        }}>
+                            <Info size={18} style={{ color: '#3B82F6', flexShrink: 0, marginTop: '2px' }} />
+                            <div className="text-sm" style={{ color: '#94A3B8' }}>
+                                <p style={{ color: '#F8FAFC', fontWeight: '700', marginBottom: '4px' }}>Writing Tip:</p>
+                                <p>Include your brand colors, target audience, and examples of styles you like. The more specific, the better the results.</p>
                             </div>
                         </div>
 
@@ -307,8 +290,8 @@ export default function PostBounty() {
                                         key={opt}
                                         onClick={() => handleInputChange('timeline', opt)}
                                         className={`p-3 rounded-xl border text-sm transition-all ${formData.timeline === opt
-                                                ? 'bg-iq-primary/10 border-iq-primary text-iq-primary font-medium'
-                                                : 'bg-iq-card border-white/10 text-white hover:border-white/30'
+                                            ? 'bg-iq-primary/10 border-iq-primary text-iq-primary font-medium'
+                                            : 'bg-iq-card border-white/10 text-white hover:border-white/30'
                                             }`}
                                     >
                                         {opt}
@@ -404,114 +387,83 @@ export default function PostBounty() {
     };
 
     return (
-        <div className="flex flex-col md:flex-row min-h-screen bg-iq-background">
-            {/* Left AI Sidebar (Desktop: 40%) */}
+        <div style={{ minHeight: '100vh', background: 'transparent' }}>
+            {/* Progress bar */}
             {step < 7 && (
-                <div className="w-full md:w-[40%] bg-iq-surface border-r border-white/5 flex flex-col h-[30vh] md:h-screen sticky top-0">
-                    <div className="p-6 border-b border-white/5 flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-iq-primary/20 flex items-center justify-center">
-                            <Sparkles className="text-iq-primary" size={20} />
-                        </div>
-                        <div>
-                            <h3 className="font-bold text-white">AI Assistant</h3>
-                            <p className="text-xs text-iq-text-secondary">Helping you draft...</p>
-                        </div>
-                    </div>
-
-                    <div className="flex-1 overflow-y-auto p-4 space-y-4">
-                        {messages.map((msg, i) => (
-                            <div key={i} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
-                                <div className={`max-w-[85%] p-3 rounded-2xl text-sm ${msg.type === 'user'
-                                        ? 'bg-iq-primary text-black rounded-tr-none'
-                                        : 'bg-iq-card text-white border border-white/10 rounded-tl-none'
-                                    }`}>
-                                    {msg.text}
-                                </div>
-                            </div>
-                        ))}
-                        <div ref={chatEndRef} />
-                    </div>
-
-                    <div className="p-4 border-t border-white/5">
-                        <div className="relative">
-                            <input
-                                type="text"
-                                placeholder="Type to ask for help..."
-                                className="w-full bg-iq-background border border-white/10 rounded-full py-3 px-4 text-sm text-white focus:outline-none focus:border-iq-primary/50"
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter' && e.target.value) {
-                                        setMessages(prev => [...prev, { type: 'user', text: e.target.value }]);
-                                        e.target.value = '';
-                                        setTimeout(() => addAiMessage("I'm adding that to your requirements momentarily. Is there anything else?"), 1000);
-                                    }
-                                }}
-                            />
-                            <button className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 bg-iq-primary rounded-full text-black">
-                                <ArrowRight size={16} />
-                            </button>
-                        </div>
-                    </div>
+                <div style={{ height: '3px', background: 'rgba(255,255,255,0.07)', width: '100%', position: 'sticky', top: 0, zIndex: 10 }}>
+                    <div
+                        style={{
+                            height: '100%',
+                            background: 'linear-gradient(90deg, #FF6B35, #F59E0B)',
+                            width: `${(step / 6) * 100}%`,
+                            transition: 'width 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                            borderRadius: '0 3px 3px 0',
+                        }}
+                    />
                 </div>
             )}
 
-            {/* Right Form Area (Desktop: 60%) */}
-            <div className={`flex-1 flex flex-col ${step === 7 ? 'w-full' : ''}`}>
-                {step < 7 && (
-                    <div className="h-2 bg-iq-surface w-full">
-                        <div
-                            className="h-full bg-iq-primary transition-all duration-500"
-                            style={{ width: `${(step / 6) * 100}%` }}
-                        />
-                    </div>
-                )}
-
-                <div className="flex-1 p-6 md:p-12 overflow-y-auto">
-                    <div className="max-w-2xl mx-auto w-full h-full flex flex-col">
-                        {/* Step Header */}
-                        {step < 7 && (
-                            <div className="flex items-center justify-between mb-8">
-                                <button
-                                    onClick={() => step > 1 && setStep(s => s - 1)}
-                                    disabled={step === 1}
-                                    className={`p-2 rounded-lg hover:bg-white/5 transition-colors ${step === 1 ? 'opacity-0 pointer-events-none' : 'text-iq-text-secondary'}`}
-                                >
-                                    <ArrowLeft size={24} />
-                                </button>
-                                <span className="text-sm font-medium text-iq-text-secondary">Step {step} of 6</span>
-                                <div className="w-10"></div> {/* Spacer */}
-                            </div>
-                        )}
-
-                        {/* Step Content */}
-                        <div className="flex-1">
-                            {renderStep()}
+            <div style={{ maxWidth: '720px', margin: '0 auto', padding: '32px 16px 80px', width: '100%' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', minHeight: '80vh' }}>
+                    {/* Step Header */}
+                    {step < 7 && (
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '40px' }}>
+                            <button
+                                onClick={() => step > 1 && setStep(s => s - 1)}
+                                disabled={step === 1}
+                                style={{
+                                    display: 'flex', alignItems: 'center', gap: '6px',
+                                    padding: '8px 14px', borderRadius: '10px',
+                                    background: 'rgba(255,255,255,0.05)',
+                                    border: '1px solid rgba(255,255,255,0.08)',
+                                    color: step === 1 ? 'transparent' : '#94A3B8',
+                                    cursor: step === 1 ? 'default' : 'pointer',
+                                    pointerEvents: step === 1 ? 'none' : 'auto',
+                                    fontSize: '13px', fontWeight: '600',
+                                    transition: 'all 0.2s ease',
+                                }}
+                            >
+                                <ArrowLeft size={16} /> Back
+                            </button>
+                            <span style={{ color: '#64748B', fontSize: '13px', fontWeight: '600' }}>Step {step} of 6</span>
+                            <div style={{ width: '80px' }} />
                         </div>
+                    )}
 
-                        {/* Step Footer/Actions */}
-                        {step < 6 && (
-                            <div className="mt-8 flex justify-end">
-                                <button
-                                    onClick={() => setStep(s => s + 1)}
-                                    disabled={
-                                        (step === 1 && !formData.title) ||
-                                        (step === 2 && !formData.description)
-                                    }
-                                    className="btn-primary px-8 py-3 text-base flex items-center gap-2"
-                                >
-                                    Continue <ArrowRight size={20} />
-                                </button>
-                            </div>
-                        )}
-
-                        {step === 5 && (
-                            <div className="mt-8 flex justify-end gap-4">
-                                <button className="btn-secondary">Save Draft</button>
-                                <button onClick={() => { setStep(6); setTimeout(handleSubmit, 2000); }} className="btn-primary px-8 py-3 text-base flex items-center gap-2">
-                                    Pay & Post <ArrowRight size={20} />
-                                </button>
-                            </div>
-                        )}
+                    {/* Step Content */}
+                    <div style={{ flex: 1 }}>
+                        {renderStep()}
                     </div>
+
+                    {/* Footer Actions */}
+                    {step < 6 && (
+                        <div style={{ marginTop: '40px', display: 'flex', justifyContent: 'flex-end' }}>
+                            <button
+                                onClick={() => setStep(s => s + 1)}
+                                disabled={
+                                    (step === 1 && !formData.title) ||
+                                    (step === 2 && !formData.description)
+                                }
+                                className="btn-primary"
+                                style={{ padding: '14px 36px', fontSize: '15px', borderRadius: '14px' }}
+                            >
+                                Continue <ArrowRight size={20} />
+                            </button>
+                        </div>
+                    )}
+
+                    {step === 5 && (
+                        <div style={{ marginTop: '40px', display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
+                            <button className="btn-secondary" style={{ padding: '14px 24px', fontSize: '14px', borderRadius: '14px' }}>Save Draft</button>
+                            <button
+                                onClick={() => { setStep(6); setTimeout(handleSubmit, 2000); }}
+                                className="btn-primary"
+                                style={{ padding: '14px 36px', fontSize: '15px', borderRadius: '14px' }}
+                            >
+                                Pay & Post <ArrowRight size={20} />
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
