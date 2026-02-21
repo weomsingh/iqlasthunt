@@ -5,7 +5,7 @@ import { supabase } from '../../supabaseClient';
 import {
     ArrowLeft, Users, FileText, Clock, TrendingUp,
     Trophy, CheckCircle, AlertCircle, Target, MessageSquare, Settings,
-    List, Calendar, DollarSign, Download, Star, Filter, ChevronRight, Share2, MoreHorizontal
+    List, Calendar, DollarSign, Download, Star, Filter, ChevronRight, Share2, MoreHorizontal, X
 } from 'lucide-react';
 
 export default function PayerBountyDetails() {
@@ -131,25 +131,27 @@ export default function PayerBountyDetails() {
 
                                 <button
                                     onClick={async () => {
-                                        if (!confirm('DELETE this bounty? Funds will be refunded to your vault.')) return;
+                                        if (!confirm('DELETE this bounty?\n\nIf no hunters have joined, your full payment will be instantly refunded to your vault.')) return;
                                         try {
-                                            // 1. Update status
-                                            const { error: bErr } = await supabase.from('bounties').update({ status: 'deleted' }).eq('id', bounty.id);
-                                            if (bErr) throw bErr;
+                                            const { data, error } = await supabase.rpc('cancel_bounty', {
+                                                p_bounty_id: bounty.id,
+                                                p_payer_id: currentUser.id
+                                            });
 
-                                            // 2. Refund Transaction (Manual logic for now, ideally backend trigger)
-                                            // We rely on "reverted in 2-3 hours" manual process OR we can insert a refund tx now.
-                                            // User said "payment will be reverted in 2-3 hours". So just marking deleted is enough?
-                                            // Better to be safe and just mark deleted.
+                                            if (error) throw error;
+                                            if (data && !data.success) throw new Error(data.error);
 
-                                            alert('Bounty deleted. Funds will be reverted within 2-3 hours.');
+                                            const refunded = data?.refunded || 0;
+                                            const currency = currentUser?.currency === 'INR' ? '₹' : '$';
+
+                                            alert(`✅ Bounty cancelled.\n\n${currency}${Number(refunded).toLocaleString()} has been instantly refunded to your vault.`);
                                             navigate('/payer/dashboard');
-                                        } catch (e) { alert(e.message); }
+                                        } catch (e) { alert('Error: ' + e.message); }
                                     }}
                                     disabled={!canManage}
                                     className="bg-red-500/10 text-red-500 border border-red-500/20 px-4 py-2 rounded-lg text-sm font-bold hover:bg-red-500/20 transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
-                                    <Trophy size={16} className="rotate-180" /> Delete
+                                    <X size={16} /> Cancel & Refund
                                 </button>
                             </div>
                         );
