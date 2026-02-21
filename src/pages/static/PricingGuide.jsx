@@ -7,25 +7,25 @@ export default function PricingGuide() {
     const pricingTiers = [
         {
             range: 'Under ₹1,500',
-            stake: '₹15',
+            stake: '₹10',
             maxHunters: 4,
-            color: '#06B6D4',
+            color: '#FF6B35',
             example: '₹1,000 bounty',
             description: 'Perfect for quick tasks and small projects'
         },
         {
-            range: '₹1,500 - ₹3,000',
-            stake: '₹25',
+            range: '₹1,500 – ₹3,000',
+            stake: '₹20',
             maxHunters: 6,
-            color: '#00ccff',
+            color: '#3B82F6',
             example: '₹2,000 bounty',
             description: 'Ideal for medium complexity challenges'
         },
         {
-            range: '₹3,000 - ₹4,500',
+            range: '₹3,000 – ₹4,500',
             stake: '₹40',
             maxHunters: 8,
-            color: '#ff9d00',
+            color: '#F59E0B',
             example: '₹4,000 bounty',
             description: 'Great for detailed work and projects'
         },
@@ -33,7 +33,7 @@ export default function PricingGuide() {
             range: 'Above ₹4,500',
             stake: '2.5% of bounty',
             maxHunters: 10,
-            color: '#ff5252',
+            color: '#8B5CF6',
             example: '₹10,000 bounty = ₹250 stake',
             description: 'For high-value professional projects'
         }
@@ -60,24 +60,24 @@ export default function PricingGuide() {
                 </h2>
                 <div className="info-grid">
                     <div className="info-card">
-                        <div className="info-icon" style={{ background: 'rgba(6, 182, 212, 0.1)' }}>
-                            <Shield size={32} style={{ color: '#06B6D4' }} />
+                        <div className="info-icon" style={{ background: 'rgba(255, 107, 53, 0.1)' }}>
+                            <Shield size={32} style={{ color: '#FF6B35' }} />
                         </div>
                         <h3>Pay to Play</h3>
                         <p>Hunters pay a small entry fee (stake) to participate in bounties. This ensures serious commitment.</p>
                     </div>
 
                     <div className="info-card">
-                        <div className="info-icon" style={{ background: 'rgba(0, 204, 255, 0.1)' }}>
-                            <TrendingUp size={32} style={{ color: '#00ccff' }} />
+                        <div className="info-icon" style={{ background: 'rgba(59, 130, 246, 0.1)' }}>
+                            <TrendingUp size={32} style={{ color: '#3B82F6' }} />
                         </div>
                         <h3>Winner Takes All</h3>
-                        <p>If you win, you get the full bounty reward! If you don't win, you lose your stake.</p>
+                        <p>If you win, you get the full bounty reward! If you lose, you get back 30% of your stake as consolation.</p>
                     </div>
 
                     <div className="info-card">
-                        <div className="info-icon" style={{ background: 'rgba(255, 157, 0, 0.1)' }}>
-                            <Zap size={32} style={{ color: '#ff9d00' }} />
+                        <div className="info-icon" style={{ background: 'rgba(245, 158, 11, 0.1)' }}>
+                            <Zap size={32} style={{ color: '#F59E0B' }} />
                         </div>
                         <h3>Auto-Calculated</h3>
                         <p>Stakes are automatically set based on bounty value. Fair for everyone!</p>
@@ -152,8 +152,8 @@ export default function PricingGuide() {
                                 <strong>₹5,000</strong>
                             </div>
                             <div className="calc-row highlight">
-                                <span>Hunter Stakes (2.5%)</span>
-                                <strong style={{ color: '#06B6D4' }}>₹125</strong>
+                                <span>Hunter Stake (2.5%)</span>
+                                <strong style={{ color: '#FF6B35' }}>₹125</strong>
                             </div>
                             <div className="calc-row">
                                 <span>Max Hunters</span>
@@ -166,7 +166,10 @@ export default function PricingGuide() {
                                 🎯 <strong>For Hunters:</strong> Pay ₹125 to compete. Win ₹5,000 if selected!
                             </p>
                             <p>
-                                💰 <strong>ROI if you win:</strong> 4,000% (₹125 → ₹5,000)
+                                💰 <strong>ROI if you win:</strong> 3,900% (₹125 → ₹5,000)
+                            </p>
+                            <p>
+                                🤝 <strong>If you lose:</strong> Get back ₹37.50 (30% consolation)
                             </p>
                         </div>
                     </div>
@@ -174,7 +177,7 @@ export default function PricingGuide() {
                     <div className="calc-card">
                         <div className="calc-header">
                             <h3>₹1,200 Bounty</h3>
-                            <span className="calc-badge" style={{ background: 'rgba(0, 204, 255, 0.1)', color: '#00ccff' }}>
+                            <span className="calc-badge" style={{ background: 'rgba(59, 130, 246, 0.1)', color: '#3B82F6' }}>
                                 Quick Task
                             </span>
                         </div>
@@ -185,8 +188,8 @@ export default function PricingGuide() {
                                 <strong>₹1,200</strong>
                             </div>
                             <div className="calc-row highlight">
-                                <span>Hunter Stakes (Fixed)</span>
-                                <strong style={{ color: '#06B6D4' }}>₹15</strong>
+                                <span>Hunter Stake (Fixed)</span>
+                                <strong style={{ color: '#FF6B35' }}>₹10</strong>
                             </div>
                             <div className="calc-row">
                                 <span>Max Hunters</span>
@@ -196,10 +199,13 @@ export default function PricingGuide() {
 
                         <div className="calc-footer">
                             <p>
-                                🎯 <strong>For Hunters:</strong> Pay ₹15 to compete. Win ₹1,200 if selected!
+                                🎯 <strong>For Hunters:</strong> Pay ₹10 to compete. Win ₹1,200 if selected!
                             </p>
                             <p>
-                                💰 <strong>ROI if you win:</strong> 8,000% (₹15 → ₹1,200)
+                                💰 <strong>ROI if you win:</strong> 11,900% (₹10 → ₹1,200)
+                            </p>
+                            <p>
+                                🤝 <strong>If you lose:</strong> Get back ₹3 (30% consolation)
                             </p>
                         </div>
                     </div>
@@ -218,7 +224,7 @@ export default function PricingGuide() {
 
                     <div className="faq-item">
                         <h4>❓ What happens if I don't win?</h4>
-                        <p>You lose your stake amount. This is the risk for participating. But if you win, you get the full reward!</p>
+                        <p>You get back <strong>30% of your stake</strong> as a consolation for your effort. The remaining 70% goes to the platform.</p>
                     </div>
 
                     <div className="faq-item">
@@ -228,12 +234,12 @@ export default function PricingGuide() {
 
                     <div className="faq-item">
                         <h4>❓ Are there any hidden fees?</h4>
-                        <p>No! The stake amount you see is exactly what you pay. No surprises.</p>
+                        <p>No! Payers pay a flat <strong>2% platform fee</strong> on top of the bounty reward. Hunters only pay the stake listed. No surprises.</p>
                     </div>
 
                     <div className="faq-item">
                         <h4>❓ What if the bounty gets cancelled?</h4>
-                        <p>If a payer cancels before selecting a winner, all stakes are refunded to hunters automatically.</p>
+                        <p>If a payer cancels <strong>before any hunter joins</strong>, the full amount is instantly refunded to the payer's vault. If hunters are enrolled, contact support.</p>
                     </div>
                 </div>
             </section>
