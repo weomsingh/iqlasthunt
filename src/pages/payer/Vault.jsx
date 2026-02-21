@@ -8,7 +8,7 @@ import {
 
 export default function PayerVault() {
     const { currentUser, refreshUser } = useAuth();
-    const currency = '$'; // Currency Symbol
+    const currency = currentUser?.currency === 'INR' ? '₹' : '$';
 
     // Ensure wallet_balance is safe to use
     const walletBalance = currentUser?.wallet_balance || 0;
@@ -23,6 +23,8 @@ export default function PayerVault() {
     const [showDepositModal, setShowDepositModal] = useState(false);
     const [showWithdrawModal, setShowWithdrawModal] = useState(false);
     const [amount, setAmount] = useState('');
+    const [utrNumber, setUtrNumber] = useState('');
+    const [upiId, setUpiId] = useState('');
     const [processing, setProcessing] = useState(false);
     const [filter, setFilter] = useState('all');
 
@@ -97,57 +99,90 @@ export default function PayerVault() {
         }
     }
 
-    async function handleTransaction(type) {
-        if (!amount || isNaN(amount) || parseFloat(amount) <= 0) {
-            alert('Please enter a valid amount');
-            return;
-        }
-
+    async function handleDeposit() {
         const value = parseFloat(amount);
-        if (type === 'withdraw' && value > walletBalance) {
-            alert('Insufficient funds');
-            return;
-        }
+        if (!value || value <= 0) { alert('Please enter a valid amount'); return; }
+        if (!utrNumber.trim()) { alert('Please enter the UTR / Transaction Reference number'); return; }
 
         setProcessing(true);
         try {
-            // 1. Create Transaction Record
+            const { error } = await supabase
+                .from('transactions')
+                .insert({
+                    user_id: currentUser.id,
+                    amount: value,
+                    type: 'deposit',
+                    currency: currentUser?.currency || 'INR',
+                    status: 'pending',          // Admin must verify before crediting
+                    metadata: {
+                        utr_number: utrNumber,
+                        note: 'Payer manual deposit'
+                    }
+                });
+
+            if (error) throw error;
+
+            await loadVaultData();
+            setShowDepositModal(false);
+            setAmount('');
+            setUtrNumber('');
+            alert(`✅ Deposit request submitted!\n\nYour ${currency}${value.toLocaleString()} will be added after admin verification (usually within 24 hours).`);
+        } catch (error) {
+            console.error('Deposit failed:', error);
+            alert('Deposit failed: ' + error.message);
+        } finally {
+            setProcessing(false);
+        }
+    }
+
+    async function handleWithdraw() {
+        const value = parseFloat(amount);
+        if (!value || value <= 0 || value > walletBalance) {
+            alert('Invalid withdrawal amount or insufficient balance');
+            return;
+        }
+        if (!upiId.trim()) { alert('Please enter your UPI ID'); return; }
+
+        const confirmed = window.confirm(
+            `Withdraw ${currency}${value.toLocaleString()} to UPI: ${upiId}?\n\n` +
+            `\u26a0︎ Amount will be deducted immediately.\n` +
+            `\u26a0︎ Processing takes 24–48 hours.`
+        );
+        if (!confirmed) return;
+
+        setProcessing(true);
+        try {
+            // Deduct from wallet immediately
+            const { error: profileError } = await supabase
+                .from('profiles')
+                .update({ wallet_balance: walletBalance - value })
+                .eq('id', currentUser.id);
+
+            if (profileError) throw profileError;
+
+            // Log withdrawal transaction
             const { error: txError } = await supabase
                 .from('transactions')
                 .insert({
                     user_id: currentUser.id,
                     amount: value,
-                    type: type, // 'deposit' or 'withdrawal'
-                    description: type === 'deposit' ? 'Manual Deposit' : 'Manual Withdrawal',
-                    status: 'completed' // In real app, might be 'pending'
+                    type: 'withdrawal',
+                    currency: currentUser?.currency || 'INR',
+                    status: 'pending',
+                    metadata: { upi_id: upiId, note: 'Payer withdrawal request' }
                 });
 
             if (txError) throw txError;
 
-            // 2. Update Wallet Balance
-            const newBalance = type === 'deposit'
-                ? walletBalance + value
-                : walletBalance - value;
-
-            const { error: profileError } = await supabase
-                .from('profiles')
-                .update({ wallet_balance: newBalance })
-                .eq('id', currentUser.id);
-
-            if (profileError) throw profileError;
-
-            // 3. Refresh
             await refreshUser();
             await loadVaultData();
-
-            setShowDepositModal(false);
             setShowWithdrawModal(false);
             setAmount('');
-            alert(`${type === 'deposit' ? 'Deposit' : 'Withdrawal'} successful!`);
-
+            setUpiId('');
+            alert(`✅ Withdrawal request submitted!\n\n${currency}${value.toLocaleString()} will be sent to ${upiId} within 24–48 hours.`);
         } catch (error) {
-            console.error('Transaction failed:', error);
-            alert('Transaction failed: ' + error.message);
+            console.error('Withdrawal failed:', error);
+            alert('Withdrawal failed: ' + error.message);
         } finally {
             setProcessing(false);
         }
@@ -334,34 +369,70 @@ export default function PayerVault() {
             {/* Deposit Modal */}
             {showDepositModal && (
                 <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                    <div className="bg-[#1A1F2E] border border-white/10 rounded-2xl p-6 w-full max-w-md animate-fade-in-up">
-                        <h2 className="text-2xl font-bold mb-4">Add Funds</h2>
-                        <p className="text-gray-400 mb-6">Enter the amount you wish to deposit into your IQHUNT Wallet.</p>
+                    <div className="bg-[#0F1624] border border-white/10 rounded-2xl p-6 w-full max-w-md animate-fade-in-up">
+                        <h2 className="text-2xl font-bold mb-1">Add Funds</h2>
+                        <p className="text-sm mb-6" style={{ color: '#94A3B8' }}>Transfer to our UPI and submit the UTR number below for verification.</p>
 
-                        <div className="mb-6">
-                            <label className="block text-sm text-gray-400 mb-2">Amount ({currency})</label>
-                            <input
-                                type="number"
-                                value={amount}
-                                onChange={(e) => setAmount(e.target.value)}
-                                className="w-full bg-[#141922] border border-white/10 rounded-xl p-4 text-2xl text-white font-mono focus:border-iq-primary focus:outline-none"
-                                placeholder="0.00"
-                            />
+                        {/* UPI QR / ID box */}
+                        <div style={{
+                            borderRadius: '14px', padding: '16px 20px', marginBottom: '20px',
+                            background: 'rgba(255, 107, 53, 0.06)', border: '1px solid rgba(255, 107, 53, 0.25)',
+                        }}>
+                            <p style={{ fontSize: '12px', color: '#64748B', fontWeight: '700', letterSpacing: '0.08em', marginBottom: '6px' }}>SEND PAYMENT TO</p>
+                            <p style={{ fontSize: '20px', fontWeight: '900', color: '#FF6B35', fontFamily: 'JetBrains Mono' }}>iqhunt@upi</p>
+                            <p style={{ fontSize: '12px', color: '#94A3B8', marginTop: '4px' }}>IQHUNT Platform · IMPS/UPI/NEFT accepted</p>
                         </div>
 
-                        <div className="flex gap-4">
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '20px' }}>
+                            <div>
+                                <label style={{ fontSize: '13px', color: '#94A3B8', display: 'block', marginBottom: '6px' }}>Amount ({currency})</label>
+                                <input
+                                    type="number"
+                                    value={amount}
+                                    onChange={(e) => setAmount(e.target.value)}
+                                    style={{
+                                        width: '100%', background: '#080D1A', border: '1px solid rgba(255,255,255,0.1)',
+                                        borderRadius: '12px', padding: '14px 16px', fontSize: '22px',
+                                        color: '#F8FAFC', fontFamily: 'JetBrains Mono', outline: 'none',
+                                    }}
+                                    placeholder="0"
+                                    onFocus={e => e.target.style.borderColor = 'rgba(255,107,53,0.5)'}
+                                    onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
+                                />
+                            </div>
+                            <div>
+                                <label style={{ fontSize: '13px', color: '#94A3B8', display: 'block', marginBottom: '6px' }}>UTR / Transaction Reference No.</label>
+                                <input
+                                    type="text"
+                                    value={utrNumber}
+                                    onChange={(e) => setUtrNumber(e.target.value)}
+                                    style={{
+                                        width: '100%', background: '#080D1A', border: '1px solid rgba(255,255,255,0.1)',
+                                        borderRadius: '12px', padding: '12px 16px', fontSize: '14px',
+                                        color: '#F8FAFC', fontFamily: 'JetBrains Mono', outline: 'none',
+                                    }}
+                                    placeholder="e.g. 427891234567"
+                                    onFocus={e => e.target.style.borderColor = 'rgba(255,107,53,0.5)'}
+                                    onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
+                                />
+                                <p style={{ fontSize: '11px', color: '#64748B', marginTop: '5px' }}>Found in your bank app under the payment receipt</p>
+                            </div>
+                        </div>
+
+                        <div style={{ display: 'flex', gap: '12px' }}>
                             <button
-                                onClick={() => setShowDepositModal(false)}
-                                className="flex-1 py-3 rounded-xl border border-white/10 text-white hover:bg-white/5 transition-colors"
+                                onClick={() => { setShowDepositModal(false); setAmount(''); setUtrNumber(''); }}
+                                style={{ flex: 1, padding: '13px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', color: '#94A3B8', background: 'none', cursor: 'pointer', fontWeight: '600' }}
                             >
                                 Cancel
                             </button>
                             <button
-                                onClick={() => handleTransaction('deposit')}
+                                onClick={handleDeposit}
                                 disabled={processing}
-                                className="flex-1 py-3 rounded-xl bg-iq-primary text-black font-bold hover:bg-iq-primary/90 transition-colors disabled:opacity-50"
+                                className="btn-primary"
+                                style={{ flex: 1, padding: '13px', borderRadius: '12px', opacity: processing ? 0.6 : 1, cursor: processing ? 'not-allowed' : 'pointer', justifyContent: 'center' }}
                             >
-                                {processing ? 'Processing...' : 'Confirm Deposit'}
+                                {processing ? 'Submitting...' : 'Submit Request'}
                             </button>
                         </div>
                     </div>
@@ -371,36 +442,57 @@ export default function PayerVault() {
             {/* Withdraw Modal */}
             {showWithdrawModal && (
                 <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                    <div className="bg-[#1A1F2E] border border-white/10 rounded-2xl p-6 w-full max-w-md animate-fade-in-up">
-                        <h2 className="text-2xl font-bold mb-4">Withdraw Funds</h2>
-                        <p className="text-gray-400 mb-6">Withdraw funds securely to your linked bank account.</p>
+                    <div className="bg-[#0F1624] border border-white/10 rounded-2xl p-6 w-full max-w-md animate-fade-in-up">
+                        <h2 className="text-2xl font-bold mb-1">Withdraw Funds</h2>
+                        <p className="text-sm mb-6" style={{ color: '#94A3B8' }}>Funds will be sent to your UPI ID within 24–48 hours.</p>
 
-                        <div className="mb-6">
-                            <label className="block text-sm text-gray-400 mb-2">Amount ({currency})</label>
-                            <input
-                                type="number"
-                                value={amount}
-                                onChange={(e) => setAmount(e.target.value)}
-                                className="w-full bg-[#141922] border border-white/10 rounded-xl p-4 text-2xl text-white font-mono focus:border-iq-primary focus:outline-none"
-                                placeholder="0.00"
-                                max={walletBalance}
-                            />
-                            <p className="text-xs text-gray-400 mt-2">Available: {currency}{walletBalance.toLocaleString()}</p>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '20px' }}>
+                            <div>
+                                <label style={{ fontSize: '13px', color: '#94A3B8', display: 'block', marginBottom: '6px' }}>Amount ({currency})</label>
+                                <input
+                                    type="number"
+                                    value={amount}
+                                    onChange={(e) => setAmount(e.target.value)}
+                                    max={walletBalance}
+                                    style={{
+                                        width: '100%', background: '#080D1A', border: '1px solid rgba(255,255,255,0.1)',
+                                        borderRadius: '12px', padding: '14px 16px', fontSize: '22px',
+                                        color: '#F8FAFC', fontFamily: 'JetBrains Mono', outline: 'none',
+                                    }}
+                                    placeholder="0"
+                                />
+                                <p style={{ fontSize: '12px', color: '#64748B', marginTop: '5px' }}>Available: {currency}{walletBalance.toLocaleString()}</p>
+                            </div>
+                            <div>
+                                <label style={{ fontSize: '13px', color: '#94A3B8', display: 'block', marginBottom: '6px' }}>Your UPI ID</label>
+                                <input
+                                    type="text"
+                                    value={upiId}
+                                    onChange={(e) => setUpiId(e.target.value)}
+                                    style={{
+                                        width: '100%', background: '#080D1A', border: '1px solid rgba(255,255,255,0.1)',
+                                        borderRadius: '12px', padding: '12px 16px', fontSize: '14px',
+                                        color: '#F8FAFC', fontFamily: 'JetBrains Mono', outline: 'none',
+                                    }}
+                                    placeholder="yourname@upi"
+                                />
+                            </div>
                         </div>
 
-                        <div className="flex gap-4">
+                        <div style={{ display: 'flex', gap: '12px' }}>
                             <button
-                                onClick={() => setShowWithdrawModal(false)}
-                                className="flex-1 py-3 rounded-xl border border-white/10 text-white hover:bg-white/5 transition-colors"
+                                onClick={() => { setShowWithdrawModal(false); setAmount(''); setUpiId(''); }}
+                                style={{ flex: 1, padding: '13px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', color: '#94A3B8', background: 'none', cursor: 'pointer', fontWeight: '600' }}
                             >
                                 Cancel
                             </button>
                             <button
-                                onClick={() => handleTransaction('withdrawal')}
+                                onClick={handleWithdraw}
                                 disabled={processing}
-                                className="flex-1 py-3 rounded-xl bg-iq-primary text-black font-bold hover:bg-iq-primary/90 transition-colors disabled:opacity-50"
+                                className="btn-primary"
+                                style={{ flex: 1, padding: '13px', borderRadius: '12px', opacity: processing ? 0.6 : 1, cursor: processing ? 'not-allowed' : 'pointer', justifyContent: 'center' }}
                             >
-                                {processing ? 'Processing...' : 'Confirm Withdrawal'}
+                                {processing ? 'Processing...' : 'Request Withdrawal'}
                             </button>
                         </div>
                     </div>
