@@ -1,257 +1,426 @@
-/* ========================================
-   VISUAL POLISH & ENHANCEMENTS v3.0
-   Modern, Premium, Vibrant Aesthetics
-   ======================================== */
+/* ================================================
+   IQHUNT — VISUAL POLISH v4.0
+   Inspired by Sarvam AI: Blue→Orange vibrant energy
+   Premium glassmorphism + micro-animations
+   ================================================ */
 
-/* 1. Global Atmosphere & Backgrounds */
-body {
-    background-color: #050814;
-    background-image:
-        radial-gradient(circle at top right, rgba(139, 92, 246, 0.15), transparent 40%),
-        radial-gradient(circle at bottom left, rgba(6, 182, 212, 0.15), transparent 40%),
-        radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 100% 100%, 100% 100%, 32px 32px;
-    background-attachment: fixed;
-    min-height: 100vh;
-    color: #F8FAFC;
+/* ==== 1. GLOBAL ATMOSPHERE ==== */
+:root {
+    --iq-orange: #FF6B35;
+    --iq-amber: #F59E0B;
+    --iq-cyan: #06B6D4;
+    --iq-blue: #3B82F6;
+    --iq-violet: #8B5CF6;
+    --iq-pink: #EC4899;
+    --iq-teal: #14B8A6;
+    --iq-green: #10B981;
+    --iq-bg-deep: #030712;
+    --iq-bg-base: #080D1A;
+    --iq-bg-card: rgba(15, 20, 35, 0.65);
+    --iq-text-hi: #F8FAFC;
+    --iq-text-mid: #94A3B8;
+    --iq-border: rgba(255, 255, 255, 0.06);
 }
 
+body {
+    background-color: var(--iq-bg-deep);
+    background-image:
+        /* Top-right warm orange glow */
+        radial-gradient(ellipse 80% 60% at 90% 0%, rgba(255, 107, 53, 0.12) 0%, transparent 60%),
+        /* Bottom-left cool cyan glow */
+        radial-gradient(ellipse 70% 50% at 0% 100%, rgba(6, 182, 212, 0.10) 0%, transparent 60%),
+        /* Center violet ambient */
+        radial-gradient(ellipse 60% 40% at 50% 50%, rgba(139, 92, 246, 0.06) 0%, transparent 70%),
+        /* Subtle dot grid */
+        radial-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 36px 36px;
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: var(--iq-text-hi);
+}
+
+/* ==== 2. LAYOUT TRANSPARENCY ==== */
 .dashboard-layout,
 .landing-page {
     background: transparent !important;
 }
 
-/* 1.5. Dynamic Global Glassmorphism Injector */
+/* Force glassmorphism on tailwind iq-card/surface classes */
 .bg-iq-card,
 .bg-iq-surface,
 [class*="bg-iq-card"],
 [class*="bg-iq-surface"] {
-    background: rgba(15, 20, 35, 0.65) !important;
+    background: var(--iq-bg-card) !important;
     backdrop-filter: blur(20px) !important;
     -webkit-backdrop-filter: blur(20px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.05) !important;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid var(--iq-border) !important;
 }
 
-/* Force upgrade old inline hardcoded dark blues to glass */
-div[style*="background: rgba(23,30,46"],
-div[style*="background: rgba(23, 30, 46"],
-div[style*="background: #151E2E"],
-div[style*="background: #1E293B"],
-div[style*="background: #0F1423"],
-div[style*="background: #1B2236"],
-div[style*="background: #050814"] {
-    background: rgba(15, 20, 35, 0.5) !important;
-    backdrop-filter: blur(16px) !important;
-    -webkit-backdrop-filter: blur(16px) !important;
-    border-color: rgba(255, 255, 255, 0.05) !important;
-}
-
-/* 2. Glassmorphism Cards */
+/* ==== 3. GLASSMORPHISM CARDS ==== */
 .bounty-card,
 .stat-card,
 .balance-card,
 .wallet-card,
 .action-card {
-    background: rgba(15, 20, 35, 0.6) !important;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
-    border-radius: 20px !important;
+    background: var(--iq-bg-card) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid var(--iq-border) !important;
+    transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+    border-radius: 24px !important;
 }
 
 .bounty-card:hover,
 .stat-card:hover,
 .action-card:hover {
-    transform: translateY(-4px) scale(1.01);
+    transform: translateY(-5px) scale(1.01);
+    border-color: rgba(255, 107, 53, 0.25) !important;
     box-shadow:
-        0 20px 40px -5px rgba(0, 0, 0, 0.4),
-        0 0 30px rgba(6, 182, 212, 0.1),
-        0 0 0 1px rgba(255, 255, 255, 0.15);
-    background: rgba(20, 25, 45, 0.8) !important;
+        0 25px 50px -8px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(255, 107, 53, 0.08);
 }
 
-/* 3. Typography Flourishes */
+/* ==== 4. TYPOGRAPHY ==== */
 h1,
 h2,
 h3 {
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
+}
+
+.gradient-text-main {
+    background: linear-gradient(135deg, #FF6B35 0%, #F59E0B 40%, #06B6D4 80%, #8B5CF6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .stat-value.reward,
 .wallet-balance {
-    background: linear-gradient(135deg, #06B6D4, #8B5CF6);
+    background: linear-gradient(135deg, #FF6B35, #F59E0B);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 2px 10px rgba(6, 182, 212, 0.2);
 }
 
 .highlight {
-    background: linear-gradient(90deg, #F97316, #EC4899);
+    background: linear-gradient(90deg, #FF6B35, #EC4899);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-/* 4. Button Enhancements */
+/* ==== 5. BUTTONS ==== */
 .btn-primary {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, #06B6D4 0%, #3B82F6 100%) !important;
+    background: linear-gradient(135deg, #FF6B35 0%, #F59E0B 100%) !important;
     color: #ffffff !important;
     border: none !important;
     font-weight: 700 !important;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
-    transition: all 0.3s ease;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 20px rgba(255, 107, 53, 0.35) !important;
+    transition: all 0.3s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
     z-index: 1;
 }
 
-.btn-primary::after {
+.btn-primary::before {
     content: '';
     position: absolute;
     inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
+    pointer-events: none;
     border-radius: inherit;
-    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3);
-    z-index: -1;
 }
 
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4), 0 0 20px rgba(59, 130, 246, 0.2);
-    filter: brightness(1.1);
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 10px 32px rgba(255, 107, 53, 0.5) !important;
+    filter: brightness(1.08);
+}
+
+.btn-primary:active:not(:disabled) {
+    transform: translateY(0) !important;
+}
+
+.btn-primary:disabled {
+    background: rgba(255, 255, 255, 0.07) !important;
+    color: rgba(255, 255, 255, 0.3) !important;
+    cursor: not-allowed !important;
+    box-shadow: none !important;
 }
 
 .btn-secondary {
-    background: rgba(255, 255, 255, 0.03) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    color: #F8FAFC !important;
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.05) !important;
+    color: var(--iq-text-hi) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    font-weight: 600 !important;
+    border-radius: 12px !important;
+    transition: all 0.3s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
 }
 
-.btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.08) !important;
-    border-color: rgba(255, 255, 255, 0.2) !important;
-    transform: translateY(-1px);
+.btn-secondary:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.09) !important;
+    border-color: rgba(255, 107, 53, 0.3) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(255, 107, 53, 0.15) !important;
 }
 
-/* 5. Mobile Bottom Nav Polish */
-.bottom-nav {
-    background: rgba(10, 15, 25, 0.85) !important;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+/* Pulse glow animation on primary CTA */
+.pulse-glow-btn {
+    animation: pulseGlowOrange 2.5s ease-in-out infinite !important;
 }
 
-.bottom-nav-item.active {
-    color: #06B6D4 !important;
-    background: rgba(6, 182, 212, 0.1);
-    border-radius: 12px;
+@keyframes pulseGlowOrange {
+
+    0%,
+    100% {
+        box-shadow: 0 4px 20px rgba(255, 107, 53, 0.35);
+    }
+
+    50% {
+        box-shadow: 0 4px 35px rgba(255, 107, 53, 0.65), 0 0 50px rgba(245, 158, 11, 0.2);
+    }
 }
 
-/* 6. Form Inputs */
+/* ==== 6. FORM INPUTS ==== */
 input,
 textarea,
 select {
-    background: rgba(15, 20, 35, 0.5) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    color: #ffffff !important;
-    border-radius: 12px !important;
-    transition: all 0.3s ease !important;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease !important;
 }
 
 input:focus,
 textarea:focus,
 select:focus {
-    border-color: rgba(6, 182, 212, 0.5) !important;
-    box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.1) !important;
+    border-color: rgba(255, 107, 53, 0.5) !important;
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.12) !important;
     outline: none !important;
 }
 
-/* 7. Status Badges */
-.badge-live,
-.status-live {
+/* ==== 7. MOBILE BOTTOM NAV ==== */
+.bottom-nav,
+.mobile-bottom-nav,
+[class*="bottom-nav"] {
+    background: rgba(8, 13, 26, 0.92) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+/* ==== 8. STATUS BADGES ==== */
+.status-live,
+.badge-live {
+    background: rgba(255, 107, 53, 0.1) !important;
+    color: #FF6B35 !important;
+    border-color: rgba(255, 107, 53, 0.3) !important;
+}
+
+.status-completed,
+.badge-success {
     background: rgba(16, 185, 129, 0.1) !important;
-    color: #06B6D4 !important;
-    border: 1px solid rgba(16, 185, 129, 0.3) !important;
-    box-shadow: 0 0 15px rgba(16, 185, 129, 0.1);
+    color: #10B981 !important;
+    border-color: rgba(16, 185, 129, 0.3) !important;
 }
 
-.badge-review,
-.status-review {
-    background: rgba(245, 158, 11, 0.1) !important;
-    color: #F59E0B !important;
-    border: 1px solid rgba(245, 158, 11, 0.3) !important;
-}
-
-.badge-completed,
-.status-completed {
-    background: rgba(139, 92, 246, 0.1) !important;
-    color: #8B5CF6 !important;
-    border: 1px solid rgba(139, 92, 246, 0.3) !important;
-}
-
-/* 8. Vibrant Custom Scrollbar */
+/* ==== 9. SCROLLBAR ==== */
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 5px;
+    height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #050814;
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
+    background: rgba(255, 107, 53, 0.3);
+    border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(6, 182, 212, 0.5);
+    background: rgba(255, 107, 53, 0.55);
 }
 
-/* 9. Interactive Animations */
-@keyframes float {
-    0% {
-        transform: translateY(0px);
+/* ==== 10. ANIMATIONS ==== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulseDot {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
     }
 
     50% {
-        transform: translateY(-10px);
+        opacity: 0.5;
+        transform: scale(1.5);
+    }
+}
+
+@keyframes floatSlow {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% center;
     }
 
     100% {
-        transform: translateY(0px);
+        background-position: 200% center;
     }
+}
+
+.animate-fade-in {
+    animation: fadeInUp 0.4s ease both;
 }
 
 .floating-element {
-    animation: float 6s ease-in-out infinite;
+    animation: floatSlow 6s ease-in-out infinite;
 }
 
-@keyframes pulse-glow {
-    0% {
-        box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.4);
-    }
+/* ==== 11. SKELETON LOADING ==== */
+.skeleton {
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0.04) 25%,
+            rgba(255, 255, 255, 0.08) 50%,
+            rgba(255, 255, 255, 0.04) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.8s infinite;
+    border-radius: 16px;
+}
 
-    70% {
-        box-shadow: 0 0 0 15px rgba(6, 182, 212, 0);
-    }
+/* ==== 12. SPINNER ==== */
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255, 255, 255, 0.08);
+    border-top-color: #FF6B35;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
 
-    100% {
-        box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
     }
 }
 
-.pulse-glow-btn {
-    animation: pulse-glow 2s infinite;
+/* ==== 13. HERO GRID PATTERN ==== */
+.hero-grid {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
 }
 
-::selection {
-    background: rgba(6, 182, 212, 0.3);
-    color: #ffffff;
+/* ==== 14. SIDEBAR ACTIVE LINK ==== */
+.sidebar-link.active {
+    background: rgba(255, 107, 53, 0.1) !important;
+    color: #FF6B35 !important;
+    border-right: 3px solid #FF6B35 !important;
+}
+
+.sidebar-link:hover {
+    background: rgba(255, 107, 53, 0.06) !important;
+    color: #F8FAFC !important;
+}
+
+/* ==== 15. HOVER LIFT ==== */
+.hover-lift {
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+        box-shadow 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* ==== 16. NO SCROLLBAR ==== */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* ==== 17. ORANGE ACCENT GLOW ==== */
+.glow-orange {
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.4), 0 0 60px rgba(255, 107, 53, 0.15);
+}
+
+.glow-cyan {
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.35), 0 0 60px rgba(6, 182, 212, 0.1);
+}
+
+.glow-violet {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.35), 0 0 60px rgba(139, 92, 246, 0.1);
+}
+
+/* ==== 18. LANDING PAGE HEADER STICKY ==== */
+.landing-header-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(3, 7, 18, 0.88) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+/* ==== 19. SECTION DIVIDERS ==== */
+.section-glow-orange {
+    position: relative;
+}
+
+.section-glow-orange::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.4), transparent);
+}
+
+/* ==== 20. WAR ROOM CHAT BUBBLE ==== */
+.war-room-msg-payer {
+    background: rgba(255, 107, 53, 0.1) !important;
+    border: 1px solid rgba(255, 107, 53, 0.2) !important;
+    border-radius: 16px 16px 4px 16px !important;
+}
+
+.war-room-msg-hunter {
+    background: rgba(6, 182, 212, 0.08) !important;
+    border: 1px solid rgba(6, 182, 212, 0.15) !important;
+    border-radius: 16px 16px 16px 4px !important;
 }

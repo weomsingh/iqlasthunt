@@ -133,21 +133,28 @@ export default function WorkReview() {
                         </div>
                     </div>
 
-                    {/* AI Analysis (Mock) */}
-                    <div className="bg-iq-primary/5 border border-iq-primary/20 rounded-xl p-4 flex gap-4">
-                        <div className="shrink-0">
-                            <ShieldCheck className="text-iq-primary" size={24} />
+                    {/* Quality Standards Banner */}
+                    <div style={{
+                        borderRadius: '16px',
+                        padding: '20px 24px',
+                        background: 'rgba(139, 92, 246, 0.06)',
+                        border: '1px solid rgba(139, 92, 246, 0.2)',
+                        display: 'flex',
+                        gap: '16px',
+                        alignItems: 'center',
+                    }}>
+                        <div style={{
+                            width: '44px', height: '44px', borderRadius: '12px',
+                            background: 'rgba(139, 92, 246, 0.15)',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0
+                        }}>
+                            <ShieldCheck size={22} style={{ color: '#8B5CF6' }} />
                         </div>
-                        <div>
-                            <h3 className="text-iq-primary font-bold text-sm mb-1">AI Quality Check Passed</h3>
-                            <p className="text-xs text-iq-text-secondary">
-                                This submission matches 95% of your requirements. No plagiarism detected.
-                                Source files are included.
+                        <div style={{ flex: 1 }}>
+                            <h3 style={{ color: '#F0F4FF', fontWeight: '800', fontSize: '14px', marginBottom: '4px', fontFamily: 'Space Grotesk' }}>Review Guidelines</h3>
+                            <p style={{ color: '#9CA3AF', fontSize: '13px', lineHeight: 1.5 }}>
+                                Review the submission carefully against your brief. Check that all deliverables are included and of acceptable quality before making your decision.
                             </p>
-                        </div>
-                        <div className="ml-auto text-right">
-                            <span className="text-2xl font-bold text-iq-primary">{submission.ai_score || 95}</span>
-                            <span className="text-xs block text-iq-text-secondary">/100 Score</span>
                         </div>
                     </div>
                 </div>

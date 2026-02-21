@@ -58,16 +58,16 @@ export default function LandingPage() {
     }
 
     const categories = [
-        { icon: Code, label: 'Development', color: '#06B6D4', bg: 'rgba(6, 182, 212,0.1)' },
-        { icon: Palette, label: 'Design', color: '#8B5CF6', bg: 'rgba(168,85,247,0.1)' },
-        { icon: PenTool, label: 'Writing', color: '#06B6D4', bg: 'rgba(139, 92, 246,0.1)' },
-        { icon: BarChart2, label: 'Marketing', color: '#F97316', bg: 'rgba(255,107,53,0.1)' },
-        { icon: Brain, label: 'Research', color: '#F59E0B', bg: 'rgba(255,230,0,0.1)' },
-        { icon: Globe, label: 'Business', color: '#6366F1', bg: 'rgba(99,102,241,0.1)' },
+        { icon: Code, label: 'Development', color: '#06B6D4', bg: 'rgba(6, 182, 212, 0.08)' },
+        { icon: Palette, label: 'Design', color: '#8B5CF6', bg: 'rgba(139, 92, 246, 0.08)' },
+        { icon: PenTool, label: 'Writing', color: '#10B981', bg: 'rgba(16, 185, 129, 0.08)' },
+        { icon: BarChart2, label: 'Marketing', color: '#FF6B35', bg: 'rgba(255, 107, 53, 0.08)' },
+        { icon: Brain, label: 'Research', color: '#F59E0B', bg: 'rgba(245, 158, 11, 0.08)' },
+        { icon: Globe, label: 'Business', color: '#3B82F6', bg: 'rgba(59, 130, 246, 0.08)' },
     ];
 
     return (
-        <div className="min-h-screen text-white overflow-x-hidden" style={{ background: '#090E17' }}>
+        <div className="min-h-screen text-white overflow-x-hidden" style={{ background: 'transparent' }}>
 
             {/* ===== ROLE MISMATCH MODAL ===== */}
             {roleMismatch && (
@@ -183,29 +183,29 @@ export default function LandingPage() {
 
             {/* ===== HERO SECTION ===== */}
             <section ref={heroRef} className="hero-section relative min-h-screen flex items-center pt-24 pb-20 overflow-hidden">
-                {/* Background Orbs - Cosmopolitan & Vibrant */}
-                <div className="absolute top-1/4 left-1/6 w-[600px] h-[600px] rounded-full pointer-events-none floating-element"
-                    style={{ background: 'radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 60%)', filter: 'blur(80px)' }} />
-                <div className="absolute bottom-1/4 right-1/6 w-[500px] h-[500px] rounded-full pointer-events-none floating-element"
-                    style={{ background: 'radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, transparent 60%)', filter: 'blur(80px)', animationDelay: '2s' }} />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none floating-element"
-                    style={{ background: 'radial-gradient(circle, rgba(236, 72, 153, 0.08) 0%, transparent 70%)', filter: 'blur(100px)', animationDelay: '4s' }} />
+                {/* Background Orbs - Warm Orange + Cool Blue */}
+                <div className="absolute top-0 right-0 w-[700px] h-[700px] rounded-full pointer-events-none"
+                    style={{ background: 'radial-gradient(circle, rgba(255, 107, 53, 0.14) 0%, transparent 60%)', filter: 'blur(80px)', transform: 'translate(30%, -30%)' }} />
+                <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full pointer-events-none floating-element"
+                    style={{ background: 'radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, transparent 60%)', filter: 'blur(80px)', transform: 'translate(-30%, 30%)', animationDelay: '2s' }} />
+                <div className="absolute top-1/2 right-1/4 w-[400px] h-[400px] rounded-full pointer-events-none floating-element"
+                    style={{ background: 'radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, transparent 70%)', filter: 'blur(60px)', animationDelay: '4s' }} />
 
                 {/* Grid */}
-                <div className="hero-grid absolute inset-0 pointer-events-none opacity-40" />
+                <div className="hero-grid absolute inset-0 pointer-events-none opacity-30" />
 
                 <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10 w-full">
                     <div className="max-w-5xl mx-auto text-center" style={{ perspective: '1000px' }}>
                         {/* Interactive Badge */}
                         <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full mb-8 animate-fade-in transition-all duration-300 hover:scale-105 cursor-pointer"
                             style={{
-                                background: 'rgba(6, 182, 212, 0.08)',
-                                border: '1px solid rgba(6, 182, 212, 0.3)',
+                                background: 'rgba(255, 107, 53, 0.08)',
+                                border: '1px solid rgba(255, 107, 53, 0.35)',
                                 backdropFilter: 'blur(12px)',
-                                boxShadow: '0 0 20px rgba(6, 182, 212, 0.15)'
+                                boxShadow: '0 0 25px rgba(255, 107, 53, 0.15)'
                             }}>
-                            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-                            <span className="text-sm font-bold tracking-widest uppercase" style={{ color: '#00E5FF', textShadow: '0 0 10px rgba(139, 92, 246,0.4)' }}>Live Bounty Protocol</span>
+                            <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#FF6B35' }}></span>
+                            <span className="text-sm font-bold tracking-widest uppercase" style={{ color: '#FF6B35' }}>Live Bounty Protocol</span>
                         </div>
 
                         {/* Headline */}
@@ -213,11 +213,11 @@ export default function LandingPage() {
                             WHERE SKILL <br className="hidden sm:block" />
                             <span style={{
                                 display: 'inline-block',
-                                background: 'linear-gradient(135deg, #00E5FF 0%, #3B82F6 40%, #D946EF 100%)',
+                                background: 'linear-gradient(135deg, #FF6B35 0%, #F59E0B 35%, #3B82F6 70%, #8B5CF6 100%)',
                                 WebkitBackgroundClip: 'text',
                                 WebkitTextFillColor: 'transparent',
                                 backgroundClip: 'text',
-                                filter: 'drop-shadow(0px 10px 30px rgba(59, 130, 246, 0.2))'
+                                filter: 'drop-shadow(0px 10px 30px rgba(255, 107, 53, 0.25))'
                             }}>
                                 HUNTS MONEY.
                             </span>
@@ -246,23 +246,23 @@ export default function LandingPage() {
                         {/* Stats Grid - Glassmorphism */}
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-5 max-w-4xl mx-auto">
                             {[
-                                { value: '98%', label: 'Success Rate', color: '#06B6D4', bg: 'rgba(6, 182, 212, 0.05)', border: 'rgba(6, 182, 212, 0.15)', glow: 'rgba(6, 182, 212, 0.2)' },
-                                { value: '100+', label: 'Elite Hunters', color: '#8B5CF6', bg: 'rgba(139, 92, 246, 0.05)', border: 'rgba(139, 92, 246, 0.15)', glow: 'rgba(139, 92, 246, 0.2)' },
-                                { value: '90+', label: 'Active Payers', color: '#EC4899', bg: 'rgba(236, 72, 153, 0.05)', border: 'rgba(236, 72, 153, 0.15)', glow: 'rgba(236, 72, 153, 0.2)', colSpan: '2 md:col-span-1' },
+                                { value: '98%', label: 'Success Rate', color: '#FF6B35', bg: 'rgba(255, 107, 53, 0.06)', border: 'rgba(255, 107, 53, 0.2)', glow: 'rgba(255, 107, 53, 0.25)' },
+                                { value: '100+', label: 'Elite Hunters', color: '#3B82F6', bg: 'rgba(59, 130, 246, 0.06)', border: 'rgba(59, 130, 246, 0.2)', glow: 'rgba(59, 130, 246, 0.25)' },
+                                { value: '90+', label: 'Active Payers', color: '#F59E0B', bg: 'rgba(245, 158, 11, 0.06)', border: 'rgba(245, 158, 11, 0.2)', glow: 'rgba(245, 158, 11, 0.25)', colSpan: '2 md:col-span-1' },
                             ].map((stat, i) => (
                                 <div key={i} className={`rounded-3xl p-6 text-center transition-all duration-300 hover:-translate-y-2 cursor-default ${stat.colSpan ? 'col-span-2 md:col-span-1' : ''}`}
                                     style={{
                                         background: stat.bg,
                                         border: `1px solid ${stat.border}`,
                                         backdropFilter: 'blur(16px)',
-                                        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)'
+                                        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.15)'
                                     }}
                                     onMouseOver={e => e.currentTarget.style.boxShadow = `0 15px 40px ${stat.glow}`}
-                                    onMouseOut={e => e.currentTarget.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.1)'}>
+                                    onMouseOut={e => e.currentTarget.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.15)'}>
                                     <div className="text-4xl md:text-5xl font-black mb-2" style={{ color: stat.color, fontFamily: 'Space Grotesk', textShadow: `0 0 20px ${stat.glow}` }}>
                                         {stat.value}
                                     </div>
-                                    <div className="text-xs font-bold uppercase tracking-[0.15em]" style={{ color: '#9CA3AF' }}>
+                                    <div className="text-xs font-bold uppercase tracking-[0.15em]" style={{ color: '#94A3B8' }}>
                                         {stat.label}
                                     </div>
                                 </div>

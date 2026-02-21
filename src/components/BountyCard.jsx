@@ -3,21 +3,21 @@ import { Link } from 'react-router-dom';
 
 // Vibrant color palette for categories
 const categoryColors = {
-    'Design': { color: '#8B5CF6', bg: 'rgba(168,85,247,0.1)', border: 'rgba(168,85,247,0.2)' },
-    'Development': { color: '#06B6D4', bg: 'rgba(139, 92, 246,0.1)', border: 'rgba(139, 92, 246,0.2)' },
-    'Writing': { color: '#14B8A6', bg: 'rgba(20,184,166,0.1)', border: 'rgba(20,184,166,0.2)' },
-    'Marketing': { color: '#F97316', bg: 'rgba(255,107,53,0.1)', border: 'rgba(255,107,53,0.2)' },
-    'Research': { color: '#F59E0B', bg: 'rgba(255,230,0,0.1)', border: 'rgba(255,230,0,0.2)' },
-    'Business': { color: '#6366F1', bg: 'rgba(99,102,241,0.1)', border: 'rgba(99,102,241,0.2)' },
-    'Finance': { color: '#06B6D4', bg: 'rgba(6, 182, 212,0.1)', border: 'rgba(6, 182, 212,0.2)' },
-    'default': { color: '#8892AA', bg: 'rgba(136,146,170,0.1)', border: 'rgba(136,146,170,0.2)' },
+    'Design': { color: '#8B5CF6', bg: 'rgba(139, 92, 246, 0.08)', border: 'rgba(139, 92, 246, 0.2)' },
+    'Development': { color: '#06B6D4', bg: 'rgba(6, 182, 212, 0.08)', border: 'rgba(6, 182, 212, 0.2)' },
+    'Writing': { color: '#10B981', bg: 'rgba(16, 185, 129, 0.08)', border: 'rgba(16, 185, 129, 0.2)' },
+    'Marketing': { color: '#FF6B35', bg: 'rgba(255, 107, 53, 0.08)', border: 'rgba(255, 107, 53, 0.2)' },
+    'Research': { color: '#F59E0B', bg: 'rgba(245, 158, 11, 0.08)', border: 'rgba(245, 158, 11, 0.2)' },
+    'Business': { color: '#3B82F6', bg: 'rgba(59, 130, 246, 0.08)', border: 'rgba(59, 130, 246, 0.2)' },
+    'Finance': { color: '#14B8A6', bg: 'rgba(20, 184, 166, 0.08)', border: 'rgba(20, 184, 166, 0.2)' },
+    'default': { color: '#FF6B35', bg: 'rgba(255, 107, 53, 0.06)', border: 'rgba(255, 107, 53, 0.18)' },
 };
 
 const difficultyConfig = {
-    'Easy': { color: '#06B6D4', bg: 'rgba(6, 182, 212,0.1)', border: 'rgba(6, 182, 212,0.2)' },
-    'Medium': { color: '#F59E0B', bg: 'rgba(255,230,0,0.1)', border: 'rgba(255,230,0,0.2)' },
-    'Hard': { color: '#F97316', bg: 'rgba(255,107,53,0.1)', border: 'rgba(255,107,53,0.2)' },
-    'Extreme': { color: '#EC4899', bg: 'rgba(255,45,120,0.1)', border: 'rgba(255,45,120,0.2)' },
+    'Easy': { color: '#10B981', bg: 'rgba(16, 185, 129, 0.08)', border: 'rgba(16, 185, 129, 0.2)' },
+    'Medium': { color: '#F59E0B', bg: 'rgba(245, 158, 11, 0.08)', border: 'rgba(245, 158, 11, 0.2)' },
+    'Hard': { color: '#FF6B35', bg: 'rgba(255, 107, 53, 0.08)', border: 'rgba(255, 107, 53, 0.2)' },
+    'Extreme': { color: '#EC4899', bg: 'rgba(236, 72, 153, 0.08)', border: 'rgba(236, 72, 153, 0.2)' },
 };
 
 export default function BountyCard({ bounty, userRole = 'hunter' }) {

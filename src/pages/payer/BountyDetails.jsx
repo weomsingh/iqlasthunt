@@ -56,7 +56,7 @@ export default function PayerBountyDetails() {
                     hunter:profiles(username)
                 `)
                 .eq('bounty_id', id)
-                .order('ai_score', { ascending: false });
+                .order('created_at', { ascending: false });
 
             setSubmissions(submissionsData || []);
 
@@ -284,13 +284,7 @@ function HuntersTab({ hunters, currency }) {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {hunters.map((stake, idx) => (
                         <div key={stake.id} className="group bg-iq-card border border-white/5 rounded-xl p-5 hover:border-iq-primary/30 transition-all flex flex-col">
-                            {idx === 0 && (
-                                <div className="mb-3">
-                                    <span className="px-2 py-0.5 bg-purple-500/10 text-purple-400 text-[10px] font-bold uppercase tracking-wider rounded border border-purple-500/20">
-                                        AI Recommended
-                                    </span>
-                                </div>
-                            )}
+
 
                             <div className="flex items-start justify-between mb-4">
                                 <div className="flex items-center gap-3">
@@ -362,11 +356,7 @@ function SubmissionsTab({ submissions, bounty, currency }) {
                                             <h4 className="text-lg font-bold text-white mb-1">Submission from {submission.hunter.username}</h4>
                                             <p className="text-sm text-iq-text-secondary">Submitted on {new Date(submission.created_at).toLocaleDateString()}</p>
                                         </div>
-                                        {submission.ai_score && (
-                                            <div className="px-3 py-1 bg-iq-primary/10 text-iq-primary rounded-full text-xs font-bold border border-iq-primary/20">
-                                                AI Score: {submission.ai_score}/100
-                                            </div>
-                                        )}
+
                                     </div>
 
                                     <p className="text-sm text-iq-text-secondary mb-4 line-clamp-2">

@@ -73,40 +73,40 @@ export default function Header() {
     // Role-specific config
     const roleConfig = {
         hunter: {
-            color: '#06B6D4',
+            color: '#FF6B35',
             label: 'HUNTER',
-            bg: 'rgba(6, 182, 212,0.1)',
-            border: 'rgba(6, 182, 212,0.2)',
+            bg: 'rgba(255, 107, 53, 0.1)',
+            border: 'rgba(255, 107, 53, 0.25)',
             navLinks: [
-                { icon: Home, label: 'Dashboard', path: '/hunter/dashboard', color: '#06B6D4' },
-                { icon: Target, label: 'Arena', path: '/hunter/arena', color: '#F97316' },
+                { icon: Home, label: 'Dashboard', path: '/hunter/dashboard', color: '#FF6B35' },
+                { icon: Target, label: 'Arena', path: '/hunter/arena', color: '#F59E0B' },
                 { icon: MessageSquare, label: 'War Room', path: '/hunter/war-room', color: '#8B5CF6' },
                 { icon: Clock, label: 'History', path: '/hunter/history', color: '#6366F1' },
-                { icon: Trophy, label: 'Leaderboard', path: '/hunter/leaderboard', color: '#F59E0B' },
-                { icon: Wallet, label: 'Vault', path: '/hunter/vault', color: '#06B6D4' },
+                { icon: Trophy, label: 'Leaderboard', path: '/hunter/leaderboard', color: '#06B6D4' },
+                { icon: Wallet, label: 'Vault', path: '/hunter/vault', color: '#10B981' },
                 { icon: Settings, label: 'Settings', path: '/hunter/settings', color: '#8892AA' },
             ]
         },
         payer: {
-            color: '#06B6D4',
+            color: '#3B82F6',
             label: 'PAYER',
-            bg: 'rgba(139, 92, 246,0.1)',
-            border: 'rgba(139, 92, 246,0.2)',
+            bg: 'rgba(59, 130, 246, 0.1)',
+            border: 'rgba(59, 130, 246, 0.25)',
             navLinks: [
-                { icon: Home, label: 'Dashboard', path: '/payer/dashboard', color: '#06B6D4' },
-                { icon: Target, label: 'My Bounties', path: '/payer/live-bounties', color: '#F97316' },
-                { icon: Briefcase, label: 'Post Bounty', path: '/payer/post-bounty', color: '#06B6D4' },
+                { icon: Home, label: 'Dashboard', path: '/payer/dashboard', color: '#3B82F6' },
+                { icon: Target, label: 'My Bounties', path: '/payer/live-bounties', color: '#FF6B35' },
+                { icon: Briefcase, label: 'Post Bounty', path: '/payer/post-bounty', color: '#F59E0B' },
                 { icon: MessageSquare, label: 'War Room', path: '/payer/war-room', color: '#8B5CF6' },
                 { icon: Clock, label: 'History', path: '/payer/history', color: '#6366F1' },
-                { icon: Wallet, label: 'Vault', path: '/payer/vault', color: '#06B6D4' },
+                { icon: Wallet, label: 'Vault', path: '/payer/vault', color: '#10B981' },
                 { icon: Settings, label: 'Settings', path: '/payer/settings', color: '#8892AA' },
             ]
         },
         admin: {
             color: '#EC4899',
             label: 'ADMIN',
-            bg: 'rgba(255,45,120,0.1)',
-            border: 'rgba(255,45,120,0.2)',
+            bg: 'rgba(236, 72, 153, 0.1)',
+            border: 'rgba(236, 72, 153, 0.25)',
             navLinks: [
                 { icon: Home, label: 'Dashboard', path: '/admin/dashboard', color: '#EC4899' },
             ]
@@ -226,25 +226,27 @@ export default function Header() {
                             display: 'flex',
                             alignItems: 'center',
                             gap: '7px',
-                            background: 'rgba(6, 182, 212,0.08)',
-                            border: '1px solid rgba(6, 182, 212,0.2)',
+                            background: 'rgba(16, 185, 129, 0.08)',
+                            border: '1px solid rgba(16, 185, 129, 0.25)',
                             borderRadius: '10px',
                             padding: '7px 12px',
                             cursor: 'pointer',
-                            transition: 'all 0.2s ease',
+                            transition: 'all 0.25s ease',
                             minHeight: '38px',
                         }}
                         onMouseOver={e => {
-                            e.currentTarget.style.background = 'rgba(6, 182, 212,0.14)';
-                            e.currentTarget.style.boxShadow = '0 0 20px rgba(6, 182, 212,0.15)';
+                            e.currentTarget.style.background = 'rgba(16, 185, 129, 0.14)';
+                            e.currentTarget.style.borderColor = 'rgba(255, 107, 53, 0.4)';
+                            e.currentTarget.style.boxShadow = '0 0 20px rgba(16, 185, 129, 0.2)';
                         }}
                         onMouseOut={e => {
-                            e.currentTarget.style.background = 'rgba(6, 182, 212,0.08)';
+                            e.currentTarget.style.background = 'rgba(16, 185, 129, 0.08)';
+                            e.currentTarget.style.borderColor = 'rgba(16, 185, 129, 0.25)';
                             e.currentTarget.style.boxShadow = 'none';
                         }}
                     >
-                        <Wallet size={15} style={{ color: '#06B6D4' }} />
-                        <span style={{ color: '#06B6D4', fontWeight: '700', fontFamily: 'JetBrains Mono', fontSize: '13px' }}>
+                        <Wallet size={15} style={{ color: '#10B981' }} />
+                        <span style={{ color: '#10B981', fontWeight: '700', fontFamily: 'JetBrains Mono', fontSize: '13px' }}>
                             {currency}{walletBalance}
                         </span>
                     </button>
