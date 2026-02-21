@@ -60,16 +60,15 @@ export default function PostBounty() {
         });
     };
 
-    // Calculate Platform Fees
-    const platformFee = formData.budget * 0.15;
-    const gatewayFee = (formData.budget + platformFee) * 0.02; // Approx 2%
-    const totalAmount = formData.budget + platformFee + gatewayFee;
+    // Platform fee: 2% of the bounty reward only
+    const platformFee = Math.ceil(formData.budget * 0.02);
+    const totalAmount = formData.budget + platformFee;
 
-    // Stake Calculation (Backend Logic Compatibility)
+    // Stake tiers (entry fee hunters pay to participate)
     const calculateStake = (amount) => {
-        if (amount < 1500) return { stake: 15, max: 4 };
-        if (amount < 3000) return { stake: 25, max: 6 };
-        if (amount < 4500) return { stake: 40, max: 8 };
+        if (amount <= 1500) return { stake: 10, max: 4 };
+        if (amount <= 3000) return { stake: 20, max: 6 };
+        if (amount <= 4500) return { stake: 40, max: 8 };
         return { stake: Math.ceil(amount * 0.025), max: 10 };
     };
     const stakeInfo = calculateStake(formData.budget);
@@ -312,45 +311,97 @@ export default function PostBounty() {
                     <div className="space-y-6 animate-fade-in">
                         <h2 className="text-2xl font-bold text-white">Review & Pay</h2>
 
-                        <div className="bg-iq-card border border-white/10 rounded-xl overflow-hidden">
-                            <div className="p-4 border-b border-white/10 flex justify-between items-center bg-white/5">
-                                <h3 className="font-bold text-white">Payment Breakdown</h3>
-                                <DollarSign className="text-iq-text-secondary" size={18} />
+                        {/* Wallet balance check */}
+                        <div style={{
+                            padding: '16px 20px',
+                            borderRadius: '16px',
+                            background: currentUser?.wallet_balance >= totalAmount
+                                ? 'rgba(16, 185, 129, 0.06)'
+                                : 'rgba(255, 107, 53, 0.06)',
+                            border: `1px solid ${currentUser?.wallet_balance >= totalAmount
+                                ? 'rgba(16, 185, 129, 0.25)'
+                                : 'rgba(255, 107, 53, 0.3)'}`,
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '14px',
+                        }}>
+                            <div style={{
+                                width: '40px', height: '40px', borderRadius: '10px', flexShrink: 0,
+                                background: currentUser?.wallet_balance >= totalAmount
+                                    ? 'rgba(16, 185, 129, 0.15)'
+                                    : 'rgba(255, 107, 53, 0.15)',
+                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            }}>
+                                <Zap size={20} style={{ color: currentUser?.wallet_balance >= totalAmount ? '#10B981' : '#FF6B35' }} />
                             </div>
-                            <div className="p-4 space-y-3">
-                                <div className="flex justify-between text-sm">
-                                    <span className="text-iq-text-secondary">Bounty Reward</span>
-                                    <span className="text-white">{currency}{formData.budget.toLocaleString()}</span>
-                                </div>
-                                <div className="flex justify-between text-sm">
-                                    <span className="text-iq-text-secondary">Platform Fee (15%)</span>
-                                    <span className="text-white">{currency}{platformFee.toLocaleString()}</span>
-                                </div>
-                                <div className="flex justify-between text-sm">
-                                    <span className="text-iq-text-secondary">Gateway Fee (~2%)</span>
-                                    <span className="text-white">{currency}{gatewayFee.toLocaleString()}</span>
-                                </div>
-                                <div className="h-px bg-white/10 my-2"></div>
-                                <div className="flex justify-between items-center">
-                                    <span className="font-bold text-white">Total to Pay</span>
-                                    <span className="text-xl font-bold text-iq-primary">{currency}{totalAmount.toLocaleString()}</span>
-                                </div>
+                            <div style={{ flex: 1 }}>
+                                <p style={{ fontWeight: '700', color: '#F8FAFC', fontSize: '14px', marginBottom: '3px' }}>
+                                    Your Vault Balance: <span style={{ color: currentUser?.wallet_balance >= totalAmount ? '#10B981' : '#FF6B35', fontFamily: 'JetBrains Mono' }}>{currency}{(currentUser?.wallet_balance || 0).toLocaleString()}</span>
+                                </p>
+                                {currentUser?.wallet_balance < totalAmount ? (
+                                    <p style={{ fontSize: '13px', color: '#94A3B8' }}>
+                                        ⚠️ You need <strong style={{ color: '#FF6B35' }}>{currency}{(totalAmount - (currentUser?.wallet_balance || 0)).toLocaleString()}</strong> more. Please add funds to your vault first.
+                                    </p>
+                                ) : (
+                                    <p style={{ fontSize: '13px', color: '#10B981' }}>✅ Sufficient balance — ready to post!</p>
+                                )}
                             </div>
                         </div>
 
-                        <div className="bg-iq-surface p-4 rounded-xl space-y-3">
-                            <div className="flex items-center gap-3">
-                                <div className="w-5 h-5 rounded-full bg-iq-success/20 flex items-center justify-center">
-                                    <Check size={12} className="text-iq-success" />
-                                </div>
-                                <span className="text-sm text-iq-text-secondary">Money held in secure escrow</span>
+                        {/* Payment Breakdown */}
+                        <div style={{
+                            borderRadius: '20px',
+                            background: 'rgba(15, 20, 35, 0.6)',
+                            backdropFilter: 'blur(16px)',
+                            border: '1px solid rgba(255, 255, 255, 0.07)',
+                            overflow: 'hidden',
+                        }}>
+                            <div style={{
+                                padding: '14px 20px',
+                                borderBottom: '1px solid rgba(255,255,255,0.06)',
+                                background: 'rgba(255,255,255,0.03)',
+                                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                            }}>
+                                <h3 style={{ fontWeight: '800', color: '#F8FAFC', fontFamily: 'Space Grotesk', fontSize: '15px' }}>Payment Breakdown</h3>
+                                <DollarSign size={16} style={{ color: '#64748B' }} />
                             </div>
-                            <div className="flex items-center gap-3">
-                                <div className="w-5 h-5 rounded-full bg-iq-success/20 flex items-center justify-center">
-                                    <Check size={12} className="text-iq-success" />
+                            <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <span style={{ color: '#94A3B8', fontSize: '14px' }}>Bounty Reward</span>
+                                    <span style={{ color: '#F8FAFC', fontWeight: '700', fontFamily: 'JetBrains Mono' }}>{currency}{formData.budget.toLocaleString()}</span>
                                 </div>
-                                <span className="text-sm text-iq-text-secondary">100% refund if no hunter selected</span>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <div>
+                                        <span style={{ color: '#94A3B8', fontSize: '14px' }}>Platform Fee </span>
+                                        <span style={{ color: '#64748B', fontSize: '12px' }}>(2%)</span>
+                                    </div>
+                                    <span style={{ color: '#F59E0B', fontWeight: '700', fontFamily: 'JetBrains Mono' }}>{currency}{platformFee.toLocaleString()}</span>
+                                </div>
+                                <div style={{ height: '1px', background: 'rgba(255,255,255,0.07)' }} />
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <span style={{ fontWeight: '800', color: '#F8FAFC', fontSize: '16px', fontFamily: 'Space Grotesk' }}>Total to Deduct</span>
+                                    <span style={{ fontSize: '22px', fontWeight: '900', color: '#FF6B35', fontFamily: 'Space Grotesk' }}>{currency}{totalAmount.toLocaleString()}</span>
+                                </div>
+                                <p style={{ fontSize: '12px', color: '#64748B', lineHeight: 1.5 }}>
+                                    💡 For a {currency}{formData.budget.toLocaleString()} bounty, we recommend having at least <strong style={{ color: '#F8FAFC' }}>{currency}{totalAmount.toLocaleString()}</strong> in your vault (reward + 2% platform fee).
+                                </p>
                             </div>
+                        </div>
+
+                        {/* Escrow guarantees */}
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                            {[
+                                { text: 'Money held in secure escrow — released only on your approval', color: '#10B981' },
+                                { text: 'Instant full refund if you cancel before any hunter joins', color: '#10B981' },
+                                { text: '30% of each hunter\'s stake returned as consolation if they lose', color: '#3B82F6' },
+                            ].map((item, i) => (
+                                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: `${item.color}20`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                        <Check size={11} style={{ color: item.color }} />
+                                    </div>
+                                    <span style={{ fontSize: '13px', color: '#94A3B8' }}>{item.text}</span>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 );
@@ -453,15 +504,33 @@ export default function PostBounty() {
                     )}
 
                     {step === 5 && (
-                        <div style={{ marginTop: '40px', display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
-                            <button className="btn-secondary" style={{ padding: '14px 24px', fontSize: '14px', borderRadius: '14px' }}>Save Draft</button>
-                            <button
-                                onClick={() => { setStep(6); setTimeout(handleSubmit, 2000); }}
-                                className="btn-primary"
-                                style={{ padding: '14px 36px', fontSize: '15px', borderRadius: '14px' }}
-                            >
-                                Pay & Post <ArrowRight size={20} />
-                            </button>
+                        <div style={{ marginTop: '32px', display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'flex-end' }}>
+                            {(currentUser?.wallet_balance || 0) < totalAmount && (
+                                <p style={{ fontSize: '13px', color: '#94A3B8', textAlign: 'right' }}>
+                                    Not enough funds? {' '}
+                                    <button
+                                        onClick={() => navigate('/payer/vault')}
+                                        style={{ color: '#FF6B35', fontWeight: '700', background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline', padding: 0 }}
+                                    >
+                                        Add funds to Vault →
+                                    </button>
+                                </p>
+                            )}
+                            <div style={{ display: 'flex', gap: '12px' }}>
+                                <button className="btn-secondary" style={{ padding: '14px 24px', fontSize: '14px', borderRadius: '14px' }}>Save Draft</button>
+                                <button
+                                    onClick={() => { setStep(6); setTimeout(handleSubmit, 2000); }}
+                                    disabled={(currentUser?.wallet_balance || 0) < totalAmount}
+                                    className="btn-primary"
+                                    style={{
+                                        padding: '14px 36px', fontSize: '15px', borderRadius: '14px',
+                                        opacity: (currentUser?.wallet_balance || 0) < totalAmount ? 0.45 : 1,
+                                        cursor: (currentUser?.wallet_balance || 0) < totalAmount ? 'not-allowed' : 'pointer',
+                                    }}
+                                >
+                                    Pay & Post <ArrowRight size={20} />
+                                </button>
+                            </div>
                         </div>
                     )}
                 </div>
