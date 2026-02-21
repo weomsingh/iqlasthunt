@@ -112,7 +112,17 @@ export default function PostBounty() {
 
             if (bountyError) throw bountyError;
 
-            // 3. Deduct Balance
+            // 3. Log vault_locked transaction
+            await supabase.from('transactions').insert({
+                user_id: currentUser.id,
+                type: 'lock_vault',
+                amount: totalAmount,
+                currency: currentUser.currency || 'INR',
+                status: 'completed',
+                metadata: { bounty_id: bountyData.id, bounty_title: formData.title }
+            });
+
+            // 4. Deduct Balance
             const newBalance = currentUser.wallet_balance - totalAmount;
             if (newBalance < 0) throw new Error("Insufficient balance");
 
@@ -202,9 +212,10 @@ export default function PostBounty() {
                                 rows={8}
                                 className="w-full bg-iq-surface border border-white/10 rounded-xl p-4 text-white focus:border-iq-primary focus:outline-none resize-none"
                             />
-                            <button className="flex items-center gap-2 text-sm text-iq-primary hover:text-iq-accent transition-colors">
-                                <Sparkles size={14} /> Improve with AI
-                            </button>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '6px' }}>
+                                <span style={{ fontSize: '12px', color: '#64748B' }}>Be as detailed as possible for best results</span>
+                                <span style={{ fontSize: '12px', color: formData.description.length > 50 ? '#10B981' : '#64748B' }}>{formData.description.length} chars</span>
+                            </div>
                         </div>
                     </div>
                 );
