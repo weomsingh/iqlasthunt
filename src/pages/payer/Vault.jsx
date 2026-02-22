@@ -33,7 +33,7 @@ export default function PayerVault() {
         if (filter === 'all') return true;
         if (filter === 'deposit') return t.type === 'deposit';
         if (filter === 'withdraw') return t.type === 'withdrawal';
-        if (filter === 'escrow') return t.type === 'lock_vault' || t.type === 'release_vault' || t.type === 'refund_vault';
+        if (filter === 'escrow') return ['lock_vault', 'unlock_vault', 'bounty_refund'].includes(t.type);
         return true;
     });
 
@@ -62,17 +62,17 @@ export default function PayerVault() {
                 ?.filter(t => t.type === 'lock_vault' && t.status === 'completed')
                 .reduce((acc, t) => acc + t.amount, 0) || 0;
 
-            // Subtract released escrow (approvals)
+            // Subtract released escrow (approvals/refunds)
             const releasedEscrow = data
-                ?.filter(t => t.type === 'release_vault' && t.status === 'completed')
+                ?.filter(t => t.type === 'unlock_vault' && t.status === 'completed')
                 .reduce((acc, t) => acc + t.amount, 0) || 0;
 
             const refundedEscrow = data
-                ?.filter(t => t.type === 'refund_vault' && t.status === 'completed')
+                ?.filter(t => t.type === 'bounty_refund' && t.status === 'completed')
                 .reduce((acc, t) => acc + t.amount, 0) || 0;
 
             const totalSpent = data
-                ?.filter(t => (t.type === 'payment' || t.type === 'release_vault') && t.status === 'completed')
+                ?.filter(t => (t.type === 'lock_vault') && t.status === 'completed')
                 .reduce((acc, t) => acc + t.amount, 0) || 0;
 
             const thisMonth = data
@@ -81,7 +81,7 @@ export default function PayerVault() {
                     const now = new Date();
                     return d.getMonth() === now.getMonth() &&
                         d.getFullYear() === now.getFullYear() &&
-                        (t.type === 'payment' || t.type === 'release_vault') &&
+                        t.type === 'lock_vault' &&
                         t.status === 'completed';
                 })
                 .reduce((acc, t) => acc + t.amount, 0) || 0;
@@ -326,19 +326,30 @@ export default function PayerVault() {
                             {filteredTransactions.map(tx => (
                                 <div key={tx.id} className="p-4 flex items-center justify-between hover:bg-white/5 transition-colors">
                                     <div className="flex items-center gap-4">
-                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${tx.type === 'deposit' || tx.type === 'release_vault'
+                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${['deposit', 'unlock_vault', 'bounty_refund', 'stake_partial_refund', 'win_prize', 'refund_stake'].includes(tx.type)
                                             ? 'bg-iq-success/10 text-iq-success'
                                             : 'bg-white/5 text-white'
                                             }`}>
                                             {tx.type === 'deposit' && <ArrowDownLeft size={20} />}
                                             {tx.type === 'withdrawal' && <ArrowUpRight size={20} />}
                                             {tx.type === 'lock_vault' && <Clock size={20} />}
-                                            {tx.type === 'payment' && <TrendingUp size={20} />}
-                                            {tx.type === 'release_vault' && <TrendingDown size={20} />}
+                                            {tx.type === 'unlock_vault' && <TrendingDown size={20} />}
+                                            {tx.type === 'bounty_refund' && <TrendingDown size={20} />}
+                                            {tx.type === 'stake_partial_refund' && <ArrowDownLeft size={20} />}
                                         </div>
                                         <div>
                                             <p className="text-white font-medium capitalize">
-                                                {tx.type ? tx.type.replace('_', ' ') : 'Transaction'}
+                                                {({
+                                                    deposit: '💰 Deposit',
+                                                    withdrawal: '↑ Withdrawal',
+                                                    lock_vault: '🔒 Bounty Escrow',
+                                                    unlock_vault: '🔓 Vault Unlocked',
+                                                    bounty_refund: '↩ Bounty Refund',
+                                                    stake_partial_refund: '↩ Partial Stake Refund',
+                                                    win_prize: '🏆 Prize Won',
+                                                    refund_stake: '↩ Stake Refund',
+                                                    stake: '🎯 Stake',
+                                                }[tx.type]) || (tx.type ? tx.type.replace(/_/g, ' ') : 'Transaction')}
                                             </p>
                                             <p className="text-xs text-iq-text-secondary">
                                                 {new Date(tx.created_at).toLocaleDateString()} at {new Date(tx.created_at).toLocaleTimeString()}
@@ -346,11 +357,11 @@ export default function PayerVault() {
                                         </div>
                                     </div>
                                     <div className="text-right">
-                                        <p className={`font-bold ${tx.type === 'deposit' || tx.type === 'release_vault'
+                                        <p className={`font-bold ${['deposit', 'unlock_vault', 'bounty_refund', 'stake_partial_refund', 'win_prize', 'refund_stake'].includes(tx.type)
                                             ? 'text-iq-success'
                                             : 'text-white'
                                             }`}>
-                                            {tx.type === 'deposit' || tx.type === 'release_vault' ? '+' : '-'}
+                                            {['deposit', 'unlock_vault', 'bounty_refund', 'stake_partial_refund', 'win_prize', 'refund_stake'].includes(tx.type) ? '+' : '-'}
                                             {currency}
                                             {typeof tx.amount === 'number' ? tx.amount.toLocaleString() : tx.amount}
                                         </p>

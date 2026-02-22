@@ -301,7 +301,7 @@ export default function HunterVault() {
                         ) : (
                             <div className="divide-y divide-white/5">
                                 {transactions.map(tx => {
-                                    const isPositive = tx.type === 'win_prize' || tx.type === 'refund_stake' || tx.type === 'deposit';
+                                    const isPositive = tx.type === 'win_prize' || tx.type === 'refund_stake' || tx.type === 'deposit' || tx.type === 'stake_partial_refund';
                                     const Icon = tx.type === 'withdrawal' ? ArrowUpCircle :
                                         tx.type === 'deposit' ? ArrowDownCircle :
                                             tx.type === 'stake' ? Lock :
@@ -318,9 +318,16 @@ export default function HunterVault() {
                                             </div>
                                             <div className="flex-1 min-w-0">
                                                 <p className="text-sm font-bold text-white capitalize">
-                                                    {tx.type === 'win_prize' ? 'Prize Won' :
-                                                        tx.type === 'refund_stake' ? 'Stake Refunded' :
-                                                            tx.type.replace('_', ' ')}
+                                                    {({
+                                                        win_prize: '🏆 Prize Won',
+                                                        refund_stake: '↩ Stake Refund',
+                                                        stake_partial_refund: '↩ Partial Stake Refund',
+                                                        deposit: '💰 Deposit',
+                                                        withdrawal: '↑ Withdrawal',
+                                                        stake: '🎯 Stake Locked',
+                                                        unlock_vault: '🔓 Vault Unlocked',
+                                                        bounty_refund: '↩ Bounty Refund',
+                                                    }[tx.type]) || (tx.type ? tx.type.replace(/_/g, ' ') : 'Transaction')}
                                                 </p>
                                                 <p className="text-xs text-iq-text-secondary">
                                                     {new Date(tx.created_at).toLocaleString()}
