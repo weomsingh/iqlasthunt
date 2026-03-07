@@ -1,15 +1,15 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Target, Wallet, MessageSquare, Plus, History, Trophy, Settings } from 'lucide-react';
+import { Home, Target, Wallet, Zap, Plus, History, Trophy, Settings } from 'lucide-react';
 
 export default function BottomNav({ role }) {
     const location = useLocation();
 
     const hunterLinks = [
-        { path: '/hunter/dashboard', label: 'Home', icon: Home, color: '#06B6D4' },
+        { path: '/hunter/dashboard', label: 'Home', icon: Home, color: '#FF6B35' },
         { path: '/hunter/arena', label: 'Arena', icon: Target, color: '#F97316' },
-        { path: '/hunter/war-room', label: 'War Room', icon: MessageSquare, color: '#8B5CF6' },
-        { path: '/hunter/vault', label: 'Vault', icon: Wallet, color: '#06B6D4' },
-        { path: '/hunter/settings', label: 'Profile', icon: Settings, color: '#8892AA' },
+        { path: '/hunter/war-room', label: 'War Room', icon: Zap, color: '#8B5CF6' },
+        { path: '/hunter/vault', label: 'Vault', icon: Wallet, color: '#10B981' },
+        { path: '/hunter/settings', label: 'Profile', icon: Settings, color: '#6B7A99' },
     ];
 
     const payerLinks = [
@@ -26,11 +26,12 @@ export default function BottomNav({ role }) {
         <nav
             className="fixed bottom-0 left-0 right-0 z-50 md:hidden"
             style={{
-                background: 'rgba(8,11,20,0.95)',
+                background: 'rgba(255, 255, 255, 0.97)',
                 backdropFilter: 'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)',
-                borderTop: '1px solid rgba(255,255,255,0.08)',
+                borderTop: '1px solid rgba(255, 107, 53, 0.12)',
                 paddingBottom: 'max(12px, env(safe-area-inset-bottom))',
+                boxShadow: '0 -8px 30px rgba(0, 0, 0, 0.08)',
             }}
         >
             <div style={{
@@ -63,9 +64,9 @@ export default function BottomNav({ role }) {
                                 <div style={{
                                     width: '52px', height: '52px',
                                     borderRadius: '16px',
-                                    background: 'linear-gradient(135deg, #06B6D4, #06B6D4)',
+                                    background: 'linear-gradient(135deg, #FF6B35, #F59E0B)',
                                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                    boxShadow: '0 8px 30px rgba(6, 182, 212,0.4)',
+                                    boxShadow: '0 8px 30px rgba(255, 107, 53, 0.4)',
                                 }}>
                                     <Icon size={24} style={{ color: '#000' }} />
                                 </div>
@@ -104,13 +105,13 @@ export default function BottomNav({ role }) {
                                 <Icon
                                     size={20}
                                     strokeWidth={isActive ? 2.5 : 2}
-                                    style={{ color: isActive ? link.color : '#8892AA' }}
+                                    style={{ color: isActive ? link.color : '#9CA3AF' }}
                                 />
                             </div>
                             <span style={{
                                 fontSize: '9px',
                                 fontWeight: isActive ? '700' : '500',
-                                color: isActive ? link.color : '#8892AA',
+                                color: isActive ? link.color : '#9CA3AF',
                                 letterSpacing: '0.03em',
                                 transition: 'color 0.15s ease',
                             }}>

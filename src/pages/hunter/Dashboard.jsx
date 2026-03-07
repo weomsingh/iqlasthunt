@@ -5,7 +5,7 @@ import { supabase } from '../../supabaseClient';
 import BountyCard from '../../components/BountyCard';
 import {
     Target, Trophy, TrendingUp, Clock, ArrowRight, Zap, CheckCircle,
-    Wallet, Settings, MessageSquare, Flame, BarChart2, Star
+    Wallet, Settings, Flame, BarChart2, Star, Swords
 } from 'lucide-react';
 
 // Live Countdown Component
@@ -153,26 +153,26 @@ export default function HunterDashboard() {
 
             {/* ===== WELCOME HEADER ===== */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <p style={{ color: '#8892AA', fontSize: '14px', fontWeight: '500' }}>
+                <p style={{ color: '#9CA3AF', fontSize: '14px', fontWeight: '500' }}>
                     {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
                 </p>
                 <h1 style={{
                     fontSize: 'clamp(24px, 5vw, 36px)',
                     fontWeight: '800',
                     fontFamily: 'Space Grotesk',
-                    color: '#F0F4FF',
+                    color: '#1A1F2E',
                     lineHeight: 1.2,
                 }}>
                     Welcome back,{' '}
                     <span style={{
-                        background: 'linear-gradient(135deg, #06B6D4, #06B6D4)',
+                        background: 'linear-gradient(135deg, #FF6B35, #F59E0B)',
                         WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text'
                     }}>
                         {currentUser?.username}
                     </span>
                 </h1>
-                <p style={{ color: '#8892AA' }}>
-                    {activeStake ? ' You have an active mission. Stay focused!' : 'Ready to hunt? Browse new bounties below.'}
+                <p style={{ color: '#6B7A99' }}>
+                    {activeStake ? '🔥 You have an active mission. Stay focused!' : 'Ready to hunt? Browse new bounties below.'}
                 </p>
             </div>
 
@@ -182,12 +182,13 @@ export default function HunterDashboard() {
                     <div key={i} className="group" style={{
                         padding: '24px',
                         borderRadius: '24px',
-                        background: 'rgba(15, 20, 35, 0.6)',
-                        border: `1px solid rgba(255, 255, 255, 0.05)`,
+                        background: 'rgba(255, 255, 255, 0.85)',
+                        border: `1px solid rgba(0, 0, 0, 0.06)`,
                         backdropFilter: 'blur(16px)',
                         display: 'flex', alignItems: 'center', gap: '16px',
                         transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                         cursor: 'pointer',
+                        boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
                     }}
                         onMouseOver={e => {
                             e.currentTarget.style.borderColor = stat.border;
@@ -195,9 +196,9 @@ export default function HunterDashboard() {
                             e.currentTarget.style.boxShadow = `0 15px 35px ${stat.shadow}`;
                         }}
                         onMouseOut={e => {
-                            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.05)';
+                            e.currentTarget.style.borderColor = 'rgba(0, 0, 0, 0.06)';
                             e.currentTarget.style.transform = 'translateY(0)';
-                            e.currentTarget.style.boxShadow = 'none';
+                            e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.06)';
                         }}
                     >
                         <div style={{
@@ -208,10 +209,10 @@ export default function HunterDashboard() {
                             <stat.icon size={22} style={{ color: stat.color }} />
                         </div>
                         <div>
-                            <p style={{ fontSize: '11px', color: '#8892AA', fontWeight: '600', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '2px' }}>
+                            <p style={{ fontSize: '11px', color: '#9CA3AF', fontWeight: '600', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '2px' }}>
                                 {stat.label}
                             </p>
-                            <p style={{ fontSize: '22px', fontWeight: '900', color: '#F0F4FF', fontFamily: 'Space Grotesk', lineHeight: 1 }}>
+                            <p style={{ fontSize: '22px', fontWeight: '900', color: '#1A1F2E', fontFamily: 'Space Grotesk', lineHeight: 1 }}>
                                 {stat.value}
                             </p>
                         </div>
@@ -337,22 +338,23 @@ export default function HunterDashboard() {
                 <div style={{
                     padding: '40px 24px',
                     borderRadius: '20px',
-                    border: '2px dashed rgba(255,255,255,0.08)',
+                    border: '2px dashed rgba(255,107,53,0.2)',
                     textAlign: 'center',
-                    background: 'rgba(23,30,46,0.4)',
+                    background: 'rgba(255,255,255,0.7)',
+                    backdropFilter: 'blur(10px)',
                 }}>
                     <div style={{
                         width: '64px', height: '64px', borderRadius: '20px',
-                        background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
+                        background: 'rgba(255,107,53,0.08)', border: '1px solid rgba(255,107,53,0.15)',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                         margin: '0 auto 16px',
                     }}>
-                        <Target size={28} style={{ color: '#4A5568' }} />
+                        <Target size={28} style={{ color: '#FF6B35' }} />
                     </div>
-                    <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#F0F4FF', marginBottom: '8px', fontFamily: 'Space Grotesk' }}>
+                    <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#1A1F2E', marginBottom: '8px', fontFamily: 'Space Grotesk' }}>
                         No Active Missions
                     </h3>
-                    <p style={{ color: '#8892AA', marginBottom: '24px', fontSize: '14px' }}>
+                    <p style={{ color: '#6B7A99', marginBottom: '24px', fontSize: '14px' }}>
                         Your slate is clear. Visit the Arena to find high-value bounties.
                     </p>
                     <Link to="/hunter/arena" className="btn-primary" style={{ textDecoration: 'none', padding: '12px 24px', fontSize: '14px' }}>
@@ -411,10 +413,10 @@ export default function HunterDashboard() {
                 </h2>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
                     {[
-                        { to: '/hunter/arena', icon: Target, label: 'Browse Arena', desc: 'Find new missions', color: '#F97316', bg: 'rgba(255,107,53,0.08)', border: 'rgba(255,107,53,0.15)' },
-                        { to: '/hunter/vault', icon: Wallet, label: 'My Vault', desc: 'Manage earnings', color: '#06B6D4', bg: 'rgba(6, 182, 212,0.08)', border: 'rgba(6, 182, 212,0.15)' },
-                        { to: '/hunter/war-room', icon: MessageSquare, label: 'War Room', desc: 'Mission comms', color: '#8B5CF6', bg: 'rgba(168,85,247,0.08)', border: 'rgba(168,85,247,0.15)' },
-                        { to: '/hunter/leaderboard', icon: Trophy, label: 'Leaderboard', desc: 'Your ranking', color: '#F59E0B', bg: 'rgba(255,230,0,0.08)', border: 'rgba(255,230,0,0.15)' },
+                        { to: '/hunter/arena', icon: Target, label: 'Browse Arena', desc: 'Find new missions', color: '#FF6B35', bg: 'rgba(255,107,53,0.08)', border: 'rgba(255,107,53,0.15)' },
+                        { to: '/hunter/vault', icon: Wallet, label: 'My Vault', desc: 'Manage earnings', color: '#10B981', bg: 'rgba(16,185,129,0.08)', border: 'rgba(16,185,129,0.15)' },
+                        { to: '/hunter/war-room', icon: Zap, label: 'War Room', desc: 'Mission control', color: '#8B5CF6', bg: 'rgba(139,92,246,0.08)', border: 'rgba(139,92,246,0.15)' },
+                        { to: '/hunter/leaderboard', icon: Trophy, label: 'Leaderboard', desc: 'Your ranking', color: '#F59E0B', bg: 'rgba(245,158,11,0.08)', border: 'rgba(245,158,11,0.15)' },
                     ].map((action) => (
                         <Link
                             key={action.to}
@@ -422,9 +424,10 @@ export default function HunterDashboard() {
                             style={{
                                 display: 'flex', alignItems: 'center', gap: '14px',
                                 padding: '18px 16px', borderRadius: '16px',
-                                background: action.bg, border: `1px solid ${action.border}`,
+                                background: 'rgba(255,255,255,0.85)', border: `1px solid rgba(0,0,0,0.06)`,
                                 textDecoration: 'none',
                                 transition: 'all 0.2s ease',
+                                boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
                             }}
                             onMouseOver={e => {
                                 e.currentTarget.style.transform = 'translateY(-2px)';
@@ -444,10 +447,10 @@ export default function HunterDashboard() {
                                 <action.icon size={22} style={{ color: action.color }} />
                             </div>
                             <div>
-                                <p style={{ color: '#F0F4FF', fontWeight: '700', fontSize: '14px', marginBottom: '2px', fontFamily: 'Space Grotesk' }}>
+                                <p style={{ color: '#1A1F2E', fontWeight: '700', fontSize: '14px', marginBottom: '2px', fontFamily: 'Space Grotesk' }}>
                                     {action.label}
                                 </p>
-                                <p style={{ color: '#8892AA', fontSize: '12px' }}>{action.desc}</p>
+                                <p style={{ color: '#9CA3AF', fontSize: '12px' }}>{action.desc}</p>
                             </div>
                         </Link>
                     ))}

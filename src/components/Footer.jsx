@@ -4,12 +4,13 @@ import { Target, Mail, Instagram, Linkedin, Heart, ExternalLink } from 'lucide-r
 export default function Footer() {
     return (
         <footer style={{
-            background: 'rgba(8,11,20,0.95)',
-            borderTop: '1px solid rgba(255,255,255,0.07)',
+            background: 'rgba(255, 255, 255, 0.92)',
+            borderTop: '1px solid rgba(255, 107, 53, 0.12)',
             backdropFilter: 'blur(20px)',
+            boxShadow: '0 -4px 30px rgba(0,0,0,0.06)',
         }}>
             {/* Top gradient accent */}
-            <div style={{ height: '3px', background: 'linear-gradient(90deg, #06B6D4, #06B6D4, #8B5CF6, #F97316, #06B6D4)', opacity: 0.6 }} />
+            <div style={{ height: '3px', background: 'linear-gradient(90deg, #FF6B35, #F59E0B, #8B5CF6, #06B6D4, #FF6B35)' }} />
 
             <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '60px 24px 40px' }}>
                 {/* Main Grid */}
@@ -87,12 +88,12 @@ export default function Footer() {
                     gap: '12px',
                     textAlign: 'center',
                 }}>
-                    <p style={{ fontSize: '14px', color: '#8892AA', display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap', justifyContent: 'center' }}>
+                    <p style={{ fontSize: '14px', color: '#6B7A99', display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap', justifyContent: 'center' }}>
                         © 2026 IQHUNT. Made with{' '}
                         <Heart size={14} fill="#F43F5E" style={{ color: '#F43F5E' }} />
                         {' '}in India. All rights reserved.
                     </p>
-                    <p style={{ fontSize: '12px', color: '#4A5568' }}>
+                    <p style={{ fontSize: '12px', color: '#9CA3AF' }}>
                         This is a skill-based competitive platform. Participate responsibly.
                     </p>
                 </div>
@@ -105,7 +106,7 @@ function FooterSection({ title, color, links }) {
     return (
         <div>
             <h4 style={{
-                color: '#F0F4FF', fontWeight: '800', fontSize: '14px',
+                color: '#1A1F2E', fontWeight: '800', fontSize: '14px',
                 marginBottom: '16px', fontFamily: 'Space Grotesk',
             }}>
                 <span style={{ color }}>{title}</span>
@@ -117,14 +118,14 @@ function FooterSection({ title, color, links }) {
                             <Link
                                 to={link.to}
                                 style={{
-                                    color: '#8892AA',
+                                    color: '#6B7A99',
                                     textDecoration: 'none',
                                     fontSize: '14px',
                                     transition: 'color 0.15s ease',
                                     display: 'flex', alignItems: 'center', gap: '4px',
                                 }}
-                                onMouseOver={e => e.currentTarget.style.color = '#F0F4FF'}
-                                onMouseOut={e => e.currentTarget.style.color = '#8892AA'}
+                                onMouseOver={e => e.currentTarget.style.color = '#FF6B35'}
+                                onMouseOut={e => e.currentTarget.style.color = '#6B7A99'}
                             >
                                 {link.label}
                             </Link>
@@ -132,13 +133,13 @@ function FooterSection({ title, color, links }) {
                             <a
                                 href={link.href}
                                 style={{
-                                    color: '#8892AA',
+                                    color: '#6B7A99',
                                     textDecoration: 'none',
                                     fontSize: '14px',
                                     transition: 'color 0.15s ease',
                                 }}
-                                onMouseOver={e => e.currentTarget.style.color = '#F0F4FF'}
-                                onMouseOut={e => e.currentTarget.style.color = '#8892AA'}
+                                onMouseOver={e => e.currentTarget.style.color = '#FF6B35'}
+                                onMouseOut={e => e.currentTarget.style.color = '#6B7A99'}
                             >
                                 {link.label}
                             </a>

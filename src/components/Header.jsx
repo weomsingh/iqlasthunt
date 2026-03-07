@@ -126,14 +126,15 @@ export default function Header() {
                 zIndex: 50,
                 width: '100%',
                 height: '64px',
-                background: 'rgba(8,11,20,0.92)',
+                background: 'rgba(255,255,255,0.95)',
                 backdropFilter: 'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)',
-                borderBottom: '1px solid rgba(255,255,255,0.07)',
+                borderBottom: '1px solid rgba(255,107,53,0.12)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 padding: '0 16px',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
             }}>
                 {/* Left: Hamburger + Logo */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -142,19 +143,19 @@ export default function Header() {
                         aria-label="Open menu"
                         className="md:hidden transition-colors"
                         style={{
-                            color: '#8892AA',
+                            color: '#6B7A99',
                             padding: '8px',
                             borderRadius: '10px',
-                            border: '1px solid rgba(255,255,255,0.08)',
-                            background: 'rgba(255,255,255,0.04)',
+                            border: '1px solid rgba(0,0,0,0.08)',
+                            background: 'rgba(0,0,0,0.04)',
                             minHeight: '40px',
                             minWidth: '40px',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
                         }}
-                        onMouseOver={e => { e.currentTarget.style.color = '#F0F4FF'; e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; }}
-                        onMouseOut={e => { e.currentTarget.style.color = '#8892AA'; e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; }}
+                        onMouseOver={e => { e.currentTarget.style.color = '#1A1F2E'; e.currentTarget.style.background = 'rgba(0,0,0,0.08)'; }}
+                        onMouseOut={e => { e.currentTarget.style.color = '#6B7A99'; e.currentTarget.style.background = 'rgba(0,0,0,0.04)'; }}
                     >
                         <Menu size={20} />
                     </button>
@@ -186,20 +187,20 @@ export default function Header() {
                                     fontWeight: '600',
                                     textDecoration: 'none',
                                     transition: 'all 0.2s ease',
-                                    color: active ? link.color : '#8892AA',
+                                    color: active ? link.color : '#6B7A99',
                                     background: active ? `${link.color}12` : 'transparent',
                                     border: active ? `1px solid ${link.color}25` : '1px solid transparent',
                                     minHeight: '36px',
                                 }}
                                 onMouseOver={e => {
                                     if (!active) {
-                                        e.currentTarget.style.color = '#F0F4FF';
-                                        e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                                        e.currentTarget.style.color = '#1A1F2E';
+                                        e.currentTarget.style.background = 'rgba(0,0,0,0.05)';
                                     }
                                 }}
                                 onMouseOut={e => {
                                     if (!active) {
-                                        e.currentTarget.style.color = '#8892AA';
+                                        e.currentTarget.style.color = '#6B7A99';
                                         e.currentTarget.style.background = 'transparent';
                                     }
                                 }}
@@ -304,12 +305,12 @@ export default function Header() {
                                 position: 'absolute',
                                 right: 0, top: '48px',
                                 width: '220px',
-                                background: 'rgba(13,18,32,0.97)',
+                                background: 'rgba(255,255,255,0.98)',
                                 backdropFilter: 'blur(20px)',
-                                border: '1px solid rgba(255,255,255,0.1)',
+                                border: '1px solid rgba(255,107,53,0.12)',
                                 borderRadius: '16px',
                                 padding: '8px',
-                                boxShadow: '0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(6, 182, 212,0.05)',
+                                boxShadow: '0 20px 60px rgba(0,0,0,0.12), 0 0 40px rgba(255,107,53,0.06)',
                                 zIndex: 100,
                                 animation: 'scaleIn 0.15s ease',
                             }}>
@@ -318,12 +319,13 @@ export default function Header() {
                                     padding: '12px 14px',
                                     borderRadius: '10px',
                                     marginBottom: '6px',
-                                    background: 'rgba(255,255,255,0.04)',
-                                }}>
-                                    <p style={{ fontWeight: '700', color: '#F0F4FF', fontSize: '14px', marginBottom: '2px' }}>
+                                    background: 'rgba(0,0,0,0.04)',
+                                }}
+                                >
+                                    <p style={{ fontWeight: '700', color: '#1A1F2E', fontSize: '14px', marginBottom: '2px' }}>
                                         {currentUser.username}
                                     </p>
-                                    <p style={{ color: '#8892AA', fontSize: '12px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                    <p style={{ color: '#6B7A99', fontSize: '12px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                                         {currentUser.email}
                                     </p>
                                 </div>
@@ -351,19 +353,19 @@ export default function Header() {
                                             background: 'none',
                                             cursor: 'pointer',
                                             fontSize: '13px',
-                                            color: '#C0C8D8',
+                                            color: '#4B5563',
                                             fontWeight: '500',
                                             textAlign: 'left',
                                             transition: 'all 0.15s ease',
                                             minHeight: '40px',
                                         }}
                                         onMouseOver={e => {
-                                            e.currentTarget.style.background = 'rgba(255,255,255,0.06)';
-                                            e.currentTarget.style.color = '#F0F4FF';
+                                            e.currentTarget.style.background = 'rgba(0,0,0,0.04)';
+                                            e.currentTarget.style.color = '#1A1F2E';
                                         }}
                                         onMouseOut={e => {
                                             e.currentTarget.style.background = 'none';
-                                            e.currentTarget.style.color = '#C0C8D8';
+                                            e.currentTarget.style.color = '#4B5563';
                                         }}
                                     >
                                         <item.icon size={15} style={{ color: item.color, flexShrink: 0 }} />
@@ -424,9 +426,9 @@ export default function Header() {
                         width: '280px',
                         maxWidth: '85vw',
                         height: '100%',
-                        background: 'rgba(8,11,20,0.98)',
+                        background: 'rgba(255,255,255,0.98)',
                         backdropFilter: 'blur(30px)',
-                        borderRight: '1px solid rgba(255,255,255,0.08)',
+                        borderRight: '1px solid rgba(255,107,53,0.1)',
                         display: 'flex',
                         flexDirection: 'column',
                         animation: 'slideInLeft 0.3s cubic-bezier(0.4,0,0.2,1)',
@@ -479,11 +481,11 @@ export default function Header() {
                             <button
                                 onClick={() => setShowSidebar(false)}
                                 style={{
-                                    color: '#8892AA',
+                                    color: '#6B7A99',
                                     padding: '8px',
                                     borderRadius: '10px',
-                                    border: '1px solid rgba(255,255,255,0.08)',
-                                    background: 'rgba(255,255,255,0.04)',
+                                    border: '1px solid rgba(0,0,0,0.08)',
+                                    background: 'rgba(0,0,0,0.04)',
                                     cursor: 'pointer',
                                     display: 'flex',
                                     alignItems: 'center',
@@ -505,8 +507,8 @@ export default function Header() {
                                     alignItems: 'center',
                                     justifyContent: 'space-between',
                                     padding: '12px 16px',
-                                    background: 'rgba(6, 182, 212,0.08)',
-                                    border: '1px solid rgba(6, 182, 212,0.2)',
+                                    background: 'rgba(255,107,53,0.08)',
+                                    border: '1px solid rgba(255,107,53,0.2)',
                                     borderRadius: '12px',
                                     cursor: 'pointer',
                                     minHeight: '50px',
@@ -515,8 +517,8 @@ export default function Header() {
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                     <Wallet size={18} style={{ color: '#06B6D4' }} />
                                     <div style={{ textAlign: 'left' }}>
-                                        <p style={{ color: '#8892AA', fontSize: '11px', fontWeight: '600' }}>Available Balance</p>
-                                        <p style={{ color: '#06B6D4', fontWeight: '800', fontFamily: 'JetBrains Mono', fontSize: '16px' }}>
+                                        <p style={{ color: '#9CA3AF', fontSize: '11px', fontWeight: '600' }}>Available Balance</p>
+                                        <p style={{ color: '#FF6B35', fontWeight: '800', fontFamily: 'JetBrains Mono', fontSize: '16px' }}>
                                             {currency}{walletBalance}
                                         </p>
                                     </div>

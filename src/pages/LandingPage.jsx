@@ -67,25 +67,25 @@ export default function LandingPage() {
     ];
 
     return (
-        <div className="min-h-screen text-white overflow-x-hidden" style={{ background: 'transparent' }}>
+        <div className="min-h-screen overflow-x-hidden" style={{ background: 'transparent', color: '#1A1F2E' }}>
 
             {/* ===== ROLE MISMATCH MODAL ===== */}
             {roleMismatch && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4"
                     style={{ background: 'rgba(8,11,20,0.95)', backdropFilter: 'blur(20px)' }}>
                     <div className="w-full max-w-md animate-scale-in" style={{
-                        background: 'linear-gradient(135deg, rgba(23,30,46,0.95), rgba(13,18,32,0.95))',
-                        border: '1px solid rgba(244,63,94,0.3)',
+                        background: 'rgba(255, 255, 255, 0.98)',
+                        border: '1px solid rgba(244,63,94,0.2)',
                         borderRadius: '24px',
                         padding: '40px',
-                        boxShadow: '0 0 60px rgba(244,63,94,0.15)'
+                        boxShadow: '0 0 60px rgba(244,63,94,0.1)'
                     }}>
                         <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 text-red-500"
                             style={{ background: 'rgba(244,63,94,0.12)', border: '1px solid rgba(244,63,94,0.25)' }}>
                             <Shield size={32} />
                         </div>
-                        <h2 className="text-2xl font-bold text-white mb-2 text-center">Access Restricted</h2>
-                        <p className="text-center mb-8" style={{ color: '#8892AA' }}>
+                        <h2 className="text-2xl font-bold mb-2 text-center" style={{ color: '#1A1F2E' }}>Access Restricted</h2>
+                        <p className="text-center mb-8" style={{ color: '#6B7A99' }}>
                             You're logged in as a <span className="text-white font-bold uppercase">{roleMismatch.actual}</span>.
                             <br />You cannot access the <span className="text-red-400 font-bold">{roleMismatch.intended}</span> area.
                         </p>
@@ -116,7 +116,8 @@ export default function LandingPage() {
             )}
 
             {/* ===== FLOATING NAV ===== */}
-            <header className="fixed top-0 left-0 right-0 z-50 py-4 px-4 md:px-6">
+            <header className="fixed top-0 left-0 right-0 z-50 py-3 px-4 md:px-6"
+                style={{ background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,107,53,0.1)', boxShadow: '0 4px 20px rgba(0,0,0,0.06)' }}>
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     {/* Logo */}
                     <div className="flex items-center gap-2">
@@ -125,23 +126,23 @@ export default function LandingPage() {
 
                     {/* Nav Links */}
                     <nav className="hidden md:flex items-center gap-8 text-sm font-medium"
-                        style={{ color: '#8892AA' }}>
+                        style={{ color: '#6B7A99' }}>
                         <a href="#how-it-works"
-                            className="hover:text-white transition-colors hover:text-neon-green"
-                            onMouseOver={e => e.target.style.color = '#06B6D4'}
-                            onMouseOut={e => e.target.style.color = '#8892AA'}>
+                            className="hover:text-orange-500 transition-colors"
+                            onMouseOver={e => e.target.style.color = '#FF6B35'}
+                            onMouseOut={e => e.target.style.color = '#6B7A99'}>
                             How It Works
                         </a>
                         <a href="#bounties"
                             className="transition-colors"
-                            onMouseOver={e => e.target.style.color = '#06B6D4'}
-                            onMouseOut={e => e.target.style.color = '#8892AA'}>
+                            onMouseOver={e => e.target.style.color = '#FF6B35'}
+                            onMouseOut={e => e.target.style.color = '#6B7A99'}>
                             Live Bounties
                         </a>
                         <a href="#testimonials"
                             className="transition-colors"
                             onMouseOver={e => e.target.style.color = '#8B5CF6'}
-                            onMouseOut={e => e.target.style.color = '#8892AA'}>
+                            onMouseOut={e => e.target.style.color = '#6B7A99'}>
                             Success Stories
                         </a>
                     </nav>
@@ -161,9 +162,9 @@ export default function LandingPage() {
                                     onClick={handleEnterAsHunter}
                                     className="hidden md:block px-5 py-2.5 text-sm font-semibold rounded-xl border transition-all"
                                     style={{
-                                        color: '#F0F4FF',
-                                        border: '1px solid rgba(255,255,255,0.15)',
-                                        background: 'rgba(255,255,255,0.05)',
+                                        color: '#4B5563',
+                                        border: '1px solid rgba(0,0,0,0.12)',
+                                        background: 'rgba(0,0,0,0.04)',
                                         minHeight: '40px',
                                         borderRadius: '12px'
                                     }}>
@@ -209,7 +210,7 @@ export default function LandingPage() {
                         </div>
 
                         {/* Headline */}
-                        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-6 leading-[1.05] tracking-tight">
+                        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-6 leading-[1.05] tracking-tight" style={{ color: '#1A1F2E' }}>
                             WHERE SKILL <br className="hidden sm:block" />
                             <span style={{
                                 display: 'inline-block',
@@ -225,9 +226,9 @@ export default function LandingPage() {
 
                         {/* Subheadline */}
                         <p className="text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed font-medium"
-                            style={{ color: '#9CA3AF' }}>
+                            style={{ color: '#4B5563' }}>
                             A private elite arena for professionals. Deploy capital, stake your expertise, and {' '}
-                            <span style={{ color: '#F8FAFC', fontWeight: 'bold' }}>extract the ultimate reward</span>.
+                            <span style={{ color: '#FF6B35', fontWeight: 'bold' }}>extract the ultimate reward</span>.
                         </p>
 
                         {/* CTA Buttons */}
@@ -278,7 +279,7 @@ export default function LandingPage() {
             </section>
 
             {/* ===== CATEGORIES STRIP ===== */}
-            <section className="py-12 border-y" style={{ borderColor: 'rgba(255,255,255,0.05)', background: 'rgba(13,18,32,0.6)' }}>
+            <section className="py-12 border-y" style={{ borderColor: 'rgba(255,107,53,0.1)', background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(10px)' }}>
                 <div className="max-w-7xl mx-auto px-4 md:px-6">
                     <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4">
                         {categories.map((cat, i) => (
@@ -302,15 +303,15 @@ export default function LandingPage() {
             {/* ===== HOW IT WORKS ===== */}
             <section id="how-it-works" className="py-24 md:py-32 relative">
                 <div className="absolute inset-0 pointer-events-none"
-                    style={{ background: 'radial-gradient(ellipse at center, rgba(6, 182, 212, 0.04) 0%, transparent 70%)' }} />
+                    style={{ background: 'radial-gradient(ellipse at center, rgba(255, 107, 53, 0.06) 0%, transparent 70%)' }} />
                 <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
                     <div className="text-center mb-16">
                         <span className="inline-block px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest mb-4 transition-all"
-                            style={{ background: 'rgba(139, 92, 246, 0.1)', border: '1px solid rgba(139, 92, 246, 0.2)', color: '#A855F7', boxShadow: '0 0 15px rgba(139, 92, 246, 0.15)' }}>
+                            style={{ background: 'rgba(255, 107, 53, 0.1)', border: '1px solid rgba(255, 107, 53, 0.25)', color: '#FF6B35', boxShadow: '0 0 15px rgba(255, 107, 53, 0.15)' }}>
                             The Protocol
                         </span>
-                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-4 tracking-tight">How IQHUNT Works</h2>
-                        <p style={{ color: '#9CA3AF' }} className="text-lg max-w-xl mx-auto font-medium">Three steps to transform skills into capital.</p>
+                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-4 tracking-tight" style={{ color: '#1A1F2E' }}>How IQHUNT Works</h2>
+                        <p style={{ color: '#6B7A99' }} className="text-lg max-w-xl mx-auto font-medium">Three steps to transform skills into capital.</p>
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto relative">
@@ -341,12 +342,13 @@ export default function LandingPage() {
                             <div key={idx} className="relative group perspective">
                                 <div className="rounded-[2rem] p-8 h-full transition-all duration-500 hover:-translate-y-3 cursor-default"
                                     style={{
-                                        background: 'rgba(15, 20, 35, 0.6)',
-                                        border: `1px solid rgba(255, 255, 255, 0.05)`,
-                                        backdropFilter: 'blur(16px)'
+                                        background: 'rgba(255, 255, 255, 0.85)',
+                                        border: `1px solid rgba(0, 0, 0, 0.06)`,
+                                        backdropFilter: 'blur(16px)',
+                                        boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
                                     }}
                                     onMouseOver={e => { e.currentTarget.style.borderColor = step.border; e.currentTarget.style.boxShadow = `0 25px 60px ${step.shadow}`; }}
-                                    onMouseOut={e => { e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.05)'; e.currentTarget.style.boxShadow = 'none'; }}>
+                                    onMouseOut={e => { e.currentTarget.style.borderColor = 'rgba(0, 0, 0, 0.06)'; e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.06)'; }}>
 
                                     {/* Step Number */}
                                     <span className="text-sm font-black tracking-[0.2em] mb-6 block"
@@ -362,8 +364,8 @@ export default function LandingPage() {
                                         <step.icon size={28} style={{ color: step.color }} />
                                     </div>
 
-                                    <h3 className="text-2xl font-bold mb-4" style={{ color: '#F8FAFC', letterSpacing: '-0.01em' }}>{step.title}</h3>
-                                    <p className="leading-relaxed font-medium" style={{ color: '#9CA3AF' }}>{step.desc}</p>
+                                    <h3 className="text-2xl font-bold mb-4" style={{ color: '#1A1F2E', letterSpacing: '-0.01em' }}>{step.title}</h3>
+                                    <p className="leading-relaxed font-medium" style={{ color: '#6B7A99' }}>{step.desc}</p>
                                 </div>
                             </div>
                         ))}
@@ -410,17 +412,18 @@ export default function LandingPage() {
                             <div className="grid md:grid-cols-3 gap-8">
                                 {hotBounties.map((bounty, i) => {
                                     const colors = [
-                                        { accent: '#06B6D4', bg: 'rgba(6, 182, 212, 0.03)', border: 'rgba(6, 182, 212, 0.2)' },
-                                        { accent: '#8B5CF6', bg: 'rgba(139, 92, 246, 0.03)', border: 'rgba(139, 92, 246, 0.2)' },
-                                        { accent: '#F97316', bg: 'rgba(249, 115, 22, 0.03)', border: 'rgba(249, 115, 22, 0.2)' },
+                                        { accent: '#FF6B35', bg: 'rgba(255, 107, 53, 0.05)', border: 'rgba(255, 107, 53, 0.2)' },
+                                        { accent: '#8B5CF6', bg: 'rgba(139, 92, 246, 0.05)', border: 'rgba(139, 92, 246, 0.2)' },
+                                        { accent: '#06B6D4', bg: 'rgba(6, 182, 212, 0.05)', border: 'rgba(6, 182, 212, 0.2)' },
                                     ][i % 3];
                                     return (
                                         <div key={bounty.id}
                                             className="rounded-3xl p-8 flex flex-col transition-all duration-500 hover:-translate-y-3 cursor-pointer group"
                                             style={{
-                                                background: 'rgba(15, 20, 35, 0.6)',
-                                                border: `1px solid rgba(255, 255, 255, 0.05)`,
-                                                backdropFilter: 'blur(16px)'
+                                                background: 'rgba(255, 255, 255, 0.85)',
+                                                border: `1px solid rgba(0, 0, 0, 0.06)`,
+                                                backdropFilter: 'blur(16px)',
+                                                boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
                                             }}
                                             onMouseOver={e => { e.currentTarget.style.borderColor = colors.border; e.currentTarget.style.boxShadow = `0 25px 60px ${colors.accent}20`; }}
                                             onMouseOut={e => { e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.05)'; e.currentTarget.style.boxShadow = 'none'; }}
@@ -434,8 +437,8 @@ export default function LandingPage() {
                                                     ₹{(bounty.reward || bounty.reward_amount || 0).toLocaleString()}
                                                 </span>
                                             </div>
-                                            <h3 className="text-2xl font-bold mb-3 leading-snug" style={{ color: '#F8FAFC' }}>{bounty.title}</h3>
-                                            <p className="text-sm mb-8 line-clamp-2 leading-relaxed font-medium flex-grow" style={{ color: '#9CA3AF' }}>
+                                            <h3 className="text-2xl font-bold mb-3 leading-snug" style={{ color: '#1A1F2E' }}>{bounty.title}</h3>
+                                            <p className="text-sm mb-8 line-clamp-2 leading-relaxed font-medium flex-grow" style={{ color: '#6B7A99' }}>
                                                 {bounty.description}
                                             </p>
                                             <button className="w-full py-4 rounded-xl font-bold text-sm transition-all duration-300 mt-auto"
@@ -452,13 +455,13 @@ export default function LandingPage() {
             )}
 
             {/* ===== TRUST SECTION ====== */}
-            <section className="py-24 relative border-y" style={{ borderColor: 'rgba(255, 255, 255, 0.05)' }}>
+            <section className="py-24 relative border-y" style={{ borderColor: 'rgba(255, 107, 53, 0.1)' }}>
                 <div className="absolute inset-0 pointer-events-none"
-                    style={{ background: 'linear-gradient(180deg, rgba(10, 15, 25, 0.4), rgba(5, 8, 20, 0.8))' }} />
+                    style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.5), rgba(240,244,255,0.8))' }} />
                 <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
                     <div className="text-center mb-20">
-                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-4 tracking-tight">Built on Trust</h2>
-                        <p style={{ color: '#9CA3AF' }} className="text-lg md:text-xl max-w-2xl mx-auto font-medium">Every transaction protected. Every payment guaranteed.</p>
+                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-4 tracking-tight" style={{ color: '#1A1F2E' }}>Built on Trust</h2>
+                        <p style={{ color: '#6B7A99' }} className="text-lg md:text-xl max-w-2xl mx-auto font-medium">Every transaction protected. Every payment guaranteed.</p>
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
@@ -481,9 +484,10 @@ export default function LandingPage() {
                         ].map((item, i) => (
                             <div key={i} className="flex flex-col items-center text-center p-8 rounded-[2rem] transition-all duration-300 hover:-translate-y-2 cursor-pointer group"
                                 style={{
-                                    background: 'rgba(15, 20, 35, 0.6)',
-                                    border: `1px solid rgba(255, 255, 255, 0.05)`,
-                                    backdropFilter: 'blur(16px)'
+                                    background: 'rgba(255, 255, 255, 0.8)',
+                                    border: `1px solid rgba(255, 255, 255, 0.5)`,
+                                    backdropFilter: 'blur(16px)',
+                                    boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
                                 }}
                                 onMouseOver={e => { e.currentTarget.style.borderColor = item.border; e.currentTarget.style.boxShadow = `0 15px 40px ${item.shadow}`; }}
                                 onMouseOut={e => { e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.05)'; e.currentTarget.style.boxShadow = 'none'; }}>
@@ -495,8 +499,8 @@ export default function LandingPage() {
                                     }}>
                                     <item.icon size={28} style={{ color: item.color }} />
                                 </div>
-                                <h3 className="text-xl font-bold mb-3" style={{ color: '#F8FAFC' }}>{item.title}</h3>
-                                <p style={{ color: '#9CA3AF' }} className="leading-relaxed font-medium">{item.desc}</p>
+                                <h3 className="text-xl font-bold mb-3" style={{ color: '#1A1F2E' }}>{item.title}</h3>
+                                <p style={{ color: '#6B7A99' }} className="leading-relaxed font-medium">{item.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -513,7 +517,7 @@ export default function LandingPage() {
                             style={{ background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.2)', color: '#F59E0B', boxShadow: '0 0 15px rgba(245, 158, 11, 0.15)' }}>
                             Success Stories
                         </span>
-                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-4 tracking-tight">Real Results</h2>
+                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-4 tracking-tight" style={{ color: '#1A1F2E' }}>Real Results</h2>
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
@@ -531,9 +535,10 @@ export default function LandingPage() {
                         ].map((t, i) => (
                             <div key={i} className="relative p-10 rounded-[2rem] transition-all duration-300 hover:-translate-y-2 cursor-pointer group"
                                 style={{
-                                    background: 'rgba(15, 20, 35, 0.6)',
-                                    border: '1px solid rgba(255, 255, 255, 0.05)',
-                                    backdropFilter: 'blur(20px)'
+                                    background: 'rgba(255, 255, 255, 0.85)',
+                                    border: '1px solid rgba(0,0,0,0.06)',
+                                    backdropFilter: 'blur(20px)',
+                                    boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
                                 }}
                                 onMouseOver={e => { e.currentTarget.style.borderColor = `${t.color}50`; e.currentTarget.style.boxShadow = `0 20px 50px ${t.shadow}`; }}
                                 onMouseOut={e => { e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.05)'; e.currentTarget.style.boxShadow = 'none'; }}>
@@ -543,7 +548,7 @@ export default function LandingPage() {
                                     <svg width="80" height="80" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" /></svg>
                                 </div>
 
-                                <p className="text-lg md:text-xl mb-8 leading-relaxed font-medium relative z-10" style={{ color: '#F8FAFC' }}>"{t.quote}"</p>
+                                <p className="text-lg md:text-xl mb-8 leading-relaxed font-medium relative z-10" style={{ color: '#1A1F2E' }}>"{t.quote}"</p>
 
                                 <div className="flex items-center gap-4 relative z-10 mt-auto pt-6 border-t border-white/5">
                                     <div className="w-14 h-14 rounded-full flex items-center justify-center font-bold text-lg"
@@ -551,8 +556,8 @@ export default function LandingPage() {
                                         {t.initials}
                                     </div>
                                     <div>
-                                        <div className="font-bold text-lg" style={{ color: '#F8FAFC' }}>{t.name}</div>
-                                        <div className="text-sm font-medium" style={{ color: '#9CA3AF' }}>{t.company}</div>
+                                        <div className="font-bold text-lg" style={{ color: '#1A1F2E' }}>{t.name}</div>
+                                        <div className="text-sm font-medium" style={{ color: '#6B7A99' }}>{t.company}</div>
                                     </div>
                                     <div className="ml-auto flex gap-1 bg-yellow-500/10 p-2 rounded-full border border-yellow-500/20">
                                         {[1, 2, 3, 4, 5].map(s => (

@@ -1,10 +1,9 @@
 /* ================================================
-   IQHUNT — VISUAL POLISH v4.0
-   Inspired by Sarvam AI: Blue→Orange vibrant energy
-   Premium glassmorphism + micro-animations
+   IQHUNT — BRIGHT VIBRANT VISUAL SYSTEM v5.0
+   Light & Vibrant Theme — Premium Single Hunter
    ================================================ */
 
-/* ==== 1. GLOBAL ATMOSPHERE ==== */
+/* ==== 1. GLOBAL ATMOSPHERE — BRIGHT & VIBRANT ==== */
 :root {
     --iq-orange: #FF6B35;
     --iq-amber: #F59E0B;
@@ -14,25 +13,26 @@
     --iq-pink: #EC4899;
     --iq-teal: #14B8A6;
     --iq-green: #10B981;
-    --iq-bg-deep: #030712;
-    --iq-bg-base: #080D1A;
-    --iq-bg-card: rgba(15, 20, 35, 0.65);
-    --iq-text-hi: #F8FAFC;
-    --iq-text-mid: #94A3B8;
-    --iq-border: rgba(255, 255, 255, 0.06);
+    /* BRIGHT BACKGROUNDS */
+    --iq-bg-deep: #F0F4FF;
+    --iq-bg-base: #EEF2FF;
+    --iq-bg-card: rgba(255, 255, 255, 0.85);
+    --iq-text-hi: #1A1F2E;
+    --iq-text-mid: #4B5563;
+    --iq-border: rgba(0, 0, 0, 0.06);
 }
 
 body {
-    background-color: var(--iq-bg-deep);
+    background-color: #F0F4FF;
     background-image:
         /* Top-right warm orange glow */
-        radial-gradient(ellipse 80% 60% at 90% 0%, rgba(255, 107, 53, 0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 80% 60% at 90% 0%, rgba(255, 107, 53, 0.18) 0%, transparent 60%),
         /* Bottom-left cool cyan glow */
-        radial-gradient(ellipse 70% 50% at 0% 100%, rgba(6, 182, 212, 0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 70% 50% at 0% 100%, rgba(6, 182, 212, 0.15) 0%, transparent 60%),
         /* Center violet ambient */
-        radial-gradient(ellipse 60% 40% at 50% 50%, rgba(139, 92, 246, 0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 50% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 70%),
         /* Subtle dot grid */
-        radial-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+        radial-gradient(rgba(255, 255, 255, 0.8) 1px, transparent 1px);
     background-size: 100% 100%, 100% 100%, 100% 100%, 36px 36px;
     background-attachment: fixed;
     min-height: 100vh;
@@ -65,19 +65,20 @@ body {
     background: var(--iq-bg-card) !important;
     backdrop-filter: blur(20px) !important;
     -webkit-backdrop-filter: blur(20px) !important;
-    border: 1px solid var(--iq-border) !important;
+    border: 1px solid rgba(255, 107, 53, 0.12) !important;
     transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
     border-radius: 24px !important;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06) !important;
 }
 
 .bounty-card:hover,
 .stat-card:hover,
 .action-card:hover {
     transform: translateY(-5px) scale(1.01);
-    border-color: rgba(255, 107, 53, 0.25) !important;
+    border-color: rgba(255, 107, 53, 0.3) !important;
     box-shadow:
-        0 25px 50px -8px rgba(0, 0, 0, 0.5),
-        0 0 30px rgba(255, 107, 53, 0.08);
+        0 25px 50px -8px rgba(255, 107, 53, 0.15),
+        0 0 30px rgba(255, 107, 53, 0.08) !important;
 }
 
 /* ==== 4. TYPOGRAPHY ==== */
@@ -85,6 +86,7 @@ h1,
 h2,
 h3 {
     letter-spacing: -0.025em;
+    color: #1A1F2E;
 }
 
 .gradient-text-main {
@@ -118,7 +120,7 @@ h3 {
     border: none !important;
     font-weight: 700 !important;
     border-radius: 12px !important;
-    box-shadow: 0 4px 20px rgba(255, 107, 53, 0.35) !important;
+    box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4) !important;
     transition: all 0.3s ease !important;
     display: inline-flex !important;
     align-items: center !important;
@@ -130,15 +132,15 @@ h3 {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
     pointer-events: none;
     border-radius: inherit;
 }
 
 .btn-primary:hover:not(:disabled) {
     transform: translateY(-2px) !important;
-    box-shadow: 0 10px 32px rgba(255, 107, 53, 0.5) !important;
-    filter: brightness(1.08);
+    box-shadow: 0 10px 32px rgba(255, 107, 53, 0.55) !important;
+    filter: brightness(1.05);
 }
 
 .btn-primary:active:not(:disabled) {
@@ -146,27 +148,28 @@ h3 {
 }
 
 .btn-primary:disabled {
-    background: rgba(255, 255, 255, 0.07) !important;
-    color: rgba(255, 255, 255, 0.3) !important;
+    background: rgba(0, 0, 0, 0.08) !important;
+    color: rgba(0, 0, 0, 0.3) !important;
     cursor: not-allowed !important;
     box-shadow: none !important;
 }
 
 .btn-secondary {
-    background: rgba(255, 255, 255, 0.05) !important;
-    color: var(--iq-text-hi) !important;
-    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    background: rgba(255, 255, 255, 0.8) !important;
+    color: #1A1F2E !important;
+    border: 1px solid rgba(0, 0, 0, 0.12) !important;
     font-weight: 600 !important;
     border-radius: 12px !important;
     transition: all 0.3s ease !important;
     display: inline-flex !important;
     align-items: center !important;
     gap: 8px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
 }
 
 .btn-secondary:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.09) !important;
-    border-color: rgba(255, 107, 53, 0.3) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-color: rgba(255, 107, 53, 0.35) !important;
     transform: translateY(-2px) !important;
     box-shadow: 0 8px 25px rgba(255, 107, 53, 0.15) !important;
 }
@@ -180,11 +183,11 @@ h3 {
 
     0%,
     100% {
-        box-shadow: 0 4px 20px rgba(255, 107, 53, 0.35);
+        box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4);
     }
 
     50% {
-        box-shadow: 0 4px 35px rgba(255, 107, 53, 0.65), 0 0 50px rgba(245, 158, 11, 0.2);
+        box-shadow: 0 4px 35px rgba(255, 107, 53, 0.7), 0 0 50px rgba(245, 158, 11, 0.3);
     }
 }
 
@@ -193,6 +196,9 @@ input,
 textarea,
 select {
     transition: border-color 0.25s ease, box-shadow 0.25s ease !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    color: #1A1F2E !important;
+    border-color: rgba(0, 0, 0, 0.12) !important;
 }
 
 input:focus,
@@ -201,16 +207,23 @@ select:focus {
     border-color: rgba(255, 107, 53, 0.5) !important;
     box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.12) !important;
     outline: none !important;
+    background: #ffffff !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: rgba(107, 122, 153, 0.6) !important;
 }
 
 /* ==== 7. MOBILE BOTTOM NAV ==== */
 .bottom-nav,
 .mobile-bottom-nav,
 [class*="bottom-nav"] {
-    background: rgba(8, 13, 26, 0.92) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
     backdrop-filter: blur(24px) !important;
     -webkit-backdrop-filter: blur(24px) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-top: 1px solid rgba(255, 107, 53, 0.15) !important;
+    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.08) !important;
 }
 
 /* ==== 8. STATUS BADGES ==== */
@@ -235,16 +248,16 @@ select:focus {
 }
 
 ::-webkit-scrollbar-track {
-    background: transparent;
+    background: rgba(255, 107, 53, 0.05);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(255, 107, 53, 0.3);
+    background: rgba(255, 107, 53, 0.35);
     border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 107, 53, 0.55);
+    background: rgba(255, 107, 53, 0.6);
 }
 
 /* ==== 10. ANIMATIONS ==== */
@@ -307,9 +320,9 @@ select:focus {
 /* ==== 11. SKELETON LOADING ==== */
 .skeleton {
     background: linear-gradient(90deg,
-            rgba(255, 255, 255, 0.04) 25%,
-            rgba(255, 255, 255, 0.08) 50%,
-            rgba(255, 255, 255, 0.04) 75%);
+            rgba(0, 0, 0, 0.04) 25%,
+            rgba(0, 0, 0, 0.08) 50%,
+            rgba(0, 0, 0, 0.04) 75%);
     background-size: 200% 100%;
     animation: shimmer 1.8s infinite;
     border-radius: 16px;
@@ -319,7 +332,7 @@ select:focus {
 .spinner {
     width: 40px;
     height: 40px;
-    border: 3px solid rgba(255, 255, 255, 0.08);
+    border: 3px solid rgba(255, 107, 53, 0.15);
     border-top-color: #FF6B35;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
@@ -334,8 +347,8 @@ select:focus {
 /* ==== 13. HERO GRID PATTERN ==== */
 .hero-grid {
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
     background-size: 48px 48px;
 }
 
@@ -348,7 +361,7 @@ select:focus {
 
 .sidebar-link:hover {
     background: rgba(255, 107, 53, 0.06) !important;
-    color: #F8FAFC !important;
+    color: #1A1F2E !important;
 }
 
 /* ==== 15. HOVER LIFT ==== */
@@ -359,7 +372,7 @@ select:focus {
 
 .hover-lift:hover {
     transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
 /* ==== 16. NO SCROLLBAR ==== */
@@ -390,10 +403,10 @@ select:focus {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(3, 7, 18, 0.88) !important;
+    background: rgba(255, 255, 255, 0.92) !important;
     backdrop-filter: blur(24px) !important;
     -webkit-backdrop-filter: blur(24px) !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-bottom: 1px solid rgba(255, 107, 53, 0.1) !important;
 }
 
 /* ==== 19. SECTION DIVIDERS ==== */
@@ -412,15 +425,22 @@ select:focus {
     background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.4), transparent);
 }
 
-/* ==== 20. WAR ROOM CHAT BUBBLE ==== */
-.war-room-msg-payer {
-    background: rgba(255, 107, 53, 0.1) !important;
-    border: 1px solid rgba(255, 107, 53, 0.2) !important;
-    border-radius: 16px 16px 4px 16px !important;
+/* ==== 20. CARD OVERRIDES FOR BRIGHT THEME ==== */
+.card {
+    background: rgba(255, 255, 255, 0.85) !important;
+    border-color: rgba(0, 0, 0, 0.06) !important;
+    color: #1A1F2E !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06) !important;
 }
 
-.war-room-msg-hunter {
-    background: rgba(6, 182, 212, 0.08) !important;
-    border: 1px solid rgba(6, 182, 212, 0.15) !important;
-    border-radius: 16px 16px 16px 4px !important;
+.card:hover {
+    border-color: rgba(255, 107, 53, 0.25) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 20px 60px rgba(255, 107, 53, 0.12) !important;
+}
+
+/* ==== 21. HEADER BRIGHT OVERRIDE ==== */
+header[style*="rgba(8,11,20"] {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-bottom: 1px solid rgba(255, 107, 53, 0.1) !important;
 }
