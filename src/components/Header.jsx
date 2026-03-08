@@ -1,632 +1,378 @@
 import { useState, useRef, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import {
-    Menu, Wallet, User, Settings, LogOut, X,
-    Home, Target, Briefcase, MessageSquare, HelpCircle,
-    ChevronDown, Trophy, Clock, Bell, TrendingUp, Zap
+    Target, Wallet, ChevronDown, LogOut, User, Settings,
+    Menu, X, Grid, Trophy, FileText, Plus, BarChart2, Star, Bell, Home,
+    Zap, Search
 } from 'lucide-react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+
+// Role-specific nav configs
+const HUNTER_NAV = [
+    { to: '/hunter/dashboard', icon: Home, label: 'Dashboard' },
+    { to: '/bounties', icon: Search, label: 'Explore' },
+    { to: '/hunter/vault', icon: Wallet, label: 'Vault' },
+    { to: '/leaderboard', icon: Trophy, label: 'Leaderboard' },
+];
+
+const PAYER_NAV = [
+    { to: '/payer/dashboard', icon: Home, label: 'Dashboard' },
+    { to: '/payer/post-bounty', icon: Plus, label: 'Post Bounty' },
+    { to: '/payer/vault', icon: Wallet, label: 'Vault' },
+    { to: '/payer/bounties', icon: Grid, label: 'My Bounties' },
+];
+
+const ADMIN_NAV = [
+    { to: '/admin/dashboard', icon: BarChart2, label: 'Overview' },
+    { to: '/admin/transactions', icon: FileText, label: 'Transactions' },
+    { to: '/admin/hunters', icon: User, label: 'Hunters' },
+    { to: '/admin/bounties', icon: Grid, label: 'Bounties' },
+];
 
 export default function Header() {
     const { currentUser, signOut } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
-    const [showSidebar, setShowSidebar] = useState(false);
-    const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+    const [mobileOpen, setMobileOpen] = useState(false);
+    const [profileOpen, setProfileOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
     const dropdownRef = useRef(null);
 
-    // Close dropdown when clicking outside
+    const role = currentUser?.role;
+    const navLinks = role === 'hunter' ? HUNTER_NAV : role === 'payer' ? PAYER_NAV : role === 'admin' ? ADMIN_NAV : [];
+
     useEffect(() => {
-        function handleClickOutside(event) {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setShowProfileDropdown(false);
-            }
-        }
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
+        const handleScroll = () => setScrolled(window.scrollY > 8);
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Lock body scroll when sidebar is open (prevents background scroll on mobile)
     useEffect(() => {
-        if (showSidebar) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
-        return () => {
-            document.body.style.overflow = '';
+        const handleClick = (e) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+                setProfileOpen(false);
+            }
         };
-    }, [showSidebar]);
+        document.addEventListener('mousedown', handleClick);
+        return () => document.removeEventListener('mousedown', handleClick);
+    }, []);
 
-    // Close sidebar on route change
-    useEffect(() => {
-        setShowSidebar(false);
-    }, [location.pathname]);
+    useEffect(() => { setMobileOpen(false); }, [location.pathname]);
 
-
-    if (!currentUser) return null;
-
-    const role = currentUser.role || 'hunter';
-    const currency = currentUser.currency === 'INR' ? '₹' : '$';
-    const walletBalance = (currentUser.wallet_balance || 0).toLocaleString();
-    const initials = (currentUser.username || 'U').substring(0, 2).toUpperCase();
-
-    const handleLogout = async () => {
-        try {
-            setShowProfileDropdown(false);
-            setShowSidebar(false);
-            await signOut();
-        } catch (error) {
-            console.error('Logout error:', error);
-            localStorage.clear();
-            sessionStorage.clear();
-            window.location.href = '/';
-        }
-    };
-
-    const goTo = (path) => {
-        navigate(path);
-        setShowSidebar(false);
-        setShowProfileDropdown(false);
-    };
-
-    // Role-specific config
-    const roleConfig = {
-        hunter: {
-            color: '#FF6B35',
-            label: 'HUNTER',
-            bg: 'rgba(255, 107, 53, 0.1)',
-            border: 'rgba(255, 107, 53, 0.25)',
-            navLinks: [
-                { icon: Home, label: 'Dashboard', path: '/hunter/dashboard', color: '#FF6B35' },
-                { icon: Target, label: 'Arena', path: '/hunter/arena', color: '#F59E0B' },
-                { icon: MessageSquare, label: 'War Room', path: '/hunter/war-room', color: '#8B5CF6' },
-                { icon: Clock, label: 'History', path: '/hunter/history', color: '#6366F1' },
-                { icon: Trophy, label: 'Leaderboard', path: '/hunter/leaderboard', color: '#06B6D4' },
-                { icon: Wallet, label: 'Vault', path: '/hunter/vault', color: '#10B981' },
-                { icon: Settings, label: 'Settings', path: '/hunter/settings', color: '#8892AA' },
-            ]
-        },
-        payer: {
-            color: '#3B82F6',
-            label: 'PAYER',
-            bg: 'rgba(59, 130, 246, 0.1)',
-            border: 'rgba(59, 130, 246, 0.25)',
-            navLinks: [
-                { icon: Home, label: 'Dashboard', path: '/payer/dashboard', color: '#3B82F6' },
-                { icon: Target, label: 'My Bounties', path: '/payer/live-bounties', color: '#FF6B35' },
-                { icon: Briefcase, label: 'Post Bounty', path: '/payer/post-bounty', color: '#F59E0B' },
-                { icon: MessageSquare, label: 'War Room', path: '/payer/war-room', color: '#8B5CF6' },
-                { icon: Clock, label: 'History', path: '/payer/history', color: '#6366F1' },
-                { icon: Wallet, label: 'Vault', path: '/payer/vault', color: '#10B981' },
-                { icon: Settings, label: 'Settings', path: '/payer/settings', color: '#8892AA' },
-            ]
-        },
-        admin: {
-            color: '#EC4899',
-            label: 'ADMIN',
-            bg: 'rgba(236, 72, 153, 0.1)',
-            border: 'rgba(236, 72, 153, 0.25)',
-            navLinks: [
-                { icon: Home, label: 'Dashboard', path: '/admin/dashboard', color: '#EC4899' },
-            ]
-        }
-    };
-
-    const config = roleConfig[role] || roleConfig.hunter;
+    async function handleSignOut() {
+        setProfileOpen(false);
+        await signOut();
+    }
 
     const isActive = (path) => location.pathname === path || location.pathname.startsWith(path + '/');
 
+    if (!currentUser) return null;
+
+    const wallet = currentUser?.wallet_balance ?? 0;
+    const currency = currentUser?.currency ?? 'INR';
+    const symbol = currency === 'INR' ? '₹' : '$';
+    const initials = (currentUser?.username || currentUser?.full_name || 'U').slice(0, 2).toUpperCase();
+
     return (
         <>
-            {/* ===== MAIN HEADER ===== */}
+            {/* ─── Desktop Header ─── */}
             <header style={{
-                position: 'sticky',
-                top: 0,
-                zIndex: 50,
-                width: '100%',
+                position: 'sticky', top: 0, zIndex: 100,
+                background: scrolled ? 'rgba(5,8,20,0.95)' : 'rgba(5,8,20,0.85)',
+                backdropFilter: 'blur(24px)',
+                borderBottom: '1px solid rgba(255,255,255,0.06)',
+                boxShadow: scrolled ? '0 4px 30px rgba(0,0,0,0.5)' : 'none',
+                transition: 'all 0.3s ease',
+                padding: '0 24px',
                 height: '64px',
-                background: 'rgba(255,255,255,0.95)',
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
-                borderBottom: '1px solid rgba(255,107,53,0.12)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '0 16px',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+                display: 'flex', alignItems: 'center',
             }}>
-                {/* Left: Hamburger + Logo */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <button
-                        onClick={() => setShowSidebar(true)}
-                        aria-label="Open menu"
-                        className="md:hidden transition-colors"
-                        style={{
-                            color: '#6B7A99',
-                            padding: '8px',
-                            borderRadius: '10px',
-                            border: '1px solid rgba(0,0,0,0.08)',
-                            background: 'rgba(0,0,0,0.04)',
-                            minHeight: '40px',
-                            minWidth: '40px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                        }}
-                        onMouseOver={e => { e.currentTarget.style.color = '#1A1F2E'; e.currentTarget.style.background = 'rgba(0,0,0,0.08)'; }}
-                        onMouseOut={e => { e.currentTarget.style.color = '#6B7A99'; e.currentTarget.style.background = 'rgba(0,0,0,0.04)'; }}
-                    >
-                        <Menu size={20} />
-                    </button>
+                <div style={{ maxWidth: '1400px', margin: '0 auto', width: '100%', display: 'flex', alignItems: 'center', gap: '32px' }}>
 
-                    <Link to={`/${role}/dashboard`} style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
-                        <img
-                            src="/finallandstrans.png"
-                            alt="IQHUNT"
-                            style={{ height: '36px', width: 'auto', objectFit: 'contain' }}
-                        />
+                    {/* Logo */}
+                    <Link to={`/${role}/dashboard`} style={{ flexShrink: 0, display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+                        <img src="/finallandstrans.png" alt="IQHUNT" style={{ height: '36px', objectFit: 'contain', filter: 'brightness(1.1)' }} />
                     </Link>
-                </div>
 
-                {/* Center: Desktop Nav */}
-                <nav className="hidden md:flex items-center gap-1">
-                    {config.navLinks.slice(0, 5).map((link) => {
-                        const active = isActive(link.path);
-                        return (
-                            <Link
-                                key={link.path}
-                                to={link.path}
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '6px',
-                                    padding: '8px 14px',
-                                    borderRadius: '10px',
-                                    fontSize: '13px',
-                                    fontWeight: '600',
+                    {/* Nav links */}
+                    <nav style={{ display: 'flex', alignItems: 'center', gap: '4px', flex: 1 }} className="hidden md:flex">
+                        {navLinks.map(({ to, icon: Icon, label }) => {
+                            const active = isActive(to);
+                            return (
+                                <Link key={to} to={to} style={{
+                                    display: 'flex', alignItems: 'center', gap: '7px',
+                                    padding: '8px 14px', borderRadius: '10px',
                                     textDecoration: 'none',
-                                    transition: 'all 0.2s ease',
-                                    color: active ? link.color : '#6B7A99',
-                                    background: active ? `${link.color}12` : 'transparent',
-                                    border: active ? `1px solid ${link.color}25` : '1px solid transparent',
-                                    minHeight: '36px',
+                                    fontSize: '13px', fontWeight: active ? '700' : '500',
+                                    color: active ? '#FF6B35' : '#8892AA',
+                                    background: active ? 'rgba(255,107,53,0.1)' : 'transparent',
+                                    border: active ? '1px solid rgba(255,107,53,0.2)' : '1px solid transparent',
+                                    transition: 'all 0.2s ease', minHeight: '36px',
+                                    letterSpacing: active ? '0.01em' : '0',
                                 }}
-                                onMouseOver={e => {
-                                    if (!active) {
-                                        e.currentTarget.style.color = '#1A1F2E';
-                                        e.currentTarget.style.background = 'rgba(0,0,0,0.05)';
-                                    }
-                                }}
-                                onMouseOut={e => {
-                                    if (!active) {
-                                        e.currentTarget.style.color = '#6B7A99';
-                                        e.currentTarget.style.background = 'transparent';
-                                    }
-                                }}
-                            >
-                                <link.icon size={15} />
-                                <span>{link.label}</span>
-                            </Link>
-                        );
-                    })}
-                </nav>
+                                    onMouseOver={e => { if (!active) { e.currentTarget.style.color = '#C4CFED'; e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; } }}
+                                    onMouseOut={e => { if (!active) { e.currentTarget.style.color = '#8892AA'; e.currentTarget.style.background = 'transparent'; } }}>
+                                    <Icon size={15} /> {label}
+                                </Link>
+                            );
+                        })}
+                    </nav>
 
-                {/* Right: Wallet + Profile */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    {/* Role Badge (desktop) */}
-                    <span className="hidden md:inline-block text-[10px] font-black tracking-[0.15em] px-2.5 py-1 rounded-md"
-                        style={{ background: config.bg, color: config.color, border: `1px solid ${config.border}` }}>
-                        {config.label}
-                    </span>
-
-                    {/* Wallet */}
-                    <button
-                        onClick={() => goTo(`/${role}/vault`)}
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '7px',
-                            background: 'rgba(16, 185, 129, 0.08)',
-                            border: '1px solid rgba(16, 185, 129, 0.25)',
-                            borderRadius: '10px',
-                            padding: '7px 12px',
-                            cursor: 'pointer',
-                            transition: 'all 0.25s ease',
-                            minHeight: '38px',
-                        }}
-                        onMouseOver={e => {
-                            e.currentTarget.style.background = 'rgba(16, 185, 129, 0.14)';
-                            e.currentTarget.style.borderColor = 'rgba(255, 107, 53, 0.4)';
-                            e.currentTarget.style.boxShadow = '0 0 20px rgba(16, 185, 129, 0.2)';
-                        }}
-                        onMouseOut={e => {
-                            e.currentTarget.style.background = 'rgba(16, 185, 129, 0.08)';
-                            e.currentTarget.style.borderColor = 'rgba(16, 185, 129, 0.25)';
-                            e.currentTarget.style.boxShadow = 'none';
-                        }}
-                    >
-                        <Wallet size={15} style={{ color: '#10B981' }} />
-                        <span style={{ color: '#10B981', fontWeight: '700', fontFamily: 'JetBrains Mono', fontSize: '13px' }}>
-                            {currency}{walletBalance}
-                        </span>
-                    </button>
-
-                    {/* Profile Dropdown */}
-                    <div ref={dropdownRef} style={{ position: 'relative' }}>
-                        <button
-                            onClick={() => setShowProfileDropdown(!showProfileDropdown)}
-                            style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '8px',
-                                background: 'none',
-                                border: 'none',
-                                cursor: 'pointer',
-                                padding: '4px',
-                                borderRadius: '12px',
-                                minHeight: '44px',
+                    {/* Right side */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginLeft: 'auto' }}>
+                        {/* Wallet balance */}
+                        <Link to={`/${role === 'hunter' ? 'hunter' : 'payer'}/vault`} style={{ textDecoration: 'none' }}>
+                            <div style={{
+                                display: 'flex', alignItems: 'center', gap: '8px',
+                                padding: '8px 14px', borderRadius: '10px',
+                                background: 'rgba(255,255,255,0.04)',
+                                border: '1px solid rgba(255,255,255,0.08)',
+                                cursor: 'pointer', transition: 'all 0.2s ease',
                             }}
-                        >
-                            {/* Avatar */}
-                            <div style={{
-                                width: '36px', height: '36px',
-                                borderRadius: '50%',
-                                background: 'linear-gradient(135deg, #06B6D4, #06B6D4)',
-                                padding: '2px',
+                                onMouseOver={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.07)'; e.currentTarget.style.borderColor = 'rgba(255,107,53,0.2)'; }}
+                                onMouseOut={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; }}>
+                                <Wallet size={14} style={{ color: '#06FFA5' }} />
+                                <span style={{ fontSize: '13px', fontWeight: '800', color: '#06FFA5', fontFamily: 'JetBrains Mono', letterSpacing: '-0.02em' }}>
+                                    {symbol}{wallet.toLocaleString()}
+                                </span>
+                            </div>
+                        </Link>
+
+                        {/* Profile dropdown */}
+                        <div style={{ position: 'relative' }} ref={dropdownRef}>
+                            <button onClick={() => setProfileOpen(!profileOpen)} style={{
+                                display: 'flex', alignItems: 'center', gap: '8px',
+                                padding: '6px 10px 6px 6px', borderRadius: '10px',
+                                background: profileOpen ? 'rgba(255,107,53,0.1)' : 'rgba(255,255,255,0.04)',
+                                border: profileOpen ? '1px solid rgba(255,107,53,0.3)' : '1px solid rgba(255,255,255,0.08)',
+                                cursor: 'pointer', transition: 'all 0.2s ease', minHeight: '44px',
                             }}>
                                 <div style={{
-                                    width: '100%', height: '100%',
-                                    borderRadius: '50%',
-                                    background: 'rgba(8,11,20,0.9)',
+                                    width: '30px', height: '30px', borderRadius: '8px',
+                                    background: 'linear-gradient(135deg, #FF6B35, #9B5DE5)',
                                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                    overflow: 'hidden',
+                                    fontSize: '11px', fontWeight: '900', color: '#ffffff',
+                                    fontFamily: 'Space Grotesk',
                                 }}>
-                                    {currentUser.avatar_url ? (
-                                        <img src={currentUser.avatar_url} alt={currentUser.username} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                                    ) : (
-                                        <span style={{ color: '#06B6D4', fontSize: '12px', fontWeight: '800', fontFamily: 'Space Grotesk' }}>
-                                            {initials}
-                                        </span>
-                                    )}
+                                    {currentUser?.avatar_url ? (
+                                        <img src={currentUser.avatar_url} alt="" style={{ width: '100%', height: '100%', borderRadius: '8px', objectFit: 'cover' }} />
+                                    ) : initials}
                                 </div>
-                            </div>
+                                <div className="hidden md:block text-left" style={{ lineHeight: 1.2 }}>
+                                    <div style={{ fontSize: '13px', fontWeight: '700', color: '#F0F4FF', maxWidth: '100px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                        {currentUser?.username || 'User'}
+                                    </div>
+                                    <div style={{ fontSize: '10px', fontWeight: '600', color: role === 'hunter' ? '#FF6B35' : role === 'payer' ? '#4361EE' : '#9B5DE5', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                                        {role === 'admin' ? '⭐ ADMIN' : role}
+                                    </div>
+                                </div>
+                                <ChevronDown size={14} style={{ color: '#8892AA', transform: profileOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s ease' }} />
+                            </button>
 
-                            <ChevronDown size={14} style={{
-                                color: '#8892AA',
-                                transition: 'transform 0.2s ease',
-                                transform: showProfileDropdown ? 'rotate(180deg)' : 'rotate(0deg)',
-                            }} className="hidden md:block" />
-                        </button>
-
-                        {/* Dropdown Menu */}
-                        {showProfileDropdown && (
-                            <div style={{
-                                position: 'absolute',
-                                right: 0, top: '48px',
-                                width: '220px',
-                                background: 'rgba(255,255,255,0.98)',
-                                backdropFilter: 'blur(20px)',
-                                border: '1px solid rgba(255,107,53,0.12)',
-                                borderRadius: '16px',
-                                padding: '8px',
-                                boxShadow: '0 20px 60px rgba(0,0,0,0.12), 0 0 40px rgba(255,107,53,0.06)',
-                                zIndex: 100,
-                                animation: 'scaleIn 0.15s ease',
-                            }}>
-                                {/* User info */}
+                            {/* Dropdown */}
+                            {profileOpen && (
                                 <div style={{
-                                    padding: '12px 14px',
-                                    borderRadius: '10px',
-                                    marginBottom: '6px',
-                                    background: 'rgba(0,0,0,0.04)',
-                                }}
-                                >
-                                    <p style={{ fontWeight: '700', color: '#1A1F2E', fontSize: '14px', marginBottom: '2px' }}>
-                                        {currentUser.username}
-                                    </p>
-                                    <p style={{ color: '#6B7A99', fontSize: '12px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                        {currentUser.email}
-                                    </p>
+                                    position: 'absolute', right: 0, top: 'calc(100% + 8px)',
+                                    width: '240px', borderRadius: '16px',
+                                    background: 'rgba(8,12,28,0.98)',
+                                    border: '1px solid rgba(255,255,255,0.08)',
+                                    backdropFilter: 'blur(24px)',
+                                    boxShadow: '0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04)',
+                                    overflow: 'hidden',
+                                    animation: 'scaleIn 0.15s ease',
+                                }}>
+                                    {/* User info */}
+                                    <div style={{ padding: '20px 18px 14px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                            <div style={{
+                                                width: '40px', height: '40px', borderRadius: '10px',
+                                                background: 'linear-gradient(135deg, #FF6B35, #9B5DE5)',
+                                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                                fontSize: '14px', fontWeight: '900', color: '#fff', fontFamily: 'Space Grotesk',
+                                                flexShrink: 0,
+                                            }}>
+                                                {currentUser?.avatar_url ? (
+                                                    <img src={currentUser.avatar_url} alt="" style={{ width: '100%', height: '100%', borderRadius: '10px', objectFit: 'cover' }} />
+                                                ) : initials}
+                                            </div>
+                                            <div>
+                                                <div style={{ fontWeight: '700', color: '#F0F4FF', fontSize: '14px', maxWidth: '160px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                                    {currentUser?.full_name || currentUser?.username || 'User'}
+                                                </div>
+                                                <div style={{ fontSize: '12px', color: '#8892AA', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                                    {currentUser?.email}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style={{
+                                            display: 'flex', alignItems: 'center', gap: '8px',
+                                            marginTop: '12px', padding: '8px 12px', borderRadius: '10px',
+                                            background: 'rgba(6,255,165,0.06)', border: '1px solid rgba(6,255,165,0.15)',
+                                        }}>
+                                            <Wallet size={14} style={{ color: '#06FFA5' }} />
+                                            <span style={{ fontSize: '13px', fontWeight: '800', color: '#06FFA5', fontFamily: 'JetBrains Mono' }}>
+                                                {symbol}{wallet.toLocaleString()}
+                                            </span>
+                                            <span style={{ fontSize: '11px', color: '#4B5563', marginLeft: 'auto' }}>BALANCE</span>
+                                        </div>
+                                    </div>
+
+                                    {/* Menu items */}
+                                    <div style={{ padding: '8px' }}>
+                                        {[
+                                            { icon: User, label: 'Profile', to: `/${role}/settings` },
+                                            { icon: Settings, label: 'Settings', to: `/${role}/settings?tab=settings` },
+                                        ].map((item) => (
+                                            <Link key={item.label} to={item.to} onClick={() => setProfileOpen(false)} style={{
+                                                display: 'flex', alignItems: 'center', gap: '10px',
+                                                padding: '10px 12px', borderRadius: '10px',
+                                                color: '#C4CFED', textDecoration: 'none',
+                                                fontSize: '14px', fontWeight: '500',
+                                                transition: 'all 0.15s ease',
+                                                minHeight: '44px',
+                                            }}
+                                                onMouseOver={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.color = '#F0F4FF'; }}
+                                                onMouseOut={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#C4CFED'; }}>
+                                                <item.icon size={15} style={{ color: '#8892AA' }} />
+                                                {item.label}
+                                            </Link>
+                                        ))}
+
+                                        <div style={{ height: '1px', background: 'rgba(255,255,255,0.06)', margin: '8px 0' }} />
+
+                                        <button onClick={handleSignOut} style={{
+                                            width: '100%', display: 'flex', alignItems: 'center', gap: '10px',
+                                            padding: '10px 12px', borderRadius: '10px',
+                                            color: '#F72585', background: 'none', border: 'none',
+                                            fontSize: '14px', fontWeight: '600', cursor: 'pointer',
+                                            transition: 'all 0.15s ease', minHeight: '44px',
+                                        }}
+                                            onMouseOver={e => e.currentTarget.style.background = 'rgba(247,37,133,0.08)'}
+                                            onMouseOut={e => e.currentTarget.style.background = 'transparent'}>
+                                            <LogOut size={15} /> Sign Out
+                                        </button>
+                                    </div>
                                 </div>
+                            )}
+                        </div>
 
-                                {/* Menu items */}
-                                {[
-                                    { icon: User, label: 'View Profile', action: () => goTo(`/${role}/profile`), color: '#06B6D4' },
-                                    { icon: Settings, label: 'Account Settings', action: () => goTo(`/${role}/settings`), color: '#8B5CF6' },
-                                    { icon: Wallet, label: 'My Vault', action: () => goTo(`/${role}/vault`), color: '#06B6D4' },
-                                    ...(role === 'hunter' ? [{ icon: Trophy, label: 'Leaderboard', action: () => goTo('/hunter/leaderboard'), color: '#F59E0B' }] : []),
-                                    ...(role === 'hunter' ? [{ icon: MessageSquare, label: 'War Room', action: () => goTo('/hunter/war-room'), color: '#F97316' }] : []),
-                                    ...(role === 'payer' ? [{ icon: Briefcase, label: 'Post Bounty', action: () => goTo('/payer/post-bounty'), color: '#F97316' }] : []),
-                                ].map((item, i) => (
-                                    <button
-                                        key={i}
-                                        onClick={item.action}
-                                        style={{
-                                            width: '100%',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            gap: '10px',
-                                            padding: '10px 12px',
-                                            borderRadius: '10px',
-                                            border: 'none',
-                                            background: 'none',
-                                            cursor: 'pointer',
-                                            fontSize: '13px',
-                                            color: '#4B5563',
-                                            fontWeight: '500',
-                                            textAlign: 'left',
-                                            transition: 'all 0.15s ease',
-                                            minHeight: '40px',
-                                        }}
-                                        onMouseOver={e => {
-                                            e.currentTarget.style.background = 'rgba(0,0,0,0.04)';
-                                            e.currentTarget.style.color = '#1A1F2E';
-                                        }}
-                                        onMouseOut={e => {
-                                            e.currentTarget.style.background = 'none';
-                                            e.currentTarget.style.color = '#4B5563';
-                                        }}
-                                    >
-                                        <item.icon size={15} style={{ color: item.color, flexShrink: 0 }} />
-                                        <span>{item.label}</span>
-                                    </button>
-                                ))}
-
-                                <div style={{ height: '1px', background: 'rgba(255,255,255,0.06)', margin: '6px 0' }} />
-
-                                <button
-                                    onClick={handleLogout}
-                                    style={{
-                                        width: '100%',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '10px',
-                                        padding: '10px 12px',
-                                        borderRadius: '10px',
-                                        border: 'none',
-                                        background: 'none',
-                                        cursor: 'pointer',
-                                        fontSize: '13px',
-                                        color: '#F43F5E',
-                                        fontWeight: '600',
-                                        textAlign: 'left',
-                                        transition: 'all 0.15s ease',
-                                        minHeight: '40px',
-                                    }}
-                                    onMouseOver={e => e.currentTarget.style.background = 'rgba(244,63,94,0.1)'}
-                                    onMouseOut={e => e.currentTarget.style.background = 'none'}
-                                >
-                                    <LogOut size={15} style={{ flexShrink: 0 }} />
-                                    <span>Sign Out</span>
-                                </button>
-                            </div>
-                        )}
+                        {/* Mobile menu toggle */}
+                        <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden" style={{
+                            width: '40px', height: '40px', borderRadius: '10px',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            background: 'rgba(255,255,255,0.04)',
+                            border: '1px solid rgba(255,255,255,0.08)',
+                            color: '#F0F4FF', cursor: 'pointer',
+                        }}>
+                            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+                        </button>
                     </div>
                 </div>
             </header>
 
-            {/* ===== MOBILE SIDEBAR ===== */}
-            {showSidebar && (
-                <div className="fixed inset-0 z-50 flex md:hidden">
-                    {/* Backdrop */}
-                    <div
-                        onClick={() => setShowSidebar(false)}
-                        style={{
-                            position: 'fixed', inset: 0,
-                            background: 'rgba(0,0,0,0.7)',
-                            backdropFilter: 'blur(8px)',
-                            animation: 'fadeIn 0.2s ease',
-                        }}
-                    />
+            {/* ─── Mobile Sidebar ─── */}
+            {mobileOpen && (
+                <div style={{ position: 'fixed', inset: 0, zIndex: 99 }}>
+                    {/* Overlay */}
+                    <div onClick={() => setMobileOpen(false)} style={{
+                        position: 'absolute', inset: 0,
+                        background: 'rgba(5,8,20,0.8)', backdropFilter: 'blur(8px)',
+                    }} />
 
-                    {/* Drawer */}
+                    {/* Sidebar */}
                     <div style={{
-                        position: 'relative',
-                        width: '280px',
-                        maxWidth: '85vw',
-                        height: '100%',
-                        background: 'rgba(255,255,255,0.98)',
-                        backdropFilter: 'blur(30px)',
-                        borderRight: '1px solid rgba(255,107,53,0.1)',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        animation: 'slideInLeft 0.3s cubic-bezier(0.4,0,0.2,1)',
-                        zIndex: 51,
+                        position: 'absolute', left: 0, top: 0, bottom: 0, width: '300px',
+                        background: 'rgba(8,12,28,0.99)',
+                        borderRight: '1px solid rgba(255,255,255,0.06)',
+                        padding: '24px 16px',
+                        overflowY: 'auto',
+                        animation: 'slideInLeft 0.25s ease',
                     }}>
-                        {/* Sidebar Header */}
-                        <div style={{
-                            padding: '20px 16px',
-                            borderBottom: '1px solid rgba(255,255,255,0.07)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                        }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                {/* Avatar */}
-                                <div style={{
-                                    width: '42px', height: '42px',
-                                    borderRadius: '50%',
-                                    background: 'linear-gradient(135deg, #06B6D4, #06B6D4)',
-                                    padding: '2px',
-                                    flexShrink: 0,
-                                }}>
-                                    <div style={{
-                                        width: '100%', height: '100%',
-                                        borderRadius: '50%',
-                                        background: 'rgba(8,11,20,0.9)',
-                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                        overflow: 'hidden',
-                                    }}>
-                                        {currentUser.avatar_url ? (
-                                            <img src={currentUser.avatar_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                                        ) : (
-                                            <span style={{ color: '#06B6D4', fontSize: '13px', fontWeight: '800' }}>{initials}</span>
-                                        )}
-                                    </div>
-                                </div>
-                                <div>
-                                    <p style={{ color: '#F0F4FF', fontWeight: '700', fontSize: '14px' }}>{currentUser.username}</p>
-                                    <span style={{
-                                        fontSize: '10px', fontWeight: '800',
-                                        color: config.color, letterSpacing: '0.12em',
-                                        background: config.bg,
-                                        padding: '2px 8px', borderRadius: '4px',
-                                        border: `1px solid ${config.border}`,
-                                    }}>
-                                        {config.label}
-                                    </span>
-                                </div>
-                            </div>
-                            <button
-                                onClick={() => setShowSidebar(false)}
-                                style={{
-                                    color: '#6B7A99',
-                                    padding: '8px',
-                                    borderRadius: '10px',
-                                    border: '1px solid rgba(0,0,0,0.08)',
-                                    background: 'rgba(0,0,0,0.04)',
-                                    cursor: 'pointer',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    minHeight: '36px', minWidth: '36px',
-                                }}
-                            >
+                        {/* Logo */}
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px', paddingHorizontal: '8px' }}>
+                            <img src="/finallandstrans.png" alt="IQHUNT" style={{ height: '32px', objectFit: 'contain', filter: 'brightness(1.1)' }} />
+                            <button onClick={() => setMobileOpen(false)} style={{
+                                width: '36px', height: '36px', borderRadius: '8px',
+                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
+                                color: '#F0F4FF', cursor: 'pointer',
+                            }}>
                                 <X size={18} />
                             </button>
                         </div>
 
-                        {/* Wallet Balance in sidebar */}
-                        <div style={{ padding: '12px 16px', borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
-                            <button
-                                onClick={() => goTo(`/${role}/vault`)}
-                                style={{
-                                    width: '100%',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'space-between',
-                                    padding: '12px 16px',
-                                    background: 'rgba(255,107,53,0.08)',
-                                    border: '1px solid rgba(255,107,53,0.2)',
-                                    borderRadius: '12px',
-                                    cursor: 'pointer',
-                                    minHeight: '50px',
-                                }}
-                            >
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                    <Wallet size={18} style={{ color: '#06B6D4' }} />
-                                    <div style={{ textAlign: 'left' }}>
-                                        <p style={{ color: '#9CA3AF', fontSize: '11px', fontWeight: '600' }}>Available Balance</p>
-                                        <p style={{ color: '#FF6B35', fontWeight: '800', fontFamily: 'JetBrains Mono', fontSize: '16px' }}>
-                                            {currency}{walletBalance}
-                                        </p>
-                                    </div>
+                        {/* User info */}
+                        <div style={{
+                            padding: '16px', borderRadius: '14px', marginBottom: '24px',
+                            background: 'rgba(255,255,255,0.03)',
+                            border: '1px solid rgba(255,255,255,0.06)',
+                        }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+                                <div style={{
+                                    width: '44px', height: '44px', borderRadius: '10px',
+                                    background: 'linear-gradient(135deg, #FF6B35, #9B5DE5)',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    fontSize: '16px', fontWeight: '900', color: '#fff', fontFamily: 'Space Grotesk',
+                                }}>
+                                    {initials}
                                 </div>
-                                <TrendingUp size={16} style={{ color: '#06B6D480' }} />
-                            </button>
+                                <div>
+                                    <div style={{ fontWeight: '700', color: '#F0F4FF', fontSize: '14px' }}>{currentUser?.username || 'User'}</div>
+                                    <div style={{ fontSize: '11px', color: '#FF6B35', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{role}</div>
+                                </div>
+                            </div>
+                            <div style={{
+                                padding: '10px 14px', borderRadius: '10px',
+                                background: 'rgba(6,255,165,0.06)',
+                                border: '1px solid rgba(6,255,165,0.15)',
+                                display: 'flex', alignItems: 'center', gap: '8px',
+                            }}>
+                                <Wallet size={16} style={{ color: '#06FFA5' }} />
+                                <span style={{ fontSize: '16px', fontWeight: '900', color: '#06FFA5', fontFamily: 'JetBrains Mono' }}>
+                                    {symbol}{wallet.toLocaleString()}
+                                </span>
+                            </div>
                         </div>
 
-                        {/* Nav Links */}
-                        <div style={{ flex: 1, overflowY: 'auto', padding: '12px 8px' }}>
-                            {config.navLinks.map((link) => {
-                                const active = isActive(link.path);
+                        {/* Nav */}
+                        <nav style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                            {navLinks.map(({ to, icon: Icon, label }) => {
+                                const active = isActive(to);
                                 return (
-                                    <button
-                                        key={link.path}
-                                        onClick={() => goTo(link.path)}
-                                        style={{
-                                            width: '100%',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            gap: '12px',
-                                            padding: '12px 14px',
-                                            borderRadius: '12px',
-                                            border: active ? `1px solid ${link.color}25` : '1px solid transparent',
-                                            background: active ? `${link.color}12` : 'none',
-                                            cursor: 'pointer',
-                                            fontSize: '14px',
-                                            fontWeight: active ? '700' : '500',
-                                            color: active ? link.color : '#8892AA',
-                                            textAlign: 'left',
-                                            transition: 'all 0.15s ease',
-                                            minHeight: '48px',
-                                            marginBottom: '2px',
-                                        }}
-                                        onMouseOver={e => {
-                                            if (!active) {
-                                                e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-                                                e.currentTarget.style.color = '#F0F4FF';
-                                            }
-                                        }}
-                                        onMouseOut={e => {
-                                            if (!active) {
-                                                e.currentTarget.style.background = 'none';
-                                                e.currentTarget.style.color = '#8892AA';
-                                            }
-                                        }}
-                                    >
-                                        <link.icon size={20} style={{ color: link.color, flexShrink: 0 }} />
-                                        <span>{link.label}</span>
-                                    </button>
+                                    <Link key={to} to={to} onClick={() => setMobileOpen(false)} style={{
+                                        display: 'flex', alignItems: 'center', gap: '12px',
+                                        padding: '14px 16px', borderRadius: '12px', textDecoration: 'none',
+                                        fontSize: '14px', fontWeight: active ? '700' : '500',
+                                        color: active ? '#FF6B35' : '#8892AA',
+                                        background: active ? 'rgba(255,107,53,0.1)' : 'transparent',
+                                        border: active ? '1px solid rgba(255,107,53,0.2)' : '1px solid transparent',
+                                        transition: 'all 0.2s ease', minHeight: '50px',
+                                    }}>
+                                        <Icon size={18} /> {label}
+                                    </Link>
                                 );
                             })}
+                        </nav>
 
-                            <div style={{ height: '1px', background: 'rgba(255,255,255,0.07)', margin: '8px 6px' }} />
-
-                            <button
-                                onClick={() => goTo('/help')}
-                                style={{
-                                    width: '100%',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '12px',
-                                    padding: '12px 14px',
-                                    borderRadius: '12px',
-                                    border: '1px solid transparent',
-                                    background: 'none',
-                                    cursor: 'pointer',
-                                    fontSize: '14px',
-                                    fontWeight: '500',
-                                    color: '#8892AA',
-                                    textAlign: 'left',
-                                    transition: 'all 0.15s ease',
-                                    minHeight: '48px',
-                                }}
-                                onMouseOver={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.color = '#F0F4FF'; }}
-                                onMouseOut={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = '#8892AA'; }}
-                            >
-                                <HelpCircle size={20} style={{ color: '#F59E0B', flexShrink: 0 }} />
-                                <span>Help & Support</span>
-                            </button>
-                        </div>
-
-                        {/* Logout */}
-                        <div style={{ padding: '12px 8px 24px', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
-                            <button
-                                onClick={handleLogout}
-                                style={{
-                                    width: '100%',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '12px',
-                                    padding: '14px',
-                                    borderRadius: '12px',
-                                    border: '1px solid rgba(244,63,94,0.2)',
-                                    background: 'rgba(244,63,94,0.08)',
-                                    cursor: 'pointer',
-                                    fontSize: '14px',
-                                    fontWeight: '700',
-                                    color: '#F43F5E',
-                                    textAlign: 'left',
-                                    transition: 'all 0.15s ease',
-                                    minHeight: '48px',
-                                }}
-                                onMouseOver={e => e.currentTarget.style.background = 'rgba(244,63,94,0.15)'}
-                                onMouseOut={e => e.currentTarget.style.background = 'rgba(244,63,94,0.08)'}
-                            >
-                                <LogOut size={20} style={{ flexShrink: 0 }} />
-                                <span>Sign Out</span>
+                        {/* Bottom actions */}
+                        <div style={{ marginTop: 'auto', paddingTop: '24px', borderTop: '1px solid rgba(255,255,255,0.06)', marginTop: '32px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                            <Link to={`/${role}/settings`} onClick={() => setMobileOpen(false)} style={{
+                                display: 'flex', alignItems: 'center', gap: '12px',
+                                padding: '14px 16px', borderRadius: '12px', textDecoration: 'none',
+                                fontSize: '14px', fontWeight: '500', color: '#8892AA', minHeight: '50px',
+                            }}
+                                onMouseOver={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; e.currentTarget.style.color = '#C4CFED'; }}
+                                onMouseOut={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#8892AA'; }}>
+                                <Settings size={18} /> Settings
+                            </Link>
+                            <button onClick={handleSignOut} style={{
+                                display: 'flex', alignItems: 'center', gap: '12px',
+                                padding: '14px 16px', borderRadius: '12px', background: 'rgba(247,37,133,0.08)',
+                                border: '1px solid rgba(247,37,133,0.2)',
+                                color: '#F72585', fontWeight: '700', fontSize: '14px',
+                                cursor: 'pointer', textAlign: 'left', minHeight: '50px', width: '100%',
+                            }}>
+                                <LogOut size={18} /> Sign Out
                             </button>
                         </div>
                     </div>

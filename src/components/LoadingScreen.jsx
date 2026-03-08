@@ -1,47 +1,34 @@
-export default function LoadingScreen() {
+export default function LoadingScreen({ message = 'Loading...' }) {
     return (
         <div style={{
-            position: 'fixed',
-            inset: 0,
-            background: '#090E17',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '24px',
-            zIndex: 999,
+            position: 'fixed', inset: 0,
+            background: '#050814',
+            display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center',
+            gap: '24px', zIndex: 999,
+            backgroundImage: 'radial-gradient(ellipse at 30% 30%, rgba(255,107,53,0.06) 0%, transparent 50%), radial-gradient(ellipse at 70% 70%, rgba(67,97,238,0.06) 0%, transparent 50%)',
         }}>
-            {/* Logo */}
-            <img
-                src="/finallandstrans.png"
-                alt="IQHUNT"
-                style={{ height: '64px', width: 'auto', objectFit: 'contain', marginBottom: '8px' }}
-            />
+            <img src="/finallandstrans.png" alt="IQHUNT"
+                style={{ height: '56px', width: 'auto', objectFit: 'contain', filter: 'brightness(1.1)', marginBottom: '8px' }} />
 
-            {/* Spinner */}
             <div style={{
-                width: '48px', height: '48px',
-                border: '3px solid rgba(6, 182, 212,0.15)',
-                borderTop: '3px solid #06B6D4',
+                width: '44px', height: '44px',
+                border: '3px solid rgba(255,107,53,0.15)',
+                borderTop: '3px solid #FF6B35',
                 borderRadius: '50%',
                 animation: 'spin 0.8s linear infinite',
+                boxShadow: '0 0 15px rgba(255,107,53,0.2)',
             }} />
 
             <p style={{
-                color: '#8892AA',
-                fontSize: '14px',
-                fontWeight: '500',
-                letterSpacing: '0.08em',
+                color: '#8892AA', fontSize: '13px', fontWeight: '600',
+                letterSpacing: '0.12em', textTransform: 'uppercase',
+                fontFamily: 'Space Grotesk, sans-serif',
             }}>
-                Loading...
+                {message}
             </p>
 
-            <style>{`
-                @keyframes spin {
-                    from { transform: rotate(0deg); }
-                    to { transform: rotate(360deg); }
-                }
-            `}</style>
+            <style>{`@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
         </div>
     );
 }

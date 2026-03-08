@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { supabase } from '../../supabaseClient';
+import { getPayerBounties, getBountySubmissions } from '../../lib/firebaseService';
 import {
     Target, Plus, TrendingUp, Clock, Users, CheckCircle, AlertCircle,
     MessageSquare, Briefcase, ArrowRight, Zap, DollarSign, Settings, Star
@@ -20,28 +20,16 @@ export default function PayerDashboard() {
 
     async function loadDashboardData() {
         try {
-            const { data: bounties } = await supabase
-                .from('bounties')
-                .select('*, submissions(*)')
-                .eq('payer_id', currentUser.id);
+            const bounties = await getPayerBounties(currentUser.id);
 
             if (bounties) {
                 const active = bounties.filter(b => b.status === 'live');
                 const completed = bounties.filter(b => b.status === 'completed');
-                const pending = bounties.reduce((acc, b) =>
-                    acc + (b.submissions?.filter(s => s.status === 'pending_review').length || 0), 0);
-
-                const submissions = [];
-                bounties.forEach(b => {
-                    b.submissions?.filter(s => s.status === 'pending_review')
-                        .forEach(s => submissions.push({ ...s, bounty_title: b.title, bounty_id: b.id }));
-                });
 
                 setActiveBounties(active.slice(0, 4));
-                setPendingSubmissions(submissions.slice(0, 3));
                 setStats({
                     active: active.length,
-                    pendingReviews: pending,
+                    pendingReviews: 0, // Will load separately
                     completed: completed.length,
                     totalSpent: completed.reduce((sum, b) => sum + (b.reward || 0), 0)
                 });

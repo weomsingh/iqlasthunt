@@ -1,65 +1,154 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { supabase } from '../../supabaseClient';
-import BountyCard from '../../components/BountyCard';
 import {
-    Target, Trophy, TrendingUp, Clock, ArrowRight, Zap, CheckCircle,
-    Wallet, Settings, Flame, BarChart2, Star, Swords
+    Target, TrendingUp, Plus, ChevronRight, Clock, Zap,
+    Wallet, Trophy, Flame, Star, ArrowRight, Shield,
+    CheckCircle, Search, BarChart2, AlertCircle
 } from 'lucide-react';
+import {
+    getHunterActiveStake, getTopBounties, getHunterStakes,
+    getLiveBounties
+} from '../../lib/firebaseService';
 
-// Live Countdown Component
-function Countdown({ targetDate }) {
-    const [timeLeft, setTimeLeft] = useState(calc());
-
-    function calc() {
-        const diff = new Date(targetDate) - new Date();
-        if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0, expired: true };
-        return {
-            days: Math.floor(diff / 86400000),
-            hours: Math.floor((diff % 86400000) / 3600000),
-            minutes: Math.floor((diff % 3600000) / 60000),
-            seconds: Math.floor((diff % 60000) / 1000),
-            expired: false
-        };
-    }
+// Countdown component
+function Countdown({ deadline }) {
+    const [timeLeft, setTimeLeft] = useState(null);
 
     useEffect(() => {
-        const timer = setInterval(() => setTimeLeft(calc()), 1000);
-        return () => clearInterval(timer);
-    }, [targetDate]);
+        if (!deadline) return;
+        const deadlineMs = deadline.toDate ? deadline.toDate().getTime() : new Date(deadline).getTime();
+        const update = () => {
+            const diff = deadlineMs - Date.now();
+            if (diff <= 0) { setTimeLeft(null); return; }
+            const h = Math.floor(diff / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000);
+            const s = Math.floor((diff % 60000) / 1000);
+            setTimeLeft({ h, m, s, total: diff });
+        };
+        update();
+        const id = setInterval(update, 1000);
+        return () => clearInterval(id);
+    }, [deadline]);
 
-    if (timeLeft.expired) return <span style={{ color: '#F43F5E', fontFamily: 'JetBrains Mono', fontWeight: '900' }}>EXPIRED</span>;
+    if (!timeLeft) return <span style={{ color: '#F72585', fontFamily: 'JetBrains Mono', fontWeight: '900', fontSize: '1.5rem' }}>EXPIRED</span>;
 
-    const segments = [
-        { value: timeLeft.days, label: 'D' },
-        { value: timeLeft.hours, label: 'H' },
-        { value: timeLeft.minutes, label: 'M' },
-        { value: timeLeft.seconds, label: 'S' },
-    ];
+    const isUrgent = timeLeft.total < 3600000;
+    const color = isUrgent ? '#F72585' : timeLeft.total < 7200000 ? '#F6C90E' : '#06FFA5';
 
     return (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            {segments.map((seg, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            {[
+                { val: String(timeLeft.h).padStart(2, '0'), label: 'hr' },
+                { val: String(timeLeft.m).padStart(2, '0'), label: 'min' },
+                { val: String(timeLeft.s).padStart(2, '0'), label: 'sec' },
+            ].map(({ val, label }, i) => (
+                <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <div style={{
-                        background: 'rgba(0,0,0,0.4)',
-                        borderRadius: '8px',
-                        padding: '4px 8px',
-                        fontFamily: 'JetBrains Mono',
-                        fontWeight: '900',
-                        fontSize: '18px',
-                        color: timeLeft.days === 0 && timeLeft.hours < 3 ? '#F97316' : '#F59E0B',
-                        textShadow: '0 0 15px currentcolor',
-                        minWidth: '40px',
-                        textAlign: 'center',
+                        padding: '6px 10px', borderRadius: '8px',
+                        background: `${color}12`, border: `1px solid ${color}25`,
+                        fontFamily: 'JetBrains Mono', fontWeight: '900', fontSize: '1.5rem',
+                        color, textShadow: `0 0 25px ${color}60`,
+                        minWidth: '56px', textAlign: 'center', lineHeight: 1,
                     }}>
-                        {String(seg.value).padStart(2, '0')}
+                        {val}
                     </div>
-                    <span style={{ color: '#4A5568', fontSize: '11px', fontWeight: '700' }}>{seg.label}</span>
-                    {i < 3 && <span style={{ color: '#7C8FC0', fontSize: '16px', fontWeight: '900', opacity: 0.5 }}>:</span>}
+                    <span style={{ fontSize: '10px', color: '#4B5563', fontWeight: '600', marginTop: '4px', letterSpacing: '0.08em' }}>{label}</span>
                 </div>
             ))}
+        </div>
+    );
+}
+
+// Stat card component
+function StatCard({ icon: Icon, label, value, color, glow, trend }) {
+    return (
+        <div style={{
+            padding: '24px', borderRadius: '20px',
+            background: `${color}08`,
+            border: `1px solid ${color}18`,
+            transition: 'all 0.3s ease', cursor: 'default',
+        }}
+            onMouseOver={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = `0 15px 40px ${glow}`; e.currentTarget.style.borderColor = `${color}30`; }}
+            onMouseOut={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.borderColor = `${color}18`; }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '16px' }}>
+                <div style={{
+                    width: '44px', height: '44px', borderRadius: '12px',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    background: `${color}12`, border: `1px solid ${color}25`,
+                    boxShadow: `0 0 15px ${color}15`,
+                }}>
+                    <Icon size={22} style={{ color }} />
+                </div>
+                {trend !== undefined && (
+                    <span style={{
+                        padding: '3px 8px', borderRadius: '100px',
+                        fontSize: '11px', fontWeight: '700',
+                        background: trend >= 0 ? 'rgba(6,255,165,0.1)' : 'rgba(247,37,133,0.1)',
+                        color: trend >= 0 ? '#06FFA5' : '#F72585',
+                        border: `1px solid ${trend >= 0 ? 'rgba(6,255,165,0.2)' : 'rgba(247,37,133,0.2)'}`,
+                    }}>
+                        {trend >= 0 ? '+' : ''}{trend}%
+                    </span>
+                )}
+            </div>
+            <div style={{ fontSize: '26px', fontWeight: '900', color: '#F0F4FF', fontFamily: 'Space Grotesk', letterSpacing: '-0.02em', marginBottom: '4px' }}>
+                {value}
+            </div>
+            <div style={{ fontSize: '12px', color: '#8892AA', fontWeight: '600', letterSpacing: '0.06em', textTransform: 'uppercase' }}>{label}</div>
+        </div>
+    );
+}
+
+// Bounty card
+function BountyCard({ bounty, onClick }) {
+    const palettes = {
+        hard: { color: '#FF6B35', bg: 'rgba(255,107,53,0.06)', border: 'rgba(255,107,53,0.15)', glow: 'rgba(255,107,53,0.12)' },
+        extreme: { color: '#F72585', bg: 'rgba(247,37,133,0.06)', border: 'rgba(247,37,133,0.15)', glow: 'rgba(247,37,133,0.12)' },
+        medium: { color: '#F6C90E', bg: 'rgba(246,201,14,0.06)', border: 'rgba(246,201,14,0.15)', glow: 'rgba(246,201,14,0.12)' },
+        easy: { color: '#06FFA5', bg: 'rgba(6,255,165,0.06)', border: 'rgba(6,255,165,0.15)', glow: 'rgba(6,255,165,0.12)' },
+    };
+    const key = (bounty.difficulty || 'medium').toLowerCase();
+    const pal = palettes[key] || palettes.medium;
+
+    return (
+        <div onClick={onClick} style={{
+            padding: '20px 22px', borderRadius: '16px',
+            background: 'rgba(10,15,35,0.7)',
+            border: '1px solid rgba(255,255,255,0.06)',
+            cursor: 'pointer', transition: 'all 0.3s ease',
+            display: 'flex', alignItems: 'center', gap: '16px',
+        }}
+            onMouseOver={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = `0 12px 35px ${pal.glow}`; e.currentTarget.style.borderColor = pal.border; }}
+            onMouseOut={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'; }}>
+            <div style={{
+                width: '50px', height: '50px', borderRadius: '14px', flexShrink: 0,
+                background: pal.bg, border: `1px solid ${pal.border}`,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+                <Target size={22} style={{ color: pal.color }} />
+            </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: '15px', fontWeight: '700', color: '#F0F4FF', marginBottom: '4px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {bounty.title}
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '11px', fontWeight: '700', color: pal.color, background: pal.bg, border: `1px solid ${pal.border}`, padding: '2px 8px', borderRadius: '100px' }}>
+                        {bounty.difficulty || 'MEDIUM'}
+                    </span>
+                    {bounty.category && (
+                        <span style={{ fontSize: '11px', color: '#4B5563', fontWeight: '500' }}>· {bounty.category}</span>
+                    )}
+                </div>
+            </div>
+            <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                <div style={{ fontSize: '18px', fontWeight: '900', color: pal.color, fontFamily: 'JetBrains Mono', textShadow: `0 0 15px ${pal.glow}` }}>
+                    ₹{(bounty.reward || 0).toLocaleString()}
+                </div>
+                <div style={{ fontSize: '11px', color: '#4B5563', fontWeight: '500' }}>
+                    {bounty.hunter_count || 0} hunters
+                </div>
+            </div>
         </div>
     );
 }
@@ -67,393 +156,273 @@ function Countdown({ targetDate }) {
 export default function HunterDashboard() {
     const { currentUser } = useAuth();
     const navigate = useNavigate();
+
     const [activeStake, setActiveStake] = useState(null);
-    const [recentBounties, setRecentBounties] = useState([]);
+    const [activeBounty, setActiveBounty] = useState(null);
+    const [hotBounties, setHotBounties] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        if (currentUser) loadDashboardData();
+        if (currentUser?.id) loadData();
     }, [currentUser]);
 
-    async function loadDashboardData() {
+    async function loadData() {
         try {
-            const { data: stakes } = await supabase
-                .from('hunter_stakes')
-                .select('*, bounty:bounties(*)')
-                .eq('hunter_id', currentUser.id)
-                .eq('status', 'active');
-
-            if (stakes && stakes.length > 0) {
-                const validStake = stakes.find(s => {
-                    if (!s.bounty?.submission_deadline) return true;
-                    return new Date(s.bounty.submission_deadline) > new Date();
+            setLoading(true);
+            const [stake, bounties] = await Promise.all([
+                getHunterActiveStake(currentUser.id),
+                getTopBounties(4),
+            ]);
+            setActiveStake(stake);
+            setHotBounties(bounties || []);
+            // The bounty details are embedded in the stake for now
+            if (stake?.bounty_id) {
+                setActiveBounty({
+                    title: stake.bounty_title || 'Active Mission',
+                    reward: stake.bounty_reward || 0,
+                    deadline: stake.deadline,
                 });
-                setActiveStake(validStake || null);
             }
-
-            const { data: bounties } = await supabase
-                .from('bounties')
-                .select('*')
-                .eq('status', 'live')
-                .order('created_at', { ascending: false })
-                .limit(6);
-
-            setRecentBounties(bounties || []);
-        } catch (error) {
-            console.error('Error loading dashboard:', error);
+        } catch (err) {
+            console.error('Dashboard load error:', err);
+            setError('Failed to load dashboard data');
         } finally {
             setLoading(false);
         }
     }
 
-    const currency = currentUser?.currency === 'INR' ? '₹' : '$';
-
-    if (loading) {
-        return (
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
-                <div className="spinner" />
-            </div>
-        );
-    }
-
-    // Time progress for active mission
-    let progressPct = 0;
-    let isUrgent = false;
-    if (activeStake?.bounty?.submission_deadline && activeStake?.bounty?.created_at) {
-        const start = new Date(activeStake.bounty.created_at).getTime();
-        const end = new Date(activeStake.bounty.submission_deadline).getTime();
-        const now = Date.now();
-        const total = end - start;
-        const remaining = end - now;
-        if (total > 0) progressPct = (remaining / total) * 100;
-        if (progressPct < 20) isUrgent = true;
-    }
-
-    const statsCards = [
+    const stats = [
         {
-            label: 'Total Earnings', value: `${currency}${(currentUser?.total_earnings || 0).toLocaleString()}`,
-            icon: Wallet, color: '#06B6D4', bg: 'rgba(6, 182, 212, 0.05)', border: 'rgba(6, 182, 212, 0.15)', shadow: 'rgba(6, 182, 212, 0.2)'
+            icon: Wallet, label: 'Vault Balance',
+            value: `₹${(currentUser?.wallet_balance || 0).toLocaleString()}`,
+            color: '#06FFA5', glow: 'rgba(6,255,165,0.15)',
         },
         {
-            label: 'Active Hunts', value: activeStake ? '1' : '0',
-            icon: Target, color: '#F97316', bg: 'rgba(249, 115, 22, 0.05)', border: 'rgba(249, 115, 22, 0.15)', shadow: 'rgba(249, 115, 22, 0.2)'
+            icon: Trophy, label: 'Total Earned',
+            value: `₹${(currentUser?.total_earnings || 0).toLocaleString()}`,
+            color: '#F6C90E', glow: 'rgba(246,201,14,0.15)',
         },
         {
-            label: 'Completed', value: currentUser?.hunts_completed || 0,
-            icon: CheckCircle, color: '#8B5CF6', bg: 'rgba(139, 92, 246, 0.05)', border: 'rgba(139, 92, 246, 0.15)', shadow: 'rgba(139, 92, 246, 0.2)'
+            icon: CheckCircle, label: 'Completed',
+            value: String(currentUser?.hunts_completed || 0),
+            color: '#9B5DE5', glow: 'rgba(155,93,229,0.15)',
         },
         {
-            label: 'Win Rate', value: `${currentUser?.success_rate?.toFixed(0) || 0}%`,
-            icon: Trophy, color: '#F59E0B', bg: 'rgba(245, 158, 11, 0.05)', border: 'rgba(245, 158, 11, 0.15)', shadow: 'rgba(245, 158, 11, 0.2)'
+            icon: BarChart2, label: 'Success Rate',
+            value: `${currentUser?.success_rate || 0}%`,
+            color: '#00E5FF', glow: 'rgba(0,229,255,0.15)',
         },
     ];
 
-    return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', animation: 'fadeInUp 0.4s ease' }}>
+    const greetingTime = new Date().getHours();
+    const greeting = greetingTime < 12 ? 'Good Morning' : greetingTime < 18 ? 'Good Afternoon' : 'Good Evening';
 
-            {/* ===== WELCOME HEADER ===== */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <p style={{ color: '#9CA3AF', fontSize: '14px', fontWeight: '500' }}>
-                    {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
-                </p>
-                <h1 style={{
-                    fontSize: 'clamp(24px, 5vw, 36px)',
-                    fontWeight: '800',
-                    fontFamily: 'Space Grotesk',
-                    color: '#1A1F2E',
-                    lineHeight: 1.2,
-                }}>
-                    Welcome back,{' '}
-                    <span style={{
-                        background: 'linear-gradient(135deg, #FF6B35, #F59E0B)',
-                        WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text'
-                    }}>
-                        {currentUser?.username}
-                    </span>
-                </h1>
-                <p style={{ color: '#6B7A99' }}>
-                    {activeStake ? '🔥 You have an active mission. Stay focused!' : 'Ready to hunt? Browse new bounties below.'}
-                </p>
+    return (
+        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '32px 24px', color: '#F0F4FF' }}>
+            {/* Header */}
+            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '24px', marginBottom: '40px' }}>
+                <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+                        <span style={{ fontSize: '14px', color: '#8892AA', fontWeight: '500' }}>{greeting}, Hunter</span>
+                        <span style={{ fontSize: '20px' }}>⚡</span>
+                    </div>
+                    <h1 style={{ fontSize: 'clamp(1.8rem, 5vw, 3rem)', fontWeight: '900', fontFamily: 'Space Grotesk', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+                        {currentUser?.username || 'Hunter'}<span style={{ color: '#FF6B35', opacity: 0.4 }}>.</span>
+                    </h1>
+                    <p style={{ color: '#8892AA', marginTop: '8px', fontWeight: '500' }}>
+                        Your battle station is <span style={{ color: '#06FFA5', fontWeight: '700' }}>armed and ready.</span>
+                    </p>
+                </div>
+
+                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                    <Link to="/bounties" style={{ textDecoration: 'none' }}>
+                        <button className="btn-secondary" style={{ minHeight: '44px', padding: '12px 20px', fontSize: '13px', gap: '8px', borderRadius: '12px', letterSpacing: '0.04em' }}>
+                            <Search size={16} /> Explore Bounties
+                        </button>
+                    </Link>
+                    <Link to="/hunter/vault" style={{ textDecoration: 'none' }}>
+                        <button className="btn-primary" style={{ minHeight: '44px', padding: '12px 20px', fontSize: '13px', gap: '8px', borderRadius: '12px', letterSpacing: '0.04em' }}>
+                            <Wallet size={16} /> Vault
+                        </button>
+                    </Link>
+                </div>
             </div>
 
-            {/* ===== STATS GRID ===== */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }}>
-                {statsCards.map((stat, i) => (
-                    <div key={i} className="group" style={{
-                        padding: '24px',
-                        borderRadius: '24px',
-                        background: 'rgba(255, 255, 255, 0.85)',
-                        border: `1px solid rgba(0, 0, 0, 0.06)`,
-                        backdropFilter: 'blur(16px)',
-                        display: 'flex', alignItems: 'center', gap: '16px',
-                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                        cursor: 'pointer',
-                        boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
-                    }}
-                        onMouseOver={e => {
-                            e.currentTarget.style.borderColor = stat.border;
-                            e.currentTarget.style.transform = 'translateY(-4px)';
-                            e.currentTarget.style.boxShadow = `0 15px 35px ${stat.shadow}`;
-                        }}
-                        onMouseOut={e => {
-                            e.currentTarget.style.borderColor = 'rgba(0, 0, 0, 0.06)';
-                            e.currentTarget.style.transform = 'translateY(0)';
-                            e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.06)';
-                        }}
-                    >
-                        <div style={{
-                            width: '44px', height: '44px', borderRadius: '12px',
-                            background: `${stat.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            flexShrink: 0,
-                        }}>
-                            <stat.icon size={22} style={{ color: stat.color }} />
-                        </div>
-                        <div>
-                            <p style={{ fontSize: '11px', color: '#9CA3AF', fontWeight: '600', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '2px' }}>
-                                {stat.label}
-                            </p>
-                            <p style={{ fontSize: '22px', fontWeight: '900', color: '#1A1F2E', fontFamily: 'Space Grotesk', lineHeight: 1 }}>
-                                {stat.value}
-                            </p>
-                        </div>
-                    </div>
+            {/* Stats */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '32px' }} className="grid-cols-2 lg:grid-cols-4">
+                {stats.map((stat, i) => (
+                    <StatCard key={i} {...stat} />
                 ))}
             </div>
 
-            {/* ===== ACTIVE MISSION CARD ===== */}
-            {activeStake ? (
-                <div className="group cursor-pointer" style={{
-                    borderRadius: '24px',
-                    background: 'linear-gradient(135deg, rgba(15, 20, 35, 0.8), rgba(10, 15, 25, 0.9))',
-                    border: '1px solid rgba(6, 182, 212, 0.3)',
-                    backdropFilter: 'blur(20px)',
-                    padding: '32px',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    transition: 'all 0.4s ease',
-                    boxShadow: '0 10px 40px rgba(6, 182, 212, 0.1)',
-                }}
-                    onMouseOver={e => {
-                        e.currentTarget.style.transform = 'translateY(-4px) scale(1.01)';
-                        e.currentTarget.style.boxShadow = '0 20px 50px rgba(6, 182, 212, 0.2)';
-                    }}
-                    onMouseOut={e => {
-                        e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                        e.currentTarget.style.boxShadow = '0 10px 40px rgba(6, 182, 212, 0.1)';
-                    }}>
-                    {/* Background glow */}
-                    <div style={{
-                        position: 'absolute', top: '-40px', right: '-40px',
-                        width: '200px', height: '200px', borderRadius: '50%',
-                        background: 'rgba(6, 182, 212,0.08)', filter: 'blur(60px)',
-                        pointerEvents: 'none',
-                    }} />
-
-                    {/* Live badge */}
-                    <div style={{
-                        display: 'inline-flex', alignItems: 'center', gap: '8px',
-                        padding: '6px 14px', borderRadius: '20px', marginBottom: '16px',
-                        background: 'rgba(255,45,120,0.12)', border: '1px solid rgba(255,45,120,0.3)',
-                    }}>
-                        <span style={{
-                            width: '8px', height: '8px', borderRadius: '50%',
-                            background: '#EC4899', display: 'inline-block',
-                            animation: 'pulseDot 1.5s ease-in-out infinite',
-                        }} />
-                        <span style={{ color: '#EC4899', fontWeight: '800', fontSize: '11px', letterSpacing: '0.12em' }}>
-                            LIVE MISSION IN PROGRESS
-                        </span>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }} className="grid-cols-1 lg:grid-cols-2">
+                {/* Active Mission */}
+                <div>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+                        <h2 style={{ fontSize: '18px', fontWeight: '800', fontFamily: 'Space Grotesk', color: '#F0F4FF', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <Zap size={18} style={{ color: '#FF6B35' }} /> Active Mission
+                        </h2>
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                        <div>
-                            <h2 style={{ fontSize: '22px', fontWeight: '800', color: '#F0F4FF', marginBottom: '8px', fontFamily: 'Space Grotesk' }}>
-                                {activeStake.bounty.title}
-                            </h2>
+                    {loading ? (
+                        <div style={{ padding: '40px', borderRadius: '20px', background: 'rgba(10,15,35,0.6)', border: '1px solid rgba(255,255,255,0.06)', textAlign: 'center' }}>
+                            <div className="spinner" style={{ margin: '0 auto 16px' }} />
+                            <p style={{ color: '#8892AA', fontSize: '14px' }}>Loading mission...</p>
+                        </div>
+                    ) : activeStake && activeBounty ? (
+                        <div style={{
+                            padding: '28px', borderRadius: '20px',
+                            background: 'rgba(10,15,35,0.85)',
+                            border: '1px solid rgba(255,107,53,0.2)',
+                            boxShadow: '0 0 40px rgba(255,107,53,0.06)',
+                            position: 'relative', overflow: 'hidden',
+                        }}>
+                            <div style={{ position: 'absolute', top: 0, right: 0, width: '100px', height: '100px', background: 'radial-gradient(circle, rgba(255,107,53,0.1) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
-                            {/* Countdown */}
-                            <div style={{
-                                padding: '16px 20px', borderRadius: '14px',
-                                background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.08)',
-                                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                                flexWrap: 'wrap', gap: '12px', marginBottom: '16px',
-                            }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                    <Clock size={16} style={{ color: '#F59E0B' }} />
-                                    <span style={{ color: '#8892AA', fontSize: '13px', fontWeight: '600' }}>Mission Deadline</span>
-                                </div>
-                                <Countdown targetDate={activeStake.bounty.submission_deadline} />
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
+                                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#FF6B35', display: 'inline-block', animation: 'pulseDot 1.5s ease-in-out infinite', boxShadow: '0 0 8px rgba(255,107,53,0.6)' }} />
+                                <span style={{ fontSize: '11px', fontWeight: '800', color: '#FF6B35', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Active Hunt</span>
                             </div>
 
-                            {/* Progress bar */}
-                            <div style={{ marginBottom: '16px' }}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                                    <span style={{ color: '#8892AA', fontSize: '12px', fontWeight: '600' }}>Time Remaining</span>
-                                    <span style={{
-                                        color: isUrgent ? '#F43F5E' : '#06B6D4',
-                                        fontSize: '12px', fontWeight: '800', fontFamily: 'JetBrains Mono'
-                                    }}>
-                                        {Math.round(progressPct)}%
+                            <h3 style={{ fontSize: '20px', fontWeight: '800', color: '#F0F4FF', fontFamily: 'Space Grotesk', marginBottom: '8px' }}>
+                                {activeBounty.title}
+                            </h3>
+
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px', flexWrap: 'wrap' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                    <Wallet size={14} style={{ color: '#FF6B35' }} />
+                                    <span style={{ fontSize: '13px', color: '#8892AA' }}>Staked: </span>
+                                    <span style={{ fontSize: '14px', fontWeight: '800', color: '#FF6B35', fontFamily: 'JetBrains Mono' }}>
+                                        ₹{(activeStake.stake_amount || 0).toLocaleString()}
                                     </span>
                                 </div>
-                                <div style={{ height: '6px', background: 'rgba(255,255,255,0.07)', borderRadius: '3px', overflow: 'hidden' }}>
-                                    <div style={{
-                                        height: '100%', borderRadius: '3px',
-                                        width: `${Math.min(100, Math.max(0, progressPct))}%`,
-                                        background: isUrgent
-                                            ? 'linear-gradient(90deg, #F43F5E, #F97316)'
-                                            : 'linear-gradient(90deg, #06B6D4, #06B6D4)',
-                                        transition: 'width 1s ease, background 0.5s ease',
-                                        boxShadow: isUrgent ? '0 0 15px rgba(244,63,94,0.5)' : '0 0 15px rgba(6, 182, 212,0.4)',
-                                    }} />
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                    <Trophy size={14} style={{ color: '#F6C90E' }} />
+                                    <span style={{ fontSize: '13px', color: '#8892AA' }}>Prize: </span>
+                                    <span style={{ fontSize: '14px', fontWeight: '800', color: '#F6C90E', fontFamily: 'JetBrains Mono' }}>
+                                        ₹{(activeBounty.reward || 0).toLocaleString()}
+                                    </span>
                                 </div>
                             </div>
+
+                            {activeBounty.deadline && (
+                                <div style={{ marginBottom: '24px' }}>
+                                    <div style={{ fontSize: '12px', color: '#8892AA', fontWeight: '600', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '12px' }}>
+                                        Time Remaining
+                                    </div>
+                                    <Countdown deadline={activeBounty.deadline} />
+                                </div>
+                            )}
+
+                            <Link to={`/bounties/${activeStake.bounty_id}`} style={{ textDecoration: 'none' }}>
+                                <button className="btn-primary" style={{ width: '100%', gap: '8px', fontSize: '13px', borderRadius: '12px', letterSpacing: '0.04em' }}>
+                                    View Mission <ArrowRight size={16} />
+                                </button>
+                            </Link>
                         </div>
-
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
-                            <div>
-                                <p style={{ color: '#8892AA', fontSize: '12px', fontWeight: '600', marginBottom: '4px' }}>Reward Pool</p>
-                                <p style={{
-                                    fontSize: '28px', fontWeight: '900', fontFamily: 'Space Grotesk',
-                                    background: 'linear-gradient(135deg, #06B6D4, #06B6D4)',
-                                    WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-                                }}>
-                                    {currency}{activeStake.bounty.reward.toLocaleString()}
-                                </p>
-                            </div>
-
-                            <button
-                                onClick={() => navigate('/hunter/war-room')}
-                                className="btn-primary"
-                                style={{ padding: '14px 24px', fontSize: '14px' }}
-                            >
-                                <MessageSquare size={18} />
-                                War Room <ArrowRight size={16} />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            ) : (
-                /* Empty state for no active mission */
-                <div style={{
-                    padding: '40px 24px',
-                    borderRadius: '20px',
-                    border: '2px dashed rgba(255,107,53,0.2)',
-                    textAlign: 'center',
-                    background: 'rgba(255,255,255,0.7)',
-                    backdropFilter: 'blur(10px)',
-                }}>
-                    <div style={{
-                        width: '64px', height: '64px', borderRadius: '20px',
-                        background: 'rgba(255,107,53,0.08)', border: '1px solid rgba(255,107,53,0.15)',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        margin: '0 auto 16px',
-                    }}>
-                        <Target size={28} style={{ color: '#FF6B35' }} />
-                    </div>
-                    <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#1A1F2E', marginBottom: '8px', fontFamily: 'Space Grotesk' }}>
-                        No Active Missions
-                    </h3>
-                    <p style={{ color: '#6B7A99', marginBottom: '24px', fontSize: '14px' }}>
-                        Your slate is clear. Visit the Arena to find high-value bounties.
-                    </p>
-                    <Link to="/hunter/arena" className="btn-primary" style={{ textDecoration: 'none', padding: '12px 24px', fontSize: '14px' }}>
-                        <Target size={18} /> Browse Arena
-                    </Link>
-                </div>
-            )}
-
-            {/* ===== HOT BOUNTIES ===== */}
-            <div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <Flame size={20} style={{ color: '#F97316' }} />
-                        <h2 style={{ fontSize: '20px', fontWeight: '800', color: '#F0F4FF', fontFamily: 'Space Grotesk' }}>
-                            Hot Bounties
-                        </h2>
-                        {recentBounties.length > 0 && (
-                            <span style={{
-                                padding: '2px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: '700',
-                                background: 'rgba(255,107,53,0.1)', color: '#F97316', border: '1px solid rgba(255,107,53,0.2)'
+                    ) : (
+                        <div style={{
+                            padding: '40px 28px', borderRadius: '20px', textAlign: 'center',
+                            background: 'rgba(10,15,35,0.5)',
+                            border: '1px dashed rgba(255,255,255,0.1)',
+                        }}>
+                            <div style={{
+                                width: '60px', height: '60px', borderRadius: '18px',
+                                background: 'rgba(255,107,53,0.08)', border: '1px solid rgba(255,107,53,0.2)',
+                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                margin: '0 auto 20px', boxShadow: '0 0 25px rgba(255,107,53,0.08)',
                             }}>
-                                {recentBounties.length} LIVE
-                            </span>
-                        )}
-                    </div>
-                    <Link to="/hunter/arena" style={{
-                        display: 'flex', alignItems: 'center', gap: '4px',
-                        color: '#06B6D4', fontSize: '13px', fontWeight: '700', textDecoration: 'none',
-                        transition: 'color 0.2s ease',
-                    }}>
-                        View All <ArrowRight size={14} />
-                    </Link>
+                                <Target size={28} style={{ color: '#FF6B35', opacity: 0.6 }} />
+                            </div>
+                            <p style={{ color: '#8892AA', marginBottom: '20px', fontWeight: '500', lineHeight: 1.6 }}>
+                                No active mission. <br />
+                                <span style={{ color: '#FF6B35', fontWeight: '700' }}>Explore the Arena to stake your first hunt.</span>
+                            </p>
+                            <Link to="/bounties" style={{ textDecoration: 'none' }}>
+                                <button className="btn-primary" style={{ gap: '8px', fontSize: '13px', borderRadius: '12px' }}>
+                                    <Target size={16} /> Find a Mission
+                                </button>
+                            </Link>
+                        </div>
+                    )}
                 </div>
 
-                {recentBounties.length > 0 ? (
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
-                        {recentBounties.map(bounty => (
-                            <BountyCard key={bounty.id} bounty={bounty} userRole="hunter" />
+                {/* Quick Actions */}
+                <div>
+                    <h2 style={{ fontSize: '18px', fontWeight: '800', fontFamily: 'Space Grotesk', color: '#F0F4FF', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Flame size={18} style={{ color: '#FF6B35' }} /> Quick Actions
+                    </h2>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                        {[
+                            { to: '/bounties', icon: Search, label: 'Explore Bounties', desc: 'Browse all live missions', color: '#00E5FF', bg: 'rgba(0,229,255,0.06)', border: 'rgba(0,229,255,0.15)' },
+                            { to: '/hunter/vault', icon: Wallet, label: 'Manage Vault', desc: 'Deposit, withdraw, or stake', color: '#06FFA5', bg: 'rgba(6,255,165,0.06)', border: 'rgba(6,255,165,0.15)' },
+                            { to: '/hunter/submissions', icon: CheckCircle, label: 'My Submissions', desc: 'Track your submitted work', color: '#9B5DE5', bg: 'rgba(155,93,229,0.06)', border: 'rgba(155,93,229,0.15)' },
+                            { to: '/leaderboard', icon: Trophy, label: 'Leaderboard', desc: 'See how you rank among hunters', color: '#F6C90E', bg: 'rgba(246,201,14,0.06)', border: 'rgba(246,201,14,0.15)' },
+                        ].map((action, i) => (
+                            <Link key={i} to={action.to} style={{ textDecoration: 'none' }}>
+                                <div style={{
+                                    display: 'flex', alignItems: 'center', gap: '14px', padding: '16px 18px',
+                                    borderRadius: '14px', background: action.bg,
+                                    border: `1px solid ${action.border.replace('0.15', '0.12')}`,
+                                    cursor: 'pointer', transition: 'all 0.2s ease',
+                                    minHeight: '68px',
+                                }}
+                                    onMouseOver={e => { e.currentTarget.style.transform = 'translateX(4px)'; e.currentTarget.style.boxShadow = `0 6px 20px ${action.border.replace('0.15', '0.12')}`; e.currentTarget.style.borderColor = action.border; }}
+                                    onMouseOut={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.borderColor = action.border.replace('0.15', '0.12'); }}>
+                                    <div style={{
+                                        width: '42px', height: '42px', flexShrink: 0, borderRadius: '12px',
+                                        background: `${action.color}12`,
+                                        border: `1px solid ${action.color}25`,
+                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                        boxShadow: `0 0 12px ${action.color}10`,
+                                    }}>
+                                        <action.icon size={20} style={{ color: action.color }} />
+                                    </div>
+                                    <div style={{ flex: 1 }}>
+                                        <div style={{ fontSize: '14px', fontWeight: '700', color: '#F0F4FF', marginBottom: '2px' }}>{action.label}</div>
+                                        <div style={{ fontSize: '12px', color: '#8892AA', fontWeight: '500' }}>{action.desc}</div>
+                                    </div>
+                                    <ChevronRight size={16} style={{ color: '#4B5563', flexShrink: 0 }} />
+                                </div>
+                            </Link>
                         ))}
                     </div>
-                ) : (
-                    <div style={{
-                        padding: '48px 24px', textAlign: 'center',
-                        border: '1px dashed rgba(255,255,255,0.08)', borderRadius: '16px',
-                    }}>
-                        <Target size={32} style={{ color: '#4A5568', margin: '0 auto 12px' }} />
-                        <p style={{ color: '#8892AA' }}>No active bounties right now. Check back soon!</p>
-                    </div>
-                )}
+                </div>
             </div>
 
-            {/* ===== QUICK ACTIONS ===== */}
-            <div>
-                <h2 style={{ fontSize: '20px', fontWeight: '800', color: '#F0F4FF', fontFamily: 'Space Grotesk', marginBottom: '16px' }}>
-                    Quick Actions
-                </h2>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
-                    {[
-                        { to: '/hunter/arena', icon: Target, label: 'Browse Arena', desc: 'Find new missions', color: '#FF6B35', bg: 'rgba(255,107,53,0.08)', border: 'rgba(255,107,53,0.15)' },
-                        { to: '/hunter/vault', icon: Wallet, label: 'My Vault', desc: 'Manage earnings', color: '#10B981', bg: 'rgba(16,185,129,0.08)', border: 'rgba(16,185,129,0.15)' },
-                        { to: '/hunter/war-room', icon: Zap, label: 'War Room', desc: 'Mission control', color: '#8B5CF6', bg: 'rgba(139,92,246,0.08)', border: 'rgba(139,92,246,0.15)' },
-                        { to: '/hunter/leaderboard', icon: Trophy, label: 'Leaderboard', desc: 'Your ranking', color: '#F59E0B', bg: 'rgba(245,158,11,0.08)', border: 'rgba(245,158,11,0.15)' },
-                    ].map((action) => (
-                        <Link
-                            key={action.to}
-                            to={action.to}
-                            style={{
-                                display: 'flex', alignItems: 'center', gap: '14px',
-                                padding: '18px 16px', borderRadius: '16px',
-                                background: 'rgba(255,255,255,0.85)', border: `1px solid rgba(0,0,0,0.06)`,
-                                textDecoration: 'none',
-                                transition: 'all 0.2s ease',
-                                boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-                            }}
-                            onMouseOver={e => {
-                                e.currentTarget.style.transform = 'translateY(-2px)';
-                                e.currentTarget.style.boxShadow = `0 8px 25px ${action.color}20`;
-                            }}
-                            onMouseOut={e => {
-                                e.currentTarget.style.transform = 'translateY(0)';
-                                e.currentTarget.style.boxShadow = 'none';
-                            }}
-                        >
-                            <div style={{
-                                width: '44px', height: '44px', borderRadius: '12px',
-                                background: `${action.color}15`,
-                                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                flexShrink: 0, border: `1px solid ${action.color}20`,
-                            }}>
-                                <action.icon size={22} style={{ color: action.color }} />
-                            </div>
-                            <div>
-                                <p style={{ color: '#1A1F2E', fontWeight: '700', fontSize: '14px', marginBottom: '2px', fontFamily: 'Space Grotesk' }}>
-                                    {action.label}
-                                </p>
-                                <p style={{ color: '#9CA3AF', fontSize: '12px' }}>{action.desc}</p>
-                            </div>
-                        </Link>
-                    ))}
+            {/* Hot Bounties */}
+            <div style={{ marginTop: '32px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+                    <h2 style={{ fontSize: '18px', fontWeight: '800', fontFamily: 'Space Grotesk', color: '#F0F4FF', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Flame size={18} style={{ color: '#FF6B35' }} /> Hot Bounties
+                    </h2>
+                    <Link to="/bounties" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px', color: '#00E5FF', fontSize: '13px', fontWeight: '700' }}>
+                        View all <ChevronRight size={16} />
+                    </Link>
+                </div>
+
+                {error && (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '14px 16px', borderRadius: '12px', background: 'rgba(247,37,133,0.08)', border: '1px solid rgba(247,37,133,0.2)', color: '#F72585', marginBottom: '16px' }}>
+                        <AlertCircle size={16} />
+                        <span style={{ fontSize: '13px' }}>{error}</span>
+                    </div>
+                )}
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    {loading ? (
+                        [1, 2, 3].map(i => (
+                            <div key={i} style={{ height: '82px', borderRadius: '16px', background: 'rgba(10,15,35,0.5)' }} className="skeleton" />
+                        ))
+                    ) : hotBounties.length > 0 ? (
+                        hotBounties.map(bounty => (
+                            <BountyCard key={bounty.id} bounty={bounty} onClick={() => navigate(`/bounties/${bounty.id}`)} />
+                        ))
+                    ) : (
+                        <div style={{ padding: '32px', borderRadius: '16px', textAlign: 'center', background: 'rgba(10,15,35,0.5)', border: '1px dashed rgba(255,255,255,0.08)' }}>
+                            <p style={{ color: '#8892AA', fontWeight: '500' }}>No live bounties at the moment. Check back soon!</p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

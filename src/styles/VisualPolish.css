@@ -1,290 +1,75 @@
 /* ================================================
-   IQHUNT — BRIGHT VIBRANT VISUAL SYSTEM v5.0
-   Light & Vibrant Theme — Premium Single Hunter
+   IQHUNT — DARK PREMIUM VISUAL POLISH v6.0
+   Supplemental styles for components & animations
    ================================================ */
 
-/* ==== 1. GLOBAL ATMOSPHERE — BRIGHT & VIBRANT ==== */
-:root {
-    --iq-orange: #FF6B35;
-    --iq-amber: #F59E0B;
-    --iq-cyan: #06B6D4;
-    --iq-blue: #3B82F6;
-    --iq-violet: #8B5CF6;
-    --iq-pink: #EC4899;
-    --iq-teal: #14B8A6;
-    --iq-green: #10B981;
-    /* BRIGHT BACKGROUNDS */
-    --iq-bg-deep: #F0F4FF;
-    --iq-bg-base: #EEF2FF;
-    --iq-bg-card: rgba(255, 255, 255, 0.85);
-    --iq-text-hi: #1A1F2E;
-    --iq-text-mid: #4B5563;
-    --iq-border: rgba(0, 0, 0, 0.06);
-}
+/* NOTE: This file complements index.css.
+   The main theme is defined in index.css. 
+   This file adds component-specific Polish. */
 
-body {
-    background-color: #F0F4FF;
-    background-image:
-        /* Top-right warm orange glow */
-        radial-gradient(ellipse 80% 60% at 90% 0%, rgba(255, 107, 53, 0.18) 0%, transparent 60%),
-        /* Bottom-left cool cyan glow */
-        radial-gradient(ellipse 70% 50% at 0% 100%, rgba(6, 182, 212, 0.15) 0%, transparent 60%),
-        /* Center violet ambient */
-        radial-gradient(ellipse 60% 40% at 50% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 70%),
-        /* Subtle dot grid */
-        radial-gradient(rgba(255, 255, 255, 0.8) 1px, transparent 1px);
-    background-size: 100% 100%, 100% 100%, 100% 100%, 36px 36px;
-    background-attachment: fixed;
-    min-height: 100vh;
-    color: var(--iq-text-hi);
-}
-
-/* ==== 2. LAYOUT TRANSPARENCY ==== */
-.dashboard-layout,
-.landing-page {
-    background: transparent !important;
-}
-
-/* Force glassmorphism on tailwind iq-card/surface classes */
-.bg-iq-card,
-.bg-iq-surface,
-[class*="bg-iq-card"],
-[class*="bg-iq-surface"] {
-    background: var(--iq-bg-card) !important;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    border: 1px solid var(--iq-border) !important;
-}
-
-/* ==== 3. GLASSMORPHISM CARDS ==== */
-.bounty-card,
-.stat-card,
-.balance-card,
-.wallet-card,
-.action-card {
-    background: var(--iq-bg-card) !important;
-    backdrop-filter: blur(20px) !important;
-    -webkit-backdrop-filter: blur(20px) !important;
-    border: 1px solid rgba(255, 107, 53, 0.12) !important;
-    transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
-    border-radius: 24px !important;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06) !important;
-}
-
-.bounty-card:hover,
-.stat-card:hover,
-.action-card:hover {
-    transform: translateY(-5px) scale(1.01);
-    border-color: rgba(255, 107, 53, 0.3) !important;
-    box-shadow:
-        0 25px 50px -8px rgba(255, 107, 53, 0.15),
-        0 0 30px rgba(255, 107, 53, 0.08) !important;
-}
-
-/* ==== 4. TYPOGRAPHY ==== */
-h1,
-h2,
-h3 {
-    letter-spacing: -0.025em;
-    color: #1A1F2E;
-}
-
-.gradient-text-main {
-    background: linear-gradient(135deg, #FF6B35 0%, #F59E0B 40%, #06B6D4 80%, #8B5CF6 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.stat-value.reward,
-.wallet-balance {
-    background: linear-gradient(135deg, #FF6B35, #F59E0B);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.highlight {
-    background: linear-gradient(90deg, #FF6B35, #EC4899);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-/* ==== 5. BUTTONS ==== */
-.btn-primary {
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(135deg, #FF6B35 0%, #F59E0B 100%) !important;
-    color: #ffffff !important;
-    border: none !important;
-    font-weight: 700 !important;
-    border-radius: 12px !important;
-    box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4) !important;
-    transition: all 0.3s ease !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-    z-index: 1;
-}
-
-.btn-primary::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
-    pointer-events: none;
-    border-radius: inherit;
-}
-
-.btn-primary:hover:not(:disabled) {
-    transform: translateY(-2px) !important;
-    box-shadow: 0 10px 32px rgba(255, 107, 53, 0.55) !important;
-    filter: brightness(1.05);
-}
-
-.btn-primary:active:not(:disabled) {
-    transform: translateY(0) !important;
-}
-
-.btn-primary:disabled {
-    background: rgba(0, 0, 0, 0.08) !important;
-    color: rgba(0, 0, 0, 0.3) !important;
-    cursor: not-allowed !important;
-    box-shadow: none !important;
-}
-
-.btn-secondary {
-    background: rgba(255, 255, 255, 0.8) !important;
-    color: #1A1F2E !important;
-    border: 1px solid rgba(0, 0, 0, 0.12) !important;
-    font-weight: 600 !important;
-    border-radius: 12px !important;
-    transition: all 0.3s ease !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
-}
-
-.btn-secondary:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.95) !important;
-    border-color: rgba(255, 107, 53, 0.35) !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 8px 25px rgba(255, 107, 53, 0.15) !important;
-}
-
-/* Pulse glow animation on primary CTA */
-.pulse-glow-btn {
-    animation: pulseGlowOrange 2.5s ease-in-out infinite !important;
-}
-
-@keyframes pulseGlowOrange {
-
-    0%,
-    100% {
-        box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4);
-    }
-
-    50% {
-        box-shadow: 0 4px 35px rgba(255, 107, 53, 0.7), 0 0 50px rgba(245, 158, 11, 0.3);
-    }
-}
-
-/* ==== 6. FORM INPUTS ==== */
-input,
-textarea,
-select {
-    transition: border-color 0.25s ease, box-shadow 0.25s ease !important;
-    background: rgba(255, 255, 255, 0.9) !important;
-    color: #1A1F2E !important;
-    border-color: rgba(0, 0, 0, 0.12) !important;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-    border-color: rgba(255, 107, 53, 0.5) !important;
-    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.12) !important;
-    outline: none !important;
-    background: #ffffff !important;
-}
-
-input::placeholder,
-textarea::placeholder {
-    color: rgba(107, 122, 153, 0.6) !important;
-}
-
-/* ==== 7. MOBILE BOTTOM NAV ==== */
-.bottom-nav,
-.mobile-bottom-nav,
-[class*="bottom-nav"] {
-    background: rgba(255, 255, 255, 0.95) !important;
-    backdrop-filter: blur(24px) !important;
-    -webkit-backdrop-filter: blur(24px) !important;
-    border-top: 1px solid rgba(255, 107, 53, 0.15) !important;
-    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.08) !important;
-}
-
-/* ==== 8. STATUS BADGES ==== */
-.status-live,
-.badge-live {
-    background: rgba(255, 107, 53, 0.1) !important;
-    color: #FF6B35 !important;
-    border-color: rgba(255, 107, 53, 0.3) !important;
-}
-
-.status-completed,
-.badge-success {
-    background: rgba(16, 185, 129, 0.1) !important;
-    color: #10B981 !important;
-    border-color: rgba(16, 185, 129, 0.3) !important;
-}
-
-/* ==== 9. SCROLLBAR ==== */
+/* ==== 1. CUSTOM SCROLLBARS ==== */
 ::-webkit-scrollbar {
     width: 5px;
     height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-    background: rgba(255, 107, 53, 0.05);
+    background: #050814;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(255, 107, 53, 0.35);
-    border-radius: 6px;
+    background: rgba(255, 107, 53, 0.25);
+    border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 107, 53, 0.6);
+    background: rgba(255, 107, 53, 0.5);
 }
 
-/* ==== 10. ANIMATIONS ==== */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* ==== 2. SIDEBAR ACTIVE LINK ==== */
+.sidebar-link.active {
+    background: rgba(255, 107, 53, 0.1) !important;
+    color: #FF6B35 !important;
+    border-right: 2px solid #FF6B35 !important;
 }
 
-@keyframes pulseDot {
+.sidebar-link:hover {
+    background: rgba(255, 255, 255, 0.04) !important;
+    color: #F0F4FF !important;
+}
 
-    0%,
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
+/* ==== 3. SECTION GLOW DIVIDER ==== */
+.section-glow-orange {
+    position: relative;
+}
 
-    50% {
-        opacity: 0.5;
-        transform: scale(1.5);
-    }
+.section-glow-orange::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.35), transparent);
+}
+
+/* ==== 4. GLOW HELPERS ==== */
+.glow-orange {
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.4), 0 0 60px rgba(255, 107, 53, 0.15);
+}
+
+.glow-cyan {
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.35), 0 0 60px rgba(0, 229, 255, 0.1);
+}
+
+.glow-violet {
+    box-shadow: 0 0 20px rgba(155, 93, 229, 0.35), 0 0 60px rgba(155, 93, 229, 0.1);
+}
+
+/* ==== 5. FLOATING ELEMENT ==== */
+.floating-element {
+    animation: floatSlow 6s ease-in-out infinite;
 }
 
 @keyframes floatSlow {
@@ -299,6 +84,17 @@ textarea::placeholder {
     }
 }
 
+/* ==== 6. SKELETON LOADING DARK ==== */
+.skeleton {
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0.04) 25%,
+            rgba(255, 255, 255, 0.08) 50%,
+            rgba(255, 255, 255, 0.04) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.8s infinite;
+    border-radius: 8px;
+}
+
 @keyframes shimmer {
     0% {
         background-position: -200% center;
@@ -309,26 +105,37 @@ textarea::placeholder {
     }
 }
 
-.animate-fade-in {
-    animation: fadeInUp 0.4s ease both;
+/* ==== 7. BOTTOM NAV DARK ==== */
+.bottom-nav,
+.mobile-bottom-nav {
+    background: rgba(8, 12, 28, 0.95) !important;
+    backdrop-filter: blur(24px) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.4) !important;
 }
 
-.floating-element {
-    animation: floatSlow 6s ease-in-out infinite;
+/* ==== 8. GRADIENT TEXT MAIN ==== */
+.gradient-text-main {
+    background: linear-gradient(135deg, #FF6B35 0%, #F6C90E 40%, #00E5FF 80%, #9B5DE5 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/* ==== 11. SKELETON LOADING ==== */
-.skeleton {
-    background: linear-gradient(90deg,
-            rgba(0, 0, 0, 0.04) 25%,
-            rgba(0, 0, 0, 0.08) 50%,
-            rgba(0, 0, 0, 0.04) 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.8s infinite;
-    border-radius: 16px;
+.highlight {
+    background: linear-gradient(90deg, #FF6B35, #F72585);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/* ==== 12. SPINNER ==== */
+/* ==== 9. FORM INPUT PLACEHOLDER ==== */
+input::placeholder,
+textarea::placeholder {
+    color: rgba(136, 146, 170, 0.4);
+}
+
+/* ==== 10. SPINNER ==== */
 .spinner {
     width: 40px;
     height: 40px;
@@ -338,109 +145,18 @@ textarea::placeholder {
     animation: spin 0.8s linear infinite;
 }
 
+.spinner-sm {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 107, 53, 0.15);
+    border-top-color: #FF6B35;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    display: inline-block;
+}
+
 @keyframes spin {
     to {
         transform: rotate(360deg);
     }
-}
-
-/* ==== 13. HERO GRID PATTERN ==== */
-.hero-grid {
-    background-image:
-        linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
-    background-size: 48px 48px;
-}
-
-/* ==== 14. SIDEBAR ACTIVE LINK ==== */
-.sidebar-link.active {
-    background: rgba(255, 107, 53, 0.1) !important;
-    color: #FF6B35 !important;
-    border-right: 3px solid #FF6B35 !important;
-}
-
-.sidebar-link:hover {
-    background: rgba(255, 107, 53, 0.06) !important;
-    color: #1A1F2E !important;
-}
-
-/* ==== 15. HOVER LIFT ==== */
-.hover-lift {
-    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
-        box-shadow 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.hover-lift:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-}
-
-/* ==== 16. NO SCROLLBAR ==== */
-.no-scrollbar::-webkit-scrollbar {
-    display: none;
-}
-
-.no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-/* ==== 17. ORANGE ACCENT GLOW ==== */
-.glow-orange {
-    box-shadow: 0 0 20px rgba(255, 107, 53, 0.4), 0 0 60px rgba(255, 107, 53, 0.15);
-}
-
-.glow-cyan {
-    box-shadow: 0 0 20px rgba(6, 182, 212, 0.35), 0 0 60px rgba(6, 182, 212, 0.1);
-}
-
-.glow-violet {
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.35), 0 0 60px rgba(139, 92, 246, 0.1);
-}
-
-/* ==== 18. LANDING PAGE HEADER STICKY ==== */
-.landing-header-sticky {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(255, 255, 255, 0.92) !important;
-    backdrop-filter: blur(24px) !important;
-    -webkit-backdrop-filter: blur(24px) !important;
-    border-bottom: 1px solid rgba(255, 107, 53, 0.1) !important;
-}
-
-/* ==== 19. SECTION DIVIDERS ==== */
-.section-glow-orange {
-    position: relative;
-}
-
-.section-glow-orange::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.4), transparent);
-}
-
-/* ==== 20. CARD OVERRIDES FOR BRIGHT THEME ==== */
-.card {
-    background: rgba(255, 255, 255, 0.85) !important;
-    border-color: rgba(0, 0, 0, 0.06) !important;
-    color: #1A1F2E !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06) !important;
-}
-
-.card:hover {
-    border-color: rgba(255, 107, 53, 0.25) !important;
-    background: rgba(255, 255, 255, 0.95) !important;
-    box-shadow: 0 20px 60px rgba(255, 107, 53, 0.12) !important;
-}
-
-/* ==== 21. HEADER BRIGHT OVERRIDE ==== */
-header[style*="rgba(8,11,20"] {
-    background: rgba(255, 255, 255, 0.95) !important;
-    border-bottom: 1px solid rgba(255, 107, 53, 0.1) !important;
 }
